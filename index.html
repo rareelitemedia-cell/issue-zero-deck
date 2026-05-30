@@ -342,7 +342,7 @@ async function generateDeck() {
       const fetchData = await fetchRes.json();
       if (fetchData.error) throw new Error('Error obteniendo foto: ' + fetchData.error);
 
-      // Generate AI version
+      // Generate AI version via Claude + Higgsfield MCP
       const genRes = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-action': 'deck-generate-ai' },
@@ -355,27 +355,27 @@ async function generateDeck() {
       });
       const genData = await genRes.json();
 
-      // Poll for result
-      const jobId = genData.id || genData.job_id;
-      if (!jobId) throw new Error('No se obtuvo job ID de Higgsfield');
-
+      // Extract image URL from Claude's response
       let resultUrl = null;
-      for (let attempt = 0; attempt < 30; attempt++) {
-        await new Promise(r => setTimeout(r, 3000));
-        const statusRes = await fetch(WORKER_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-action': 'deck-job-status' },
-          body: JSON.stringify({ jobId })
-        });
-        const statusData = await statusRes.json();
-        if (statusData.status === 'completed' || statusData.status === 'success') {
-          resultUrl = statusData.result_url || statusData.results?.[0]?.url;
-          break;
+      if (genData.content && genData.content.length > 0) {
+        for (const block of genData.content) {
+          if (block.type === 'text' && block.text) {
+            const urlMatch = block.text.match(/https?:\/\/[^\s"']+\.(jpg|jpeg|png|webp)/i);
+            if (urlMatch) { resultUrl = urlMatch[0]; break; }
+          }
+          if (block.type === 'tool_result' || block.type === 'tool_use') {
+            const str = JSON.stringify(block);
+            const urlMatch = str.match(/https?:\/\/[^\s"'\]+\.(jpg|jpeg|png|webp)/i);
+            if (urlMatch) { resultUrl = urlMatch[0]; break; }
+          }
         }
-        if (statusData.status === 'failed') throw new Error('Generación fallida en Higgsfield');
       }
-
-      if (!resultUrl) throw new Error('Timeout generando imagen');
+      if (!resultUrl) {
+        const str = JSON.stringify(genData);
+        const urlMatch = str.match(/https?:\/\/[^\s"'\]+\.(jpg|jpeg|png|webp)/i);
+        if (urlMatch) resultUrl = urlMatch[0];
+      }
+      if (!resultUrl) throw new Error('No se pudo obtener la imagen generada');
       aiImages.push(resultUrl);
       updateAiSlot(i, 'done', resultUrl);
       toast(`Imagen ${i+1} generada ✓`, 'success');
