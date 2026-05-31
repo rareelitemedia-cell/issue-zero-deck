@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Issue Zero — Deck Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -14,103 +13,61 @@
     --green: #22c55e; --red: #ef4444;
   }
   body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
-
   header { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; border-bottom: 1px solid var(--border); background: var(--surface); }
   .logo { display: flex; align-items: center; gap: 12px; }
   .logo-ring { width: 32px; height: 32px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
   .logo-ring::after { content: ''; width: 16px; height: 16px; border: 1.5px solid var(--gold); border-radius: 50%; opacity: 0.5; }
   .logo-name { font-family: 'Archivo Black', sans-serif; font-size: 13px; letter-spacing: 0.15em; color: #fff; }
   .logo-sub { font-size: 9px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; }
-
-  .main { flex: 1; display: flex; gap: 0; overflow: hidden; height: calc(100vh - 57px); }
-
-  /* LEFT */
-  .left { width: 360px; flex-shrink: 0; border-right: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; overflow-y: auto; }
-  .search-section { padding: 20px; border-bottom: 1px solid var(--border); }
+  .main { flex: 1; display: flex; overflow: hidden; height: calc(100vh - 57px); }
+  .left { width: 320px; flex-shrink: 0; border-right: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; overflow-y: auto; }
+  .search-section { padding: 16px; border-bottom: 1px solid var(--border); }
   .search-label { font-size: 9px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
   .search-row { display: flex; gap: 8px; }
   .input-base { background: var(--surface2); border: 1px solid var(--border2); border-radius: 6px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 11px; padding: 9px 12px; outline: none; flex: 1; transition: border-color 0.2s; }
   .input-base:focus { border-color: var(--gold); }
   .input-base::placeholder { color: var(--muted); }
-  .search-btn { background: var(--gold); border: none; border-radius: 6px; color: #000; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 700; padding: 0 16px; cursor: pointer; letter-spacing: 0.05em; white-space: nowrap; transition: opacity 0.2s; }
+  .search-btn { background: var(--gold); border: none; border-radius: 6px; color: #000; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 700; padding: 0 14px; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; }
   .search-btn:hover { opacity: 0.85; }
   .search-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .biz-info { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-  .info-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
-  .info-title { font-size: 9px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
-  .biz-name-display { font-family: 'Archivo Black', sans-serif; font-size: 16px; color: #fff; margin-bottom: 4px; }
+  .biz-info { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .info-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .info-title { font-size: 9px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .biz-name-display { font-family: 'Archivo Black', sans-serif; font-size: 15px; color: #fff; margin-bottom: 3px; }
   .biz-loc { font-size: 10px; color: var(--muted2); }
-  .biz-rating { font-size: 11px; color: var(--gold); margin-top: 6px; }
-  .biz-desc { font-size: 10px; color: var(--muted2); line-height: 1.7; margin-top: 6px; }
-
-  .photos-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+  .biz-rating { font-size: 11px; color: var(--gold); margin-top: 5px; }
+  .biz-desc { font-size: 10px; color: var(--muted2); line-height: 1.7; margin-top: 5px; }
+  .photos-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
   .photo-thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 5px; border: 1px solid var(--border2); }
-  .photo-placeholder { width: 100%; aspect-ratio: 1; background: var(--border); border-radius: 5px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 18px; }
-
-  .ai-previews { display: flex; flex-direction: column; gap: 8px; }
-  .ai-preview-item { position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--border2); }
-  .ai-preview-item img { width: 100%; display: block; }
-  .ai-preview-label { position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.7); border: 1px solid var(--gold); border-radius: 4px; font-size: 8px; color: var(--gold); padding: 2px 6px; letter-spacing: 0.1em; text-transform: uppercase; }
-  .ai-generating { width: 100%; aspect-ratio: 16/9; background: var(--surface2); border-radius: 6px; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
-  .ai-gen-text { font-size: 9px; color: var(--muted2); letter-spacing: 0.08em; }
-  .dots { display: flex; gap: 4px; }
-  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: blink 1.2s infinite; }
-  .dot:nth-child(2) { animation-delay: 0.2s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink { 0%,100%{opacity:0.2;transform:scale(0.7)}50%{opacity:1;transform:scale(1)} }
-
-  .generate-deck-btn { margin: 0 20px 20px; background: linear-gradient(135deg, var(--gold), #a87830); border: none; border-radius: 8px; color: #000; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; padding: 14px; cursor: pointer; letter-spacing: 0.08em; width: calc(100% - 40px); transition: opacity 0.2s; }
+  .generate-deck-btn { margin: 0 16px 16px; background: linear-gradient(135deg, var(--gold), #a87830); border: none; border-radius: 8px; color: #000; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; padding: 13px; cursor: pointer; letter-spacing: 0.08em; width: calc(100% - 32px); transition: opacity 0.2s; }
   .generate-deck-btn:hover { opacity: 0.88; }
   .generate-deck-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  /* RIGHT - DECK PREVIEW */
-  .right { flex: 1; overflow-y: auto; background: #111; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .right { flex: 1; overflow-y: auto; background: #111; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
   .right::-webkit-scrollbar { width: 3px; }
   .right::-webkit-scrollbar-thumb { background: var(--border2); }
-
   .deck-empty { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--muted); }
   .deck-empty-icon { font-size: 48px; color: var(--border2); }
   .deck-empty-title { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
   .deck-empty-sub { font-size: 10px; color: var(--muted); text-align: center; max-width: 260px; line-height: 1.7; }
-
-  /* DECK SLIDES */
   .slide { width: 100%; max-width: 800px; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; position: relative; flex-shrink: 0; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-
-  /* Slide 1 - Cover */
-  .slide-cover { background: #000; display: flex; flex-direction: column; }
+  .slide-cover { background: #000; }
   .slide-cover-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #0a0a0a 0%, #1a1000 100%); }
   .slide-cover-content { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 5%; }
   .slide-cover-top { display: flex; justify-content: space-between; align-items: flex-start; }
   .slide-iz-logo { font-family: 'Archivo Black', sans-serif; font-size: clamp(10px, 2vw, 18px); letter-spacing: 0.2em; color: var(--gold); }
   .slide-iz-sub { font-size: clamp(6px, 1vw, 10px); color: #555; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 3px; }
-  .slide-cover-mid { }
   .slide-cover-label { font-size: clamp(7px, 1vw, 11px); color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
   .slide-biz-name { font-family: 'Playfair Display', serif; font-size: clamp(18px, 4vw, 42px); color: #fff; line-height: 1.1; }
   .slide-cover-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
   .slide-cover-tagline { font-size: clamp(7px, 1vw, 11px); color: #444; letter-spacing: 0.1em; font-style: italic; }
   .slide-cover-date { font-size: clamp(7px, 0.9vw, 10px); color: #333; letter-spacing: 0.15em; }
   .slide-cover-line { height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin: 8px 0; }
-
-  /* Slide 2 - Before */
   .slide-before { background: #0a0a0a; }
   .slide-label-tag { position: absolute; top: 5%; left: 5%; background: rgba(0,0,0,0.8); border: 1px solid #333; border-radius: 4px; font-family: 'DM Mono', monospace; font-size: clamp(6px, 0.9vw, 10px); color: #888; padding: 3px 10px; letter-spacing: 0.15em; text-transform: uppercase; z-index: 3; }
   .before-photos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1%; height: 100%; padding: 14% 5% 5%; }
   .before-photo { border-radius: 4px; overflow: hidden; background: #111; }
   .before-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; filter: saturate(0.7); }
-
-  /* Slide 3,4,5 - After */
-  .slide-after { background: #050505; }
-  .after-content { position: absolute; inset: 0; }
-  .after-content img { width: 100%; height: 100%; object-fit: cover; }
-  .after-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); }
-  .after-bottom { position: absolute; bottom: 5%; left: 5%; right: 5%; display: flex; justify-content: space-between; align-items: flex-end; }
-  .after-label { font-family: 'DM Mono', monospace; font-size: clamp(6px, 0.8vw, 9px); color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; }
-  .after-caption { font-family: 'Playfair Display', serif; font-size: clamp(10px, 2vw, 20px); color: #fff; font-style: italic; }
-  .after-num { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 4vw, 48px); color: rgba(201,168,76,0.15); }
-
-  /* Slide - Services */
-  .slide-services { background: #080808; display: flex; flex-direction: column; }
+  .slide-services { background: #080808; }
   .slide-services-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; }
   .slide-section-title { font-size: clamp(7px, 1vw, 11px); color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 5%; }
   .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3%; flex: 1; }
@@ -122,8 +79,6 @@
   .services-stat { text-align: center; }
   .stat-big { font-family: 'Archivo Black', sans-serif; font-size: clamp(12px, 2.5vw, 26px); color: var(--gold); }
   .stat-small { font-size: clamp(6px, 0.8vw, 9px); color: #555; letter-spacing: 0.1em; text-transform: uppercase; }
-
-  /* Slide - CTA */
   .slide-cta { background: #000; }
   .slide-cta-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 4%; padding: 8%; }
   .cta-eyebrow { font-size: clamp(7px, 1vw, 11px); color: var(--gold); letter-spacing: 0.25em; text-transform: uppercase; }
@@ -131,31 +86,26 @@
   .cta-line { height: 1px; width: 30%; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
   .cta-contact { font-size: clamp(8px, 1.1vw, 12px); color: #888; letter-spacing: 0.1em; }
   .cta-logo { font-family: 'Archivo Black', sans-serif; font-size: clamp(10px, 1.8vw, 18px); color: var(--gold); letter-spacing: 0.2em; margin-top: 2%; }
-
-  /* Watermark */
   .watermark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10; }
   .watermark-text { font-family: 'Archivo Black', sans-serif; font-size: clamp(16px, 3vw, 32px); color: rgba(201,168,76,0.08); letter-spacing: 0.3em; text-transform: uppercase; transform: rotate(-30deg); white-space: nowrap; }
-
-  /* Slide number */
   .slide-num { position: absolute; bottom: 3%; right: 4%; font-size: clamp(6px, 0.8vw, 9px); color: #2a2a2a; letter-spacing: 0.15em; z-index: 5; }
-
-  /* Download btn */
   .download-btn { background: linear-gradient(135deg, var(--gold), #a87830); border: none; border-radius: 8px; color: #000; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; padding: 12px 32px; cursor: pointer; letter-spacing: 0.08em; margin-top: 8px; transition: opacity 0.2s; }
   .download-btn:hover { opacity: 0.88; }
-
   .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; color: var(--text); font-size: 11px; padding: 10px 18px; z-index: 9999; opacity: 0; transform: translateY(8px); transition: all 0.25s; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateY(0); }
   .toast.success { border-color: #22c55e44; color: var(--green); }
   .toast.error { border-color: #ef444444; color: var(--red); }
-
+  .dots { display: flex; gap: 4px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: blink 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,100%{opacity:0.2;transform:scale(0.7)}50%{opacity:1;transform:scale(1)} }
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-thumb { background: var(--border2); }
 </style>
 </head>
 <body>
-
 <div class="toast" id="toast"></div>
-
 <header>
   <div class="logo">
     <div class="logo-ring"></div>
@@ -166,9 +116,7 @@
   </div>
   <div style="font-size:10px;color:var(--muted);letter-spacing:0.1em">Presenta · Impresiona · Cierra</div>
 </header>
-
 <div class="main">
-  <!-- LEFT PANEL -->
   <div class="left">
     <div class="search-section">
       <div class="search-label">Buscar negocio</div>
@@ -177,73 +125,59 @@
         <button class="search-btn" id="search-btn" onclick="searchBusiness()">Buscar</button>
       </div>
     </div>
-
-    <div class="biz-info" id="biz-info" style="display:none">
-      <!-- Business info populated by JS -->
-    </div>
-
-    <button class="generate-deck-btn" id="gen-btn" style="display:none" onclick="generateDeck()">
-      ✦ Generar Deck con IA
-    </button>
+    <div class="biz-info" id="biz-info" style="display:none"></div>
+    <button class="generate-deck-btn" id="gen-btn" style="display:none" onclick="generateDeck()">✦ Generar Deck</button>
   </div>
-
-  <!-- RIGHT PANEL -->
   <div class="right" id="right-panel">
     <div class="deck-empty">
       <div class="deck-empty-icon">◯</div>
       <div class="deck-empty-title">Deck Generator</div>
-      <div class="deck-empty-sub">Busca un negocio para generar su presentación personalizada con imágenes mejoradas por IA.</div>
+      <div class="deck-empty-sub">Busca un negocio para generar su presentación personalizada con fotos reales y servicios de Issue Zero.</div>
     </div>
   </div>
 </div>
-
 <script>
 const WORKER_URL = "https://floral-block-cf56.rare-elite-media.workers.dev";
-
 let currentBiz = null;
-let aiImages = [];
 
-const CAT_LABELS = {
-  medical_spa: "Medical Spa", cafe: "Café", restaurant: "Restaurante",
-  gym: "Gimnasio", bar: "Bar / Coctelería", small_business: "Negocio"
-};
+const CAT_LABELS = { medical_spa:"Medical Spa", cafe:"Café", restaurant:"Restaurante", gym:"Gimnasio", bar:"Bar / Coctelería", small_business:"Negocio" };
 
 const SERVICES = {
   medical_spa: [
-    { icon: "✦", name: "Identidad Clínica Digital", desc: "Visuales fotorrealistas de tratamientos sin invadir la privacidad de pacientes." },
-    { icon: "◈", name: "Contenido 365 días", desc: "Un shoot genera semanas de contenido aspiracional para redes sociales." },
-    { icon: "◉", name: "Brand Film Cinematográfico", desc: "Video de marca que posiciona el spa en el mercado premium." },
-    { icon: "◆", name: "Lookbook AI", desc: "Campaña visual escalable con IA que muestra resultados de forma aspiracional." },
+    {icon:"✦", name:"Identidad Clínica Digital", desc:"Visuales fotorrealistas de tratamientos sin invadir la privacidad de pacientes."},
+    {icon:"◈", name:"Contenido 365 días", desc:"Un shoot genera semanas de contenido aspiracional para redes sociales."},
+    {icon:"◉", name:"Brand Film Cinematográfico", desc:"Video de marca que posiciona el spa en el mercado premium."},
+    {icon:"◆", name:"Lookbook AI", desc:"Campaña visual escalable con IA que muestra resultados de forma aspiracional."},
   ],
   cafe: [
-    { icon: "✦", name: "Fotografía Editorial", desc: "Platillos y ambiente en estilo editorial de revista." },
-    { icon: "◈", name: "Brand Film", desc: "Video cinematográfico que captura la esencia y atmósfera del espacio." },
-    { icon: "◉", name: "Reels de Alta Retención", desc: "Contenido optimizado para Instagram y TikTok con estética premium." },
-    { icon: "◆", name: "Escalado AI", desc: "De un shoot sacamos semanas de contenido para todas las plataformas." },
+    {icon:"✦", name:"Fotografía Editorial", desc:"Platillos y ambiente en estilo editorial de revista."},
+    {icon:"◈", name:"Brand Film", desc:"Video cinematográfico que captura la esencia y atmósfera del espacio."},
+    {icon:"◉", name:"Reels de Alta Retención", desc:"Contenido optimizado para Instagram y TikTok con estética premium."},
+    {icon:"◆", name:"Escalado AI", desc:"De un shoot sacamos semanas de contenido para todas las plataformas."},
   ],
   restaurant: [
-    { icon: "✦", name: "Fotografía Gastronómica", desc: "Editorial de platillos y espacio en nivel de publicación internacional." },
-    { icon: "◈", name: "Brand Film", desc: "Campaña cinematográfica que comunica la experiencia del restaurante." },
-    { icon: "◉", name: "Contenido Social Premium", desc: "Reels y stories con estética de revista gastronómica." },
-    { icon: "◆", name: "Escalado AI", desc: "Múltiples variaciones de campaña desde una sola sesión de producción." },
+    {icon:"✦", name:"Fotografía Gastronómica", desc:"Editorial de platillos y espacio en nivel de publicación internacional."},
+    {icon:"◈", name:"Brand Film", desc:"Campaña cinematográfica que comunica la experiencia del restaurante."},
+    {icon:"◉", name:"Contenido Social Premium", desc:"Reels y stories con estética de revista gastronómica."},
+    {icon:"◆", name:"Escalado AI", desc:"Múltiples variaciones de campaña desde una sola sesión de producción."},
   ],
   gym: [
-    { icon: "✦", name: "Brand Film Aspiracional", desc: "Video de marca que posiciona el gimnasio como destino de lifestyle premium." },
-    { icon: "◈", name: "Fotografía Editorial", desc: "Espacio y servicios en estética aspiracional de alto nivel." },
-    { icon: "◉", name: "Reels de Alta Retención", desc: "Contenido optimizado para capturar y convertir audiencia digital." },
-    { icon: "◆", name: "Campaña AI", desc: "Variaciones infinitas de campaña visual desde una producción." },
+    {icon:"✦", name:"Brand Film Aspiracional", desc:"Video de marca que posiciona el gimnasio como destino de lifestyle premium."},
+    {icon:"◈", name:"Fotografía Editorial", desc:"Espacio y servicios en estética aspiracional de alto nivel."},
+    {icon:"◉", name:"Reels de Alta Retención", desc:"Contenido optimizado para capturar y convertir audiencia digital."},
+    {icon:"◆", name:"Campaña AI", desc:"Variaciones infinitas de campaña visual desde una producción."},
   ],
   bar: [
-    { icon: "✦", name: "Fotografía Editorial", desc: "Cocteles y ambiente en estética de publicación premium." },
-    { icon: "◈", name: "Brand Film Nocturno", desc: "Video cinematográfico que captura la atmósfera y personalidad del espacio." },
-    { icon: "◉", name: "Contenido Social Premium", desc: "Reels y stories que generan expectativa y deseo." },
-    { icon: "◆", name: "Escalado AI", desc: "Campaña visual completa desde una sola sesión de producción." },
+    {icon:"✦", name:"Fotografía Editorial", desc:"Cocteles y ambiente en estética de publicación premium."},
+    {icon:"◈", name:"Brand Film Nocturno", desc:"Video cinematográfico que captura la atmósfera y personalidad del espacio."},
+    {icon:"◉", name:"Contenido Social Premium", desc:"Reels y stories que generan expectativa y deseo."},
+    {icon:"◆", name:"Escalado AI", desc:"Campaña visual completa desde una sola sesión de producción."},
   ],
   small_business: [
-    { icon: "✦", name: "Fotografía Editorial", desc: "Imágenes de marca de nivel internacional para destacar en el mercado." },
-    { icon: "◈", name: "Brand Film", desc: "Video cinematográfico que cuenta la historia del negocio." },
-    { icon: "◉", name: "Identidad Visual Digital", desc: "Contenido premium para redes sociales y plataformas digitales." },
-    { icon: "◆", name: "Escalado AI", desc: "Máximo volumen de contenido con mínima inversión de producción." },
+    {icon:"✦", name:"Fotografía Editorial", desc:"Imágenes de marca de nivel internacional para destacar en el mercado."},
+    {icon:"◈", name:"Brand Film", desc:"Video cinematográfico que cuenta la historia del negocio."},
+    {icon:"◉", name:"Identidad Visual Digital", desc:"Contenido premium para redes sociales y plataformas digitales."},
+    {icon:"◆", name:"Escalado AI", desc:"Máximo volumen de contenido con mínima inversión de producción."},
   ],
 };
 
@@ -258,10 +192,8 @@ function toast(msg, type='success') {
 async function searchBusiness() {
   const name = document.getElementById('biz-search').value.trim();
   if (!name) return;
-
   const btn = document.getElementById('search-btn');
   btn.disabled = true; btn.textContent = '...';
-
   try {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
@@ -271,27 +203,22 @@ async function searchBusiness() {
     const data = await res.json();
     if (data.error) throw new Error(data.error);
     currentBiz = data;
-    aiImages = [];
     renderBizInfo();
     toast('Negocio encontrado ✓', 'success');
   } catch(e) {
     toast('Error: ' + e.message, 'error');
   }
-
   btn.disabled = false; btn.textContent = 'Buscar';
 }
 
 function renderBizInfo() {
-  if (!currentBiz) return;
   const biz = currentBiz;
   const info = document.getElementById('biz-info');
   info.style.display = 'flex';
   document.getElementById('gen-btn').style.display = 'block';
-
-  const photosHtml = biz.photos.length > 0
+  const photosHtml = biz.photos && biz.photos.length > 0
     ? biz.photos.map(p => `<img class="photo-thumb" src="${p}" alt="" />`).join('')
-    : '<div class="photo-placeholder">📷</div><div class="photo-placeholder">📷</div><div class="photo-placeholder">📷</div>';
-
+    : '<div style="color:var(--muted);font-size:10px">Sin fotos disponibles</div>';
   info.innerHTML = `
     <div class="info-block">
       <div class="info-title">Negocio encontrado</div>
@@ -301,105 +228,23 @@ function renderBizInfo() {
       ${biz.description ? `<div class="biz-desc">${biz.description}</div>` : ''}
     </div>
     <div class="info-block">
-      <div class="info-title">Fotos reales (antes)</div>
+      <div class="info-title">Fotos reales del lugar</div>
       <div class="photos-grid">${photosHtml}</div>
-    </div>
-    <div class="info-block" id="ai-block">
-      <div class="info-title">Versiones IA (después) — pendiente</div>
-      <div class="ai-previews" id="ai-previews">
-        ${biz.photos.slice(0,3).map((_,i) => `
-          <div class="ai-generating" id="ai-slot-${i}">
-            <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-            <div class="ai-gen-text">Se generará al crear el deck</div>
-          </div>`).join('')}
-      </div>
     </div>
   `;
 }
 
-async function generateDeck() {
+function generateDeck() {
   if (!currentBiz) return;
   const btn = document.getElementById('gen-btn');
   btn.disabled = true; btn.textContent = '⟳ Generando...';
-
-  const rightPanel = document.getElementById('right-panel');
-  rightPanel.innerHTML = `<div class="deck-empty"><div class="deck-empty-icon" style="animation: blink 1s infinite">◯</div><div class="deck-empty-title">Generando deck...</div><div class="deck-empty-sub">Transformando fotos con Nano Banana Pro. Esto puede tomar 1-2 minutos.</div></div>`;
-
   try {
-    aiImages = [];
-
-    // Generate AI versions for each photo
-    for (let i = 0; i < Math.min(currentBiz.photos.length, 3); i++) {
-      const photoUrl = currentBiz.photos[i];
-      updateAiSlot(i, 'generating');
-
-      // Fetch photo as base64
-      const fetchRes = await fetch(WORKER_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-action': 'fetch-photo' },
-        body: JSON.stringify({ url: photoUrl })
-      });
-      const fetchData = await fetchRes.json();
-      if (fetchData.error) throw new Error('Error obteniendo foto: ' + fetchData.error);
-
-      // Generate AI version via Claude + Higgsfield MCP
-      const genRes = await fetch(WORKER_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-action': 'deck-generate-ai' },
-        body: JSON.stringify({
-          photoBase64: fetchData.base64,
-          contentType: fetchData.contentType,
-          category: currentBiz.category,
-          businessName: currentBiz.name,
-        })
-      });
-      const genData = await genRes.json();
-
-      // Extract image URL from Claude's response
-      let resultUrl = null;
-      if (genData.content && genData.content.length > 0) {
-        for (const block of genData.content) {
-          if (block.type === 'text' && block.text) {
-            const urlMatch = block.text.match(/https?:\/\/[^\s"']+\.(jpg|jpeg|png|webp)/i);
-            if (urlMatch) { resultUrl = urlMatch[0]; break; }
-          }
-          if (block.type === 'tool_result' || block.type === 'tool_use') {
-            const str = JSON.stringify(block);
-            const urlMatch = str.match(/https?:\/\/[^\s"']+\.(jpg|jpeg|png|webp)/i);
-            if (urlMatch) { resultUrl = urlMatch[0]; break; }
-          }
-        }
-      }
-      if (!resultUrl) {
-        const str = JSON.stringify(genData);
-        const urlMatch = str.match(/https?:\/\/[^\s"']+\.(jpg|jpeg|png|webp)/i);
-        if (urlMatch) resultUrl = urlMatch[0];
-      }
-      if (!resultUrl) throw new Error('No se pudo obtener la imagen generada');
-      aiImages.push(resultUrl);
-      updateAiSlot(i, 'done', resultUrl);
-      toast(`Imagen ${i+1} generada ✓`, 'success');
-    }
-
     renderDeckPreview();
     toast('Deck generado ✓', 'success');
-
   } catch(e) {
     toast('Error: ' + e.message, 'error');
-    rightPanel.innerHTML = `<div class="deck-empty"><div class="deck-empty-title" style="color:var(--red)">Error generando deck</div><div class="deck-empty-sub">${e.message}</div></div>`;
   }
-
-  btn.disabled = false; btn.textContent = '✦ Generar Deck con IA';
-}
-
-function updateAiSlot(i, state, url) {
-  const slot = document.getElementById(`ai-slot-${i}`);
-  if (!slot) return;
-  if (state === 'generating') {
-    slot.innerHTML = `<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div class="ai-gen-text">Generando con Nano Banana Pro...</div>`;
-  } else if (state === 'done' && url) {
-    slot.outerHTML = `<div class="ai-preview-item" id="ai-slot-${i}"><img src="${url}" alt="" /><div class="ai-preview-label">✦ Issue Zero</div></div>`;
-  }
+  btn.disabled = false; btn.textContent = '✦ Generar Deck';
 }
 
 function renderDeckPreview() {
@@ -407,30 +252,15 @@ function renderDeckPreview() {
   const right = document.getElementById('right-panel');
   const today = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long' });
   const services = SERVICES[biz.category] || SERVICES.small_business;
+  const totalSlides = 4;
 
-  const beforePhotos = biz.photos.slice(0, 3).map(p =>
+  const beforePhotos = (biz.photos || []).slice(0, 3).map(p =>
     `<div class="before-photo"><img src="${p}" alt="" /></div>`
   ).join('');
 
-  const afterSlides = aiImages.map((url, i) => `
-    <div class="slide slide-after">
-      <div class="after-content"><img src="${url}" alt="" /></div>
-      <div class="after-overlay"></div>
-      <div class="after-bottom">
-        <div>
-          <div class="after-label">✦ Issue Zero Creative — Después</div>
-          <div class="after-caption">${['Cinematografía real + IA', 'Identidad visual premium', 'Producción editorial'][i] || 'Issue Zero Creative'}</div>
-        </div>
-        <div class="after-num">0${i+1}</div>
-      </div>
-      <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">${3+i} / ${4 + aiImages.length}</div>
-    </div>
-  `).join('');
-
   right.innerHTML = `
     <!-- SLIDE 1: COVER -->
-    <div class="slide slide-cover" id="slide-1">
+    <div class="slide slide-cover">
       <div class="slide-cover-bg"></div>
       <div class="slide-cover-content">
         <div class="slide-cover-top">
@@ -440,7 +270,7 @@ function renderDeckPreview() {
           </div>
           <div style="text-align:right;font-size:clamp(6px,0.8vw,9px);color:#333;letter-spacing:0.1em">CONFIDENCIAL</div>
         </div>
-        <div class="slide-cover-mid">
+        <div>
           <div class="slide-cover-label">Propuesta Visual Personalizada para</div>
           <div class="slide-cover-line"></div>
           <div class="slide-biz-name">${biz.name}</div>
@@ -452,26 +282,23 @@ function renderDeckPreview() {
         </div>
       </div>
       <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">1 / ${4 + aiImages.length}</div>
+      <div class="slide-num">1 / ${totalSlides}</div>
     </div>
 
-    <!-- SLIDE 2: BEFORE -->
-    <div class="slide slide-before" id="slide-2">
-      <div class="slide-label-tag">Estado actual — Antes</div>
+    <!-- SLIDE 2: ANTES -->
+    <div class="slide slide-before">
+      <div class="slide-label-tag">Contenido actual — Antes de Issue Zero</div>
       <div class="before-photos">${beforePhotos}</div>
       <div style="position:absolute;bottom:5%;left:5%;right:5%;display:flex;justify-content:space-between;align-items:center;z-index:3">
         <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,20px);color:#fff;font-style:italic">${biz.name}</div>
         <div style="font-size:clamp(6px,0.8vw,9px);color:#555;letter-spacing:0.1em">★ ${biz.rating} · ${biz.reviews_count} reseñas</div>
       </div>
       <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">2 / ${4 + aiImages.length}</div>
+      <div class="slide-num">2 / ${totalSlides}</div>
     </div>
 
-    <!-- SLIDES 3+: AFTER (AI GENERATED) -->
-    ${afterSlides}
-
-    <!-- SLIDE: SERVICES -->
-    <div class="slide slide-services" id="slide-services">
+    <!-- SLIDE 3: SERVICIOS -->
+    <div class="slide slide-services">
       <div class="slide-services-content">
         <div class="slide-section-title">Lo que Issue Zero puede hacer por ${biz.name}</div>
         <div class="services-grid">
@@ -484,17 +311,17 @@ function renderDeckPreview() {
           `).join('')}
         </div>
         <div class="slide-services-bottom">
-          <div class="services-stat"><div class="stat-big">60%</div><div class="stat-small">Optimización de presupuesto</div></div>
-          <div class="services-stat"><div class="stat-big">12x</div><div class="stat-small">Multiplicador de activos</div></div>
+          <div class="services-stat"><div class="stat-big">60%</div><div class="stat-small">Optimización presupuesto</div></div>
+          <div class="services-stat"><div class="stat-big">12x</div><div class="stat-small">Multiplicador activos</div></div>
           <div class="services-stat"><div class="stat-big">24h</div><div class="stat-small">Respuesta creativa</div></div>
         </div>
       </div>
       <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">${3 + aiImages.length} / ${4 + aiImages.length}</div>
+      <div class="slide-num">3 / ${totalSlides}</div>
     </div>
 
-    <!-- SLIDE: CTA -->
-    <div class="slide slide-cta" id="slide-cta">
+    <!-- SLIDE 4: CTA -->
+    <div class="slide slide-cta">
       <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a1000 0%,#000 70%)"></div>
       <div class="slide-cta-content">
         <div class="cta-eyebrow">Siguiente paso</div>
@@ -505,7 +332,7 @@ function renderDeckPreview() {
         <div class="cta-logo">ISSUE ZERO CREATIVE</div>
       </div>
       <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">${4 + aiImages.length} / ${4 + aiImages.length}</div>
+      <div class="slide-num">4 / ${totalSlides}</div>
     </div>
 
     <button class="download-btn" onclick="downloadPDF()">⬇ Descargar PDF</button>
@@ -513,32 +340,8 @@ function renderDeckPreview() {
 }
 
 async function downloadPDF() {
-  toast('Preparando PDF...', 'success');
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: [297, 167] });
-
-  const slides = document.querySelectorAll('.slide');
-  
-  for (let i = 0; i < slides.length; i++) {
-    if (i > 0) pdf.addPage([297, 167], 'landscape');
-    
-    try {
-      const canvas = document.createElement('canvas');
-      canvas.width = slides[i].offsetWidth * 2;
-      canvas.height = slides[i].offsetHeight * 2;
-      const ctx = canvas.getContext('2d');
-      ctx.scale(2, 2);
-      
-      // Use html2canvas if available, otherwise simple capture
-      const imgData = canvas.toDataURL('image/jpeg', 0.9);
-      pdf.addImage(imgData, 'JPEG', 0, 0, 297, 167);
-    } catch(e) {
-      // fallback - add blank slide
-    }
-  }
-
-  pdf.save(`IssueZero_${currentBiz?.name || 'Deck'}.pdf`);
-  toast('PDF descargado ✓', 'success');
+  toast('Abriendo para imprimir como PDF...', 'success');
+  window.print();
 }
 </script>
 </body>
