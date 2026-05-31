@@ -642,6 +642,65 @@ function extractColorsFromDOM(numColors = 6) {
 }
 /* ─────────────────────────────────────────────────────────────────────── */
 
+/* ─── DERIVED EDITORIAL TONES — HSL variations within the biz's OWN palette ── */
+function derivedEditorialTones(colors, lang) {
+  if (!colors || !colors.length) colors = ['#4a3828','#8a7055','#c4b090','#2a2018','#686058'];
+
+  // HSL conversion helpers
+  function hexToHSL(hex) {
+    let r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+    const max=Math.max(r,g,b), min=Math.min(r,g,b);
+    let h=0, s=0, l=(max+min)/2;
+    if (max!==min) {
+      const d=max-min;
+      s=l>.5?d/(2-max-min):d/(max+min);
+      h=max===r?(g-b)/d+(g<b?6:0):max===g?(b-r)/d+2:(r-g)/d+4;
+      h/=6;
+    }
+    return [h*360, s*100, l*100];
+  }
+
+  function hslToHex(h,s,l) {
+    h=((h%360)+360)%360; s=Math.max(0,Math.min(100,s))/100; l=Math.max(0,Math.min(100,l))/100;
+    const c=(1-Math.abs(2*l-1))*s, x=c*(1-Math.abs((h/60)%2-1)), m=l-c/2;
+    let r,g,b;
+    if(h<60)[r,g,b]=[c,x,0];else if(h<120)[r,g,b]=[x,c,0];else if(h<180)[r,g,b]=[0,c,x];
+    else if(h<240)[r,g,b]=[0,x,c];else if(h<300)[r,g,b]=[x,0,c];else[r,g,b]=[c,0,x];
+    return '#'+[r,g,b].map(v=>Math.round((v+m)*255).toString(16).padStart(2,'0')).join('');
+  }
+
+  // Tone names — all within the business's own chromatic world
+  const NAMES = {
+    deep:      { es:'Versión profunda',    en:'Deep variant' },
+    muted:     { es:'Neutro apagado',      en:'Muted neutral' },
+    vivid:     { es:'Acento saturado',     en:'Saturated accent' },
+    luminous:  { es:'Tono luminoso',       en:'Luminous tone' },
+    analogous: { es:'Armonía análoga',     en:'Analogous harmony' },
+  };
+
+  // 5 chromatic strategies, each applied to a different detected color
+  const strategies = [
+    // 0: Deepen — darker, richer version of the dominant color
+    (hex) => { const [h,s,l]=hexToHSL(hex); return hslToHex(h, Math.min(s*1.1,95), Math.max(6,l*.42)); },
+    // 1: Muted neutral — desaturate toward a tonal grey in the same hue family
+    (hex) => { const [h,s,l]=hexToHSL(hex); return hslToHex(h, Math.max(4,s*.15), Math.min(75,l*.85+12)); },
+    // 2: Vivid accent — boost saturation, slight hue drift within the family
+    (hex) => { const [h,s,l]=hexToHSL(hex); return hslToHex(h+8, Math.min(92,s*1.45), l); },
+    // 3: Luminous — lighten while preserving hue identity
+    (hex) => { const [h,s,l]=hexToHSL(hex); return hslToHex(h, s*.75, Math.min(88,l*1.55+18)); },
+    // 4: Analogous harmony — adjacent hue (-30°), keeps saturation/lightness
+    (hex) => { const [h,s,l]=hexToHSL(hex); return hslToHex(h-28, s*.92, l); },
+  ];
+
+  const keys = ['deep','muted','vivid','luminous','analogous'];
+  const base = colors.length >= 5 ? colors : [...colors, ...colors].slice(0,5);
+
+  return strategies.map((fn,i) => ({
+    hex:  fn(base[i]),
+    name: NAMES[keys[i]][lang],
+  }));
+}
+
 let toastTimer;
 function toast(msg, type='success') {
   const el = document.getElementById('toast');
@@ -756,14 +815,14 @@ function stars(n) { return '★'.repeat(Math.round(n)) + '☆'.repeat(5-Math.rou
 function renderDeckPreview(extractedColors = []) {
   const biz = currentBiz;
   const right = document.getElementById('right-panel');
-  const today = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long' });
   // ── Language detection ──────────────────────────────────────────
   const isUS = isUSBusiness(biz.location);
   const lang  = isUS ? 'en' : 'es';
+  const today = new Date().toLocaleDateString(isUS ? 'en-US' : 'es-MX', { year: 'numeric', month: 'long' });
 
   const services = (isUS ? SERVICES_EN : SERVICES)[biz.category] || (isUS ? SERVICES_EN : SERVICES).small_business;
   const problems = (isUS ? PROBLEMS_EN : PROBLEMS)[biz.category] || (isUS ? PROBLEMS_EN : PROBLEMS).small_business;
-  const tones    = (isUS ? EDITORIAL_TONES_EN : EDITORIAL_TONES)[biz.category] || (isUS ? EDITORIAL_TONES_EN : EDITORIAL_TONES).small_business;
+  // editorial tones derived per-business at render time via derivedEditorialTones()
   const whyList  = isUS ? WHY_IZ_EN : WHY_IZ;
 
   // Translation strings
@@ -856,12 +915,12 @@ function renderDeckPreview(extractedColors = []) {
   const proxyPhoto = (url) => `${WORKER_URL}?proxy=${encodeURIComponent(url)}`;
   const beforePhotos = (biz.photos || []).slice(0,3).map(p =>
     `<div class="before-photo"><img src="${proxyPhoto(p)}" alt="" crossorigin="anonymous" /></div>`
-  ).join('') || '<div class="before-photo" style="background:#111;display:flex;align-items:center;justify-content:center;color:#333;font-size:11px">Sin fotos</div>'.repeat(3);
+  ).join('') || `<div class="before-photo" style="background:#111;display:flex;align-items:center;justify-content:center;color:#333;font-size:11px">${isUS ? 'No photos' : 'Sin fotos'}</div>`.repeat(3);
 
   const reviewCards = (biz.reviews || []).slice(0,3).map(r => `
     <div class="review-card">
       <div class="rc-stars">${stars(r.rating)}</div>
-      <div class="rc-text">"${r.text ? (r.text.length > 150 ? r.text.slice(0,150)+'...' : r.text) : 'Reseña positiva.'}"</div>
+      <div class="rc-text">"${r.text ? (r.text.length > 150 ? r.text.slice(0,150)+'...' : r.text) : (isUS ? 'Positive review.' : (isUS ? 'Positive review.' : 'Reseña positiva.'))}"</div>
       <div class="rc-author">— ${r.author || (isUS ? 'Verified customer' : 'Cliente verificado')} ${isUS ? 'on Google' : 'en Google'}</div>
     </div>
   `).join('') || `
@@ -960,7 +1019,7 @@ function renderDeckPreview(extractedColors = []) {
       <div>
         <div class="pal-section-label">${t.detectedPalette}</div>
         <div class="pal-chips">
-          ${extractedColors.length > 0 ? makeChips(extractedColors) : `<div style="font-size:clamp(6px,0.8vw,9px);color:#333;font-style:italic">Sin fotos disponibles para análisis</div>`}
+          ${extractedColors.length > 0 ? makeChips(extractedColors) : `<div style="font-size:clamp(6px,0.8vw,9px);color:#333;font-style:italic">${t.noPhotos}</div>`}
         </div>
       </div>
 
@@ -968,7 +1027,7 @@ function renderDeckPreview(extractedColors = []) {
 
       <div>
         <div class="pal-section-label">Tonos editoriales — Issue Zero</div>
-        <div class="pal-chips">${makeChips(tones)}</div>
+        <div class="pal-chips">${makeChips(derivedEditorialTones(extractedColors, lang))}</div>
         <div style="font-size:clamp(5px,0.65vw,7px);color:#1e1e1e;margin-top:clamp(4px,0.8%,10px);line-height:1.6;font-style:italic">
           ${t.paletteCap}
         </div>
