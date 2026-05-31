@@ -81,7 +81,21 @@
   .s-before-photos { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5%; padding: 12% 3% 3%; }
   .before-photo { overflow: hidden; border-radius: 3px; }
   .before-photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.5) brightness(0.7); }
-  /* Slide 4 - Solution */
+  /* ─── SLIDE 4 — COLOR PALETTE (NEW) ─────────────────────────────── */
+  .s-palette { background: #030303; }
+  .s-palette-content { position: absolute; inset: 0; padding: 6% 6% 6% 7%; display: flex; gap: 6%; }
+  .pal-left { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .pal-right { flex: 1.45; display: flex; flex-direction: column; justify-content: center; gap: clamp(8px,2%,22px); }
+  .pal-section-label { font-size: clamp(6px,0.8vw,9px); color: rgba(201,168,76,0.75); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: clamp(5px,1%,12px); }
+  .pal-chips { display: flex; gap: clamp(4px,0.8vw,10px); }
+  .pal-chip { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .pal-chip-color { width: clamp(28px,4vw,54px); aspect-ratio: 1; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+  .pal-chip-hex { font-size: clamp(5px,0.58vw,7px); color: #2a2a2a; letter-spacing: 0.04em; font-family: 'DM Mono', monospace; }
+  .pal-chip-name { font-size: clamp(5px,0.58vw,7px); color: #383838; text-align: center; max-width: clamp(36px,4.5vw,58px); line-height: 1.35; }
+  .pal-divider { height: 1px; background: #0e0e0e; width: 100%; }
+  .pal-note { font-size: clamp(5px,0.72vw,8px); color: #1e1e1e; line-height: 1.75; font-style: italic; margin-top: clamp(5px,1%,14px); }
+  /* ─────────────────────────────────────────────────────────────────── */
+  /* Slide 5 - Solution */
   .s-solution { background: #050505; }
   .s-solution-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; }
   .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3%; flex: 1; margin-top: 4%; }
@@ -89,7 +103,7 @@
   .s-icon { font-size: clamp(14px, 2.2vw, 22px); margin-bottom: 6px; }
   .s-name { font-family: 'Archivo Black', sans-serif; font-size: clamp(7px, 1.1vw, 12px); color: #fff; margin-bottom: 4px; letter-spacing: 0.03em; }
   .s-desc { font-size: clamp(6px, 0.8vw, 9px); color: #555; line-height: 1.6; }
-  /* Slide 5 - Process */
+  /* Slide 6 - Process */
   .s-process { background: #040404; }
   .s-process-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; }
   .process-steps { display: flex; gap: 2%; flex: 1; margin-top: 5%; align-items: stretch; }
@@ -99,7 +113,7 @@
   .step-name { font-family: 'Archivo Black', sans-serif; font-size: clamp(7px, 1.1vw, 12px); color: #fff; margin-bottom: 6px; }
   .step-desc { font-size: clamp(6px, 0.8vw, 9px); color: #555; line-height: 1.7; }
   .step-connector { position: absolute; right: -4%; top: 15%; color: rgba(201,168,76,0.2); font-size: clamp(10px, 1.5vw, 16px); }
-  /* Slide 6 - Economics */
+  /* Slide 7 - Economics */
   .s-econ { background: #000; }
   .s-econ-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.05) 0%, transparent 60%); }
   .s-econ-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; }
@@ -108,14 +122,14 @@
   .econ-num { font-family: 'Archivo Black', sans-serif; font-size: clamp(24px, 5vw, 56px); color: var(--gold); line-height: 1; }
   .econ-label { font-size: clamp(6px, 0.9vw, 10px); color: #555; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 6px; }
   .econ-sub { font-size: clamp(5px, 0.75vw, 8px); color: #333; margin-top: 4px; line-height: 1.5; }
-  /* Slide 7 - Testimonial */
+  /* Slide 8 - Testimonial */
   .s-testimonial { background: #040404; }
   .s-testimonial-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8%; text-align: center; }
   .quote-mark { font-family: 'Playfair Display', serif; font-size: clamp(40px, 8vw, 100px); color: rgba(201,168,76,0.08); line-height: 0.5; margin-bottom: 3%; }
   .quote-text { font-family: 'Playfair Display', serif; font-size: clamp(10px, 1.8vw, 20px); color: #ccc; line-height: 1.7; max-width: 80%; font-style: italic; }
   .quote-author { font-size: clamp(7px, 0.9vw, 10px); color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4%; }
   .quote-divider { width: 40px; height: 1px; background: var(--gold); margin: 3% auto; opacity: 0.4; }
-  /* Slide 8 - Why IZ */
+  /* Slide 9 - Why IZ */
   .s-why { background: #050505; }
   .s-why-content { position: absolute; inset: 0; padding: 6%; display: flex; gap: 6%; }
   .why-left { flex: 1.2; display: flex; flex-direction: column; justify-content: center; }
@@ -124,7 +138,7 @@
   .why-check { color: var(--gold); font-size: clamp(8px, 1.2vw, 13px); flex-shrink: 0; margin-top: 1px; }
   .why-text-title { font-size: clamp(7px, 1vw, 11px); color: #ddd; margin-bottom: 2px; }
   .why-text-sub { font-size: clamp(6px, 0.8vw, 9px); color: #444; line-height: 1.5; }
-  /* Slide 9 - Reviews */
+  /* Slide 10 - Reviews */
   .s-reviews { background: #040404; }
   .s-reviews-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; }
   .reviews-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3%; flex: 1; margin-top: 4%; }
@@ -132,7 +146,7 @@
   .rc-stars { color: var(--gold); font-size: clamp(7px, 1vw, 11px); margin-bottom: 6px; }
   .rc-text { font-size: clamp(6px, 0.8vw, 9px); color: #555; line-height: 1.7; flex: 1; font-style: italic; }
   .rc-author { font-size: clamp(6px, 0.75vw, 8px); color: #333; margin-top: 8px; letter-spacing: 0.08em; }
-  /* Slide 10 - CTA */
+  /* Slide 11 - CTA */
   .s-cta { background: #000; }
   .s-cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, #1a1000 0%, #000 65%); }
   .s-cta-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 3%; padding: 8%; }
@@ -227,6 +241,7 @@ function loadScript(src) {
 
 const WORKER_URL = "https://floral-block-cf56.rare-elite-media.workers.dev";
 let currentBiz = null;
+let cachedColors = []; // ← cache so re-renders (after URLs) don't re-extract
 
 const CAT_LABELS = { medical_spa:"Medical Spa", cafe:"Café", restaurant:"Restaurante", gym:"Gimnasio", bar:"Bar / Coctelería", small_business:"Negocio" };
 
@@ -316,6 +331,142 @@ const WHY_IZ = [
   { title: "Especialistas por industria", sub: "No somos generalistas. Conocemos el lenguaje visual de tu sector." },
 ];
 
+/* ─── EDITORIAL TONES PER CATEGORY ─────────────────────────────────── */
+const EDITORIAL_TONES = {
+  medical_spa: [
+    { hex: '#F5EFE6', name: 'Crema clínica' },
+    { hex: '#C9A87A', name: 'Oro suave' },
+    { hex: '#2C2420', name: 'Obsidiana base' },
+    { hex: '#B8A898', name: 'Lino aspiracional' },
+    { hex: '#8B7560', name: 'Bronce editorial' },
+  ],
+  cafe: [
+    { hex: '#6B4226', name: 'Espresso profundo' },
+    { hex: '#D4A96A', name: 'Caramelo dorado' },
+    { hex: '#F2EDE4', name: 'Crema de leche' },
+    { hex: '#3D2B1A', name: 'Madera oscura' },
+    { hex: '#8A9E7A', name: 'Verde jardín' },
+  ],
+  restaurant: [
+    { hex: '#1C1008', name: 'Negro gastronómico' },
+    { hex: '#C9902A', name: 'Oro de mesa' },
+    { hex: '#7A2020', name: 'Vino tinto' },
+    { hex: '#E8D5A3', name: 'Lino editorial' },
+    { hex: '#4A3520', name: 'Madera premium' },
+  ],
+  gym: [
+    { hex: '#1A1A2E', name: 'Azul nocturno' },
+    { hex: '#C9A84C', name: 'Oro performance' },
+    { hex: '#2C2C2C', name: 'Grafito base' },
+    { hex: '#E0E0E0', name: 'Blanco atlético' },
+    { hex: '#4A82C0', name: 'Acero eléctrico' },
+  ],
+  bar: [
+    { hex: '#0D0D1A', name: 'Azul medianoche' },
+    { hex: '#D4893A', name: 'Ámbar coctelería' },
+    { hex: '#8B1A1A', name: 'Rojo bar' },
+    { hex: '#C9A84C', name: 'Oro nocturno' },
+    { hex: '#0A0A0A', name: 'Negro bar' },
+  ],
+  small_business: [
+    { hex: '#C9A84C', name: 'Oro editorial' },
+    { hex: '#1C1C1C', name: 'Negro cinematográfico' },
+    { hex: '#F0EDE8', name: 'Blanco editorial' },
+    { hex: '#8B7355', name: 'Tierra premium' },
+    { hex: '#484848', name: 'Gris celosía' },
+  ],
+};
+
+/* ─── COLOR DESCRIPTION FROM HEX ───────────────────────────────────── */
+function colorDescription(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  const max = Math.max(r,g,b), min = Math.min(r,g,b);
+  const l = (max+min)/2/255;
+  if (max === min) {
+    return l < 0.12 ? 'Negro base' : l < 0.38 ? 'Gris oscuro' : l < 0.65 ? 'Gris medio' : 'Blanco neutro';
+  }
+  const s = (max-min) / (l < 0.5 ? max+min : 510-max-min);
+  let h = max===r ? (g-b)/(max-min)*60 : max===g ? 120+(b-r)/(max-min)*60 : 240+(r-g)/(max-min)*60;
+  h = (h+360)%360;
+  if (l < 0.10) return 'Negro profundo';
+  if (l > 0.90) return 'Blanco editorial';
+  if (s < 0.10) return l < 0.35 ? 'Gris carbón' : 'Gris plata';
+  if (h < 22)  return 'Rojo vibrante';
+  if (h < 50)  return 'Naranja cálido';
+  if (h < 80)  return 'Dorado ámbar';
+  if (h < 155) return 'Verde natural';
+  if (h < 195) return 'Verde agua';
+  if (h < 245) return 'Azul editorial';
+  if (h < 275) return 'Azul marino';
+  if (h < 305) return 'Violeta suave';
+  if (h < 335) return 'Rosa editorial';
+  return 'Vino profundo';
+}
+
+/* ─── DOMINANT COLOR EXTRACTOR ──────────────────────────────────────── */
+async function extractDominantColors(imgUrl, numColors = 6) {
+  return new Promise((resolve) => {
+    const fallback = ['#1c1408','#3a2810','#c9a84c','#4a3828','#888070','#2a2018'];
+    const timer = setTimeout(() => resolve(fallback), 7000);
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onerror = () => { clearTimeout(timer); resolve(fallback); };
+    img.onload = () => {
+      clearTimeout(timer);
+      try {
+        const sz = 100;
+        const cvs = document.createElement('canvas');
+        cvs.width = sz; cvs.height = sz;
+        const ctx = cvs.getContext('2d');
+        ctx.drawImage(img, 0, 0, sz, sz);
+        const raw = ctx.getImageData(0, 0, sz, sz).data;
+
+        // Bucket pixels (skip alpha channel), quantize to 28-step grid
+        const buckets = {};
+        for (let i = 0; i < raw.length; i += 16) {
+          const r = raw[i], g = raw[i+1], b = raw[i+2];
+          const brightness = (r + g + b) / 3;
+          if (brightness < 8 || brightness > 247) continue; // skip pure black/white only
+          const br = Math.round(r / 28) * 28;
+          const bg = Math.round(g / 28) * 28;
+          const bb = Math.round(b / 28) * 28;
+          const key = `${br},${bg},${bb}`;
+          buckets[key] = (buckets[key] || 0) + 1;
+        }
+
+        // Sort by frequency
+        const sorted = Object.entries(buckets).sort((a, b) => b[1] - a[1]);
+
+        // Pick distinct colors (Euclidean distance filter)
+        const colors = [];
+        for (const [key] of sorted) {
+          const [r, g, b] = key.split(',').map(Number);
+          const hex = '#' + [r, g, b].map(v => Math.min(255, v).toString(16).padStart(2, '0')).join('');
+          const isDuplicate = colors.some(c => {
+            const cr = parseInt(c.slice(1,3),16);
+            const cg = parseInt(c.slice(3,5),16);
+            const cb = parseInt(c.slice(5,7),16);
+            return Math.sqrt((r-cr)**2 + (g-cg)**2 + (b-cb)**2) < 52;
+          });
+          if (!isDuplicate) {
+            colors.push(hex);
+            if (colors.length >= numColors) break;
+          }
+        }
+
+        resolve(colors.length >= 3 ? colors : fallback);
+      } catch (e) {
+        resolve(fallback);
+      }
+    };
+    img.src = imgUrl;
+  });
+}
+/* ─────────────────────────────────────────────────────────────────────── */
+
 let toastTimer;
 function toast(msg, type='success') {
   const el = document.getElementById('toast');
@@ -329,6 +480,7 @@ async function searchBusiness() {
   if (!name) return;
   const btn = document.getElementById('search-btn');
   btn.disabled = true; btn.textContent = '...';
+  cachedColors = []; // reset color cache for new business
   try {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
@@ -377,12 +529,6 @@ function renderBizInfo() {
   `;
 }
 
-function updateAfterPreview() {
-  // Just re-render if deck is already showing
-  const right = document.getElementById('right-panel');
-  if (right.querySelector('.slide')) generateDeck();
-}
-
 function updateAfterPreview(n) {
   const url = document.getElementById('after-' + n).value.trim();
   const prev = document.getElementById('prev-' + n);
@@ -392,7 +538,7 @@ function updateAfterPreview(n) {
   } else {
     prev.style.display = 'none';
   }
-  // Auto-regenerate deck if already visible
+  // Auto-regenerate deck if already visible (fire-and-forget, colors already cached)
   const right = document.getElementById('right-panel');
   if (right.querySelector('.slide')) generateDeck();
 }
@@ -403,27 +549,43 @@ function getAfterUrls() {
     .filter(u => u.length > 0);
 }
 
-function generateDeck() {
+/* ─── GENERATE DECK (now async — extracts colors first) ─────────────── */
+async function generateDeck() {
   if (!currentBiz) return;
   const btn = document.getElementById('gen-btn');
-  btn.disabled = true; btn.textContent = '⟳ Generando...';
-  renderDeckPreview();
+  btn.disabled = true;
+
+  // Extract colors only once per business (cache)
+  if (cachedColors.length === 0) {
+    btn.textContent = '⟳ Leyendo paleta...';
+    if (currentBiz.photos && currentBiz.photos.length > 0) {
+      const photoUrl = `${WORKER_URL}?proxy=${encodeURIComponent(currentBiz.photos[0])}`;
+      cachedColors = await extractDominantColors(photoUrl);
+    }
+  }
+
+  btn.textContent = '⟳ Generando...';
+  renderDeckPreview(cachedColors);
   toast('Deck generado ✓', 'success');
-  btn.disabled = false; btn.textContent = '✦ Generar Deck';
+  btn.disabled = false;
+  btn.textContent = '✦ Generar Deck';
 }
 
 function stars(n) { return '★'.repeat(Math.round(n)) + '☆'.repeat(5-Math.round(n)); }
 
-function renderDeckPreview() {
+/* ─── RENDER DECK PREVIEW ──────────────────────────────────────────── */
+function renderDeckPreview(extractedColors = []) {
   const biz = currentBiz;
   const right = document.getElementById('right-panel');
   const today = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long' });
   const services = SERVICES[biz.category] || SERVICES.small_business;
   const problems = PROBLEMS[biz.category] || PROBLEMS.small_business;
+  const tones    = EDITORIAL_TONES[biz.category] || EDITORIAL_TONES.small_business;
   const afterUrls = getAfterUrls();
-  const total = 10 + (afterUrls.length > 0 ? 1 : 0);
 
-  // Proxy photos through worker to avoid CORS issues in PDF export
+  // Slide 4 always present; total = 11 base + 1 if afters
+  const total = 11 + (afterUrls.length > 0 ? 1 : 0);
+
   const proxyPhoto = (url) => `${WORKER_URL}?proxy=${encodeURIComponent(url)}`;
   const beforePhotos = (biz.photos || []).slice(0,3).map(p =>
     `<div class="before-photo"><img src="${proxyPhoto(p)}" alt="" crossorigin="anonymous" /></div>`
@@ -440,6 +602,17 @@ function renderDeckPreview() {
     <div class="review-card"><div class="rc-stars">★★★★★</div><div class="rc-text">"Lo mejor de la ciudad, lo recomiendo ampliamente."</div><div class="rc-author">— Cliente verificado en Google</div></div>
     <div class="review-card"><div class="rc-stars">★★★★☆</div><div class="rc-text">"Gran experiencia, definitivamente regreso."</div><div class="rc-author">— Cliente verificado en Google</div></div>
   `;
+
+  // Build color chip HTML
+  const makeChips = (colors) => colors.map(c => {
+    const hex   = typeof c === 'string' ? c : c.hex;
+    const label = typeof c === 'string' ? colorDescription(hex) : c.name;
+    return `<div class="pal-chip">
+      <div class="pal-chip-color" style="background:${hex}"></div>
+      <div class="pal-chip-hex">${hex}</div>
+      <div class="pal-chip-name">${label}</div>
+    </div>`;
+  }).join('');
 
   right.innerHTML = `
 <!-- SLIDE 1: COVER -->
@@ -495,6 +668,48 @@ function renderDeckPreview() {
   <div class="sn">3 / ${total}</div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SLIDE 4: PALETA DE COLOR (NEW)                                   -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="slide s-palette">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%,rgba(201,168,76,0.03) 0%,transparent 65%)"></div>
+  <div class="s-palette-content">
+
+    <!-- LEFT: copy -->
+    <div class="pal-left">
+      <div class="eyebrow">Identidad de color · ${biz.name}</div>
+      <div class="headline" style="font-size:clamp(13px,2.4vw,28px);margin-bottom:5%">Conocemos tu marca antes de entrar al espacio.</div>
+      <div class="body-text">Antes de fotografiar, analizamos el lenguaje cromático real de tu negocio. Esto nos permite crear contenido que se siente nativo a tu identidad — no una campaña genérica superpuesta.</div>
+      <div class="pal-note">Los tonos editoriales que proponemos nacen de la intersección entre tu paleta actual y el lenguaje visual de Issue Zero Creative.</div>
+    </div>
+
+    <!-- RIGHT: swatches -->
+    <div class="pal-right">
+
+      <div>
+        <div class="pal-section-label">Paleta detectada del espacio</div>
+        <div class="pal-chips">
+          ${extractedColors.length > 0 ? makeChips(extractedColors) : `<div style="font-size:clamp(6px,0.8vw,9px);color:#333;font-style:italic">Sin fotos disponibles para análisis</div>`}
+        </div>
+      </div>
+
+      <div class="pal-divider"></div>
+
+      <div>
+        <div class="pal-section-label">Tonos editoriales — Issue Zero</div>
+        <div class="pal-chips">${makeChips(tones)}</div>
+        <div style="font-size:clamp(5px,0.65vw,7px);color:#1e1e1e;margin-top:clamp(4px,0.8%,10px);line-height:1.6;font-style:italic">
+          Paleta curatorial aplicada en posproducción · Issue Zero Creative
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">4 / ${total}</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════════ -->
+
 ${afterUrls.length > 0 ? `
 <div class="slide" style="background:#040404;">
   <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.8);border:1px solid rgba(201,168,76,0.4);border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#c9a84c;letter-spacing:0.15em;text-transform:uppercase;">✦ Issue Zero Creative — Después</div>
@@ -509,7 +724,7 @@ ${afterUrls.length > 0 ? `
 </div>
 ` : ''}
 
-<!-- SLIDE 4: LA SOLUCIÓN -->
+<!-- SLIDE 5: LA SOLUCIÓN -->
 <div class="slide s-solution">
   <div class="s-solution-content">
     <div>
@@ -527,10 +742,10 @@ ${afterUrls.length > 0 ? `
     </div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">4 / ${total}</div>
+  <div class="sn">5 / ${total}</div>
 </div>
 
-<!-- SLIDE 5: EL PROCESO -->
+<!-- SLIDE 6: EL PROCESO -->
 <div class="slide s-process">
   <div class="s-process-content">
     <div>
@@ -568,10 +783,10 @@ ${afterUrls.length > 0 ? `
     </div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">5 / ${total}</div>
+  <div class="sn">6 / ${total}</div>
 </div>
 
-<!-- SLIDE 6: LA ECUACIÓN -->
+<!-- SLIDE 7: LA ECUACIÓN -->
 <div class="slide s-econ">
   <div class="s-econ-bg"></div>
   <div class="s-econ-content">
@@ -590,7 +805,6 @@ ${afterUrls.length > 0 ? `
         <div class="econ-label">Multiplicador de activos</div>
         <div class="econ-sub">de un solo shoot obtienes semanas de contenido</div>
       </div>
-
       <div class="econ-stat">
         <div class="econ-num">4K</div>
         <div class="econ-label">Calidad de entrega</div>
@@ -600,10 +814,10 @@ ${afterUrls.length > 0 ? `
     <div style="font-size:clamp(6px,0.85vw,9px);color:#222;text-align:center;font-style:italic;padding-top:2%">Un solo shoot, infinitas realidades comerciales. Cimientos visuales de nivel de museo impulsados por modelos generativos.</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">6 / ${total}</div>
+  <div class="sn">7 / ${total}</div>
 </div>
 
-<!-- SLIDE 7: TESTIMONIAL -->
+<!-- SLIDE 8: TESTIMONIAL -->
 <div class="slide s-testimonial">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0d0800 0%,#000 70%)"></div>
   <div class="s-testimonial-content">
@@ -613,10 +827,10 @@ ${afterUrls.length > 0 ? `
     <div class="quote-author">Cliente verificado · Issue Zero Creative</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">7 / ${total}</div>
+  <div class="sn">8 / ${total}</div>
 </div>
 
-<!-- SLIDE 8: POR QUÉ ISSUE ZERO -->
+<!-- SLIDE 9: POR QUÉ ISSUE ZERO -->
 <div class="slide s-why">
   <div class="s-why-content">
     <div class="why-left">
@@ -637,10 +851,10 @@ ${afterUrls.length > 0 ? `
     </div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">8 / ${total}</div>
+  <div class="sn">9 / ${total}</div>
 </div>
 
-<!-- SLIDE 9: RESEÑAS -->
+<!-- SLIDE 10: RESEÑAS -->
 <div class="slide s-reviews">
   <div class="s-reviews-content">
     <div>
@@ -651,10 +865,10 @@ ${afterUrls.length > 0 ? `
     <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;text-align:center;padding-top:2%">Imagina cómo se verían estas reseñas acompañadas de contenido visual de nivel internacional.</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">9 / ${total}</div>
+  <div class="sn">10 / ${total}</div>
 </div>
 
-<!-- SLIDE 10: CTA -->
+<!-- SLIDE 11: CTA -->
 <div class="slide s-cta">
   <div class="s-cta-bg"></div>
   <div class="s-cta-content">
@@ -666,7 +880,7 @@ ${afterUrls.length > 0 ? `
     <div class="cta-logo-final">ISSUE ZERO CREATIVE</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">10 / ${total}</div>
+  <div class="sn">11 / ${total}</div>
 </div>
 
 <button class="download-btn" onclick="downloadDeck()">⬇ Descargar PDF</button>
