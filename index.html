@@ -667,9 +667,47 @@ function renderDeckPreview() {
   `;
 }
 
-function downloadDeck() {
-  toast('Abriendo diálogo de impresión — guarda como PDF', 'success');
-  setTimeout(() => window.print(), 400);
+async function downloadDeck() {
+  const slides = document.querySelectorAll('.slide');
+  if (!slides.length) { toast('Genera el deck primero', 'error'); return; }
+  
+  const btn = document.querySelector('.download-btn');
+  btn.disabled = true;
+  btn.textContent = '⟳ Exportando...';
+  toast('Generando PDF — esto toma unos segundos...', 'success');
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1280, 720] });
+
+    for (let i = 0; i < slides.length; i++) {
+      if (i > 0) pdf.addPage([1280, 720], 'landscape');
+      
+      const canvas = await html2canvas(slides[i], {
+        scale: 1.5,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#000000',
+        width: slides[i].offsetWidth,
+        height: slides[i].offsetHeight,
+        logging: false,
+      });
+      
+      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      pdf.addImage(imgData, 'JPEG', 0, 0, 1280, 720);
+      
+      btn.textContent = `⟳ Slide ${i+1}/${slides.length}...`;
+    }
+
+    pdf.save(`IssueZero_${currentBiz?.name?.replace(/[^a-z0-9]/gi,'_') || 'Deck'}.pdf`);
+    toast('PDF descargado ✓', 'success');
+  } catch(e) {
+    toast('Error: ' + e.message, 'error');
+    console.error(e);
+  }
+
+  btn.disabled = false;
+  btn.textContent = '⬇ Descargar PDF';
 }
 </script>
 </body>
