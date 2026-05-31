@@ -365,14 +365,14 @@ async function generateDeck() {
           }
           if (block.type === 'tool_result' || block.type === 'tool_use') {
             const str = JSON.stringify(block);
-            const urlMatch = str.match(/https?:\/\/[^\s"'\]+\.(jpg|jpeg|png|webp)/i);
+            const urlMatch = str.match(/https?:\/\/[^\s"']+\.(jpg|jpeg|png|webp)/i);
             if (urlMatch) { resultUrl = urlMatch[0]; break; }
           }
         }
       }
       if (!resultUrl) {
         const str = JSON.stringify(genData);
-        const urlMatch = str.match(/https?:\/\/[^\s"'\]+\.(jpg|jpeg|png|webp)/i);
+        const urlMatch = str.match(/https?:\/\/[^\s"']+\.(jpg|jpeg|png|webp)/i);
         if (urlMatch) resultUrl = urlMatch[0];
       }
       if (!resultUrl) throw new Error('No se pudo obtener la imagen generada');
