@@ -353,7 +353,7 @@ function renderBizInfo() {
   document.getElementById('gen-btn').style.display = 'block';
   document.getElementById('afters-section').style.display = 'block';
   const photosHtml = biz.photos && biz.photos.length > 0
-    ? biz.photos.map(p => `<img class="photo-thumb" src="${p}" alt="" />`).join('')
+    ? biz.photos.map(p => `<img class="photo-thumb" src="${WORKER_URL}?proxy=${encodeURIComponent(p)}" alt="" crossorigin="anonymous" />`).join('')
     : '<div style="color:var(--muted);font-size:10px;padding:8px">Sin fotos</div>';
   const reviewsHtml = (biz.reviews || []).slice(0,2).map(r => `
     <div class="review-item">
@@ -423,8 +423,10 @@ function renderDeckPreview() {
   const afterUrls = getAfterUrls();
   const total = 10 + (afterUrls.length > 0 ? 1 : 0);
 
+  // Proxy photos through worker to avoid CORS issues in PDF export
+  const proxyPhoto = (url) => `${WORKER_URL}?proxy=${encodeURIComponent(url)}`;
   const beforePhotos = (biz.photos || []).slice(0,3).map(p =>
-    `<div class="before-photo"><img src="${p}" alt="" /></div>`
+    `<div class="before-photo"><img src="${proxyPhoto(p)}" alt="" crossorigin="anonymous" /></div>`
   ).join('') || '<div class="before-photo" style="background:#111;display:flex;align-items:center;justify-content:center;color:#333;font-size:11px">Sin fotos</div>'.repeat(3);
 
   const reviewCards = (biz.reviews || []).slice(0,3).map(r => `
