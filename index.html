@@ -185,25 +185,25 @@
     <div class="biz-info" id="biz-info" style="display:none"></div>
     <!-- AFTER IMAGES -->
     <div id="afters-section" style="display:none;padding:0 16px 12px">
-      <div style="font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px">Imágenes "Después" — Issue Zero</div>
-      
-      <!-- Drop zone -->
-      <div id="drop-zone" 
-        style="border:1px dashed #2a2a2a;border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:8px"
-        ondragover="event.preventDefault();this.style.borderColor='var(--gold)'"
-        ondragleave="this.style.borderColor='#2a2a2a'"
-        ondrop="handleDrop(event)"
-        onclick="document.getElementById('after-file-input').click()">
-        <div style="font-size:18px;color:#2a2a2a;margin-bottom:6px">⊕</div>
-        <div style="font-size:10px;color:var(--muted)">Arrastra tus fotos aquí</div>
-        <div style="font-size:9px;color:#333;margin-top:3px">o click para seleccionar (máx. 3)</div>
+      <div style="font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px">Imágenes "Después" — Higgsfield</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:10px;color:var(--gold);width:18px;flex-shrink:0">01</span>
+          <input class="input-base" type="text" id="after-1" placeholder="URL de imagen Higgsfield..." style="font-size:9px;padding:7px 10px" oninput="updateAfterPreview(1)" />
+        </div>
+        <div id="prev-1" style="display:none"><img style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px;border:1px solid #c9a84c44" /></div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:10px;color:var(--gold);width:18px;flex-shrink:0">02</span>
+          <input class="input-base" type="text" id="after-2" placeholder="URL de imagen Higgsfield..." style="font-size:9px;padding:7px 10px" oninput="updateAfterPreview(2)" />
+        </div>
+        <div id="prev-2" style="display:none"><img style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px;border:1px solid #c9a84c44" /></div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:10px;color:var(--gold);width:18px;flex-shrink:0">03</span>
+          <input class="input-base" type="text" id="after-3" placeholder="URL de imagen Higgsfield..." style="font-size:9px;padding:7px 10px" oninput="updateAfterPreview(3)" />
+        </div>
+        <div id="prev-3" style="display:none"><img style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px;border:1px solid #c9a84c44" /></div>
       </div>
-      <input type="file" id="after-file-input" multiple accept="image/*" style="display:none" onchange="handleFileSelect(event)" />
-      
-      <!-- Preview grid -->
-      <div id="after-previews" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px"></div>
-      
-      <div style="font-size:8px;color:#333;line-height:1.6">Sube las imágenes generadas en Higgsfield. Aparecen como slides cinematográficos en el deck.</div>
+      <div style="font-size:8px;color:#333;margin-top:8px;line-height:1.6">Pega las URLs de las imágenes generadas en Higgsfield. Se agregan como slides al deck y al PDF.</div>
     </div>
     <button class="generate-deck-btn" id="gen-btn" style="display:none" onclick="generateDeck()">✦ Generar Deck</button>
   </div>
@@ -374,44 +374,24 @@ function updateAfterPreview() {
   if (right.querySelector('.slide')) generateDeck();
 }
 
-// Store uploaded after images as base64
-let afterImages = [];
-
-function handleDrop(event) {
-  event.preventDefault();
-  document.getElementById('drop-zone').style.borderColor = '#2a2a2a';
-  const files = Array.from(event.dataTransfer.files).filter(f => f.type.startsWith('image/')).slice(0, 3);
-  loadAfterFiles(files);
-}
-
-function handleFileSelect(event) {
-  const files = Array.from(event.target.files).slice(0, 3);
-  loadAfterFiles(files);
-}
-
-function loadAfterFiles(files) {
-  afterImages = [];
-  document.getElementById('after-previews').innerHTML = '';
-  files.forEach((file, i) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      afterImages[i] = e.target.result;
-      // Show preview
-      const prev = document.getElementById('after-previews');
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      img.style.cssText = 'width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px;border:1px solid var(--gold);';
-      prev.appendChild(img);
-      // Auto-regenerate deck if already showing
-      const right = document.getElementById('right-panel');
-      if (right.querySelector('.slide')) generateDeck();
-    };
-    reader.readAsDataURL(file);
-  });
+function updateAfterPreview(n) {
+  const url = document.getElementById('after-' + n).value.trim();
+  const prev = document.getElementById('prev-' + n);
+  if (url) {
+    prev.style.display = 'block';
+    prev.querySelector('img').src = url;
+  } else {
+    prev.style.display = 'none';
+  }
+  // Auto-regenerate deck if already visible
+  const right = document.getElementById('right-panel');
+  if (right.querySelector('.slide')) generateDeck();
 }
 
 function getAfterUrls() {
-  return afterImages.filter(u => u && u.length > 0);
+  return [1,2,3]
+    .map(n => document.getElementById('after-' + n).value.trim())
+    .filter(u => u.length > 0);
 }
 
 function generateDeck() {
@@ -670,39 +650,39 @@ function renderDeckPreview() {
 async function downloadDeck() {
   const slides = document.querySelectorAll('.slide');
   if (!slides.length) { toast('Genera el deck primero', 'error'); return; }
-  
+
   const btn = document.querySelector('.download-btn');
   btn.disabled = true;
-  btn.textContent = '⟳ Exportando...';
-  toast('Generando PDF — esto toma unos segundos...', 'success');
+  btn.textContent = '⟳ Procesando...';
+  toast('Generando PDF...', 'success');
 
   try {
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [1280, 720] });
+    const W = 1280, H = 720;
+    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [W, H], compress: true });
 
     for (let i = 0; i < slides.length; i++) {
-      if (i > 0) pdf.addPage([1280, 720], 'landscape');
-      
+      if (i > 0) pdf.addPage([W, H], 'landscape');
+      btn.textContent = `⟳ Slide ${i+1}/${slides.length}...`;
+
       const canvas = await html2canvas(slides[i], {
-        scale: 1.5,
+        scale: 2,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#000000',
-        width: slides[i].offsetWidth,
-        height: slides[i].offsetHeight,
+        backgroundColor: '#000',
+        imageTimeout: 8000,
         logging: false,
       });
-      
-      const imgData = canvas.toDataURL('image/jpeg', 0.92);
-      pdf.addImage(imgData, 'JPEG', 0, 0, 1280, 720);
-      
-      btn.textContent = `⟳ Slide ${i+1}/${slides.length}...`;
+
+      const img = canvas.toDataURL('image/jpeg', 0.9);
+      pdf.addImage(img, 'JPEG', 0, 0, W, H, '', 'FAST');
     }
 
-    pdf.save(`IssueZero_${currentBiz?.name?.replace(/[^a-z0-9]/gi,'_') || 'Deck'}.pdf`);
+    const name = (currentBiz?.name || 'Deck').replace(/[^a-zA-Z0-9]/g, '_');
+    pdf.save('IssueZero_' + name + '.pdf');
     toast('PDF descargado ✓', 'success');
   } catch(e) {
-    toast('Error: ' + e.message, 'error');
+    toast('Error exportando: ' + e.message, 'error');
     console.error(e);
   }
 
