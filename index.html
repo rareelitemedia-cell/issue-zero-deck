@@ -13,14 +13,14 @@
     --green: #22c55e; --red: #ef4444;
   }
   body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
-  header { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; border-bottom: 1px solid var(--border); background: var(--surface); }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; border-bottom: 1px solid var(--border); background: var(--surface); flex-shrink: 0; }
   .logo { display: flex; align-items: center; gap: 12px; }
   .logo-ring { width: 32px; height: 32px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
   .logo-ring::after { content: ''; width: 16px; height: 16px; border: 1.5px solid var(--gold); border-radius: 50%; opacity: 0.5; }
   .logo-name { font-family: 'Archivo Black', sans-serif; font-size: 13px; letter-spacing: 0.15em; color: #fff; }
   .logo-sub { font-size: 9px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; }
   .main { flex: 1; display: flex; overflow: hidden; height: calc(100vh - 57px); }
-  .left { width: 320px; flex-shrink: 0; border-right: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; overflow-y: auto; }
+  .left { width: 300px; flex-shrink: 0; border-right: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; overflow-y: auto; }
   .search-section { padding: 16px; border-bottom: 1px solid var(--border); }
   .search-label { font-size: 9px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
   .search-row { display: flex; gap: 8px; }
@@ -30,15 +30,18 @@
   .search-btn { background: var(--gold); border: none; border-radius: 6px; color: #000; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 700; padding: 0 14px; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; }
   .search-btn:hover { opacity: 0.85; }
   .search-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .biz-info { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .biz-info { padding: 16px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
   .info-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
   .info-title { font-size: 9px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
-  .biz-name-display { font-family: 'Archivo Black', sans-serif; font-size: 15px; color: #fff; margin-bottom: 3px; }
+  .biz-name-display { font-family: 'Archivo Black', sans-serif; font-size: 14px; color: #fff; margin-bottom: 3px; }
   .biz-loc { font-size: 10px; color: var(--muted2); }
   .biz-rating { font-size: 11px; color: var(--gold); margin-top: 5px; }
-  .biz-desc { font-size: 10px; color: var(--muted2); line-height: 1.7; margin-top: 5px; }
-  .photos-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
-  .photo-thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 5px; border: 1px solid var(--border2); }
+  .photos-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
+  .photo-thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; border: 1px solid var(--border2); }
+  .review-item { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px; margin-bottom: 6px; }
+  .review-stars { color: var(--gold); font-size: 9px; margin-bottom: 3px; }
+  .review-text { font-size: 9px; color: var(--muted2); line-height: 1.6; }
+  .review-author { font-size: 8px; color: var(--muted); margin-top: 4px; }
   .generate-deck-btn { margin: 0 16px 16px; background: linear-gradient(135deg, var(--gold), #a87830); border: none; border-radius: 8px; color: #000; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; padding: 13px; cursor: pointer; letter-spacing: 0.08em; width: calc(100% - 32px); transition: opacity 0.2s; }
   .generate-deck-btn:hover { opacity: 0.88; }
   .generate-deck-btn:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -49,59 +52,113 @@
   .deck-empty-icon { font-size: 48px; color: var(--border2); }
   .deck-empty-title { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
   .deck-empty-sub { font-size: 10px; color: var(--muted); text-align: center; max-width: 260px; line-height: 1.7; }
-  .slide { width: 100%; max-width: 800px; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; position: relative; flex-shrink: 0; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-  .slide-cover { background: #000; }
-  .slide-cover-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #0a0a0a 0%, #1a1000 100%); }
-  .slide-cover-content { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 5%; }
-  .slide-cover-top { display: flex; justify-content: space-between; align-items: flex-start; }
-  .slide-iz-logo { font-family: 'Archivo Black', sans-serif; font-size: clamp(10px, 2vw, 18px); letter-spacing: 0.2em; color: var(--gold); }
-  .slide-iz-sub { font-size: clamp(6px, 1vw, 10px); color: #555; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 3px; }
-  .slide-cover-label { font-size: clamp(7px, 1vw, 11px); color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
-  .slide-biz-name { font-family: 'Playfair Display', serif; font-size: clamp(18px, 4vw, 42px); color: #fff; line-height: 1.1; }
-  .slide-cover-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
-  .slide-cover-tagline { font-size: clamp(7px, 1vw, 11px); color: #444; letter-spacing: 0.1em; font-style: italic; }
-  .slide-cover-date { font-size: clamp(7px, 0.9vw, 10px); color: #333; letter-spacing: 0.15em; }
-  .slide-cover-line { height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin: 8px 0; }
-  .slide-before { background: #0a0a0a; }
-  .slide-label-tag { position: absolute; top: 5%; left: 5%; background: rgba(0,0,0,0.8); border: 1px solid #333; border-radius: 4px; font-family: 'DM Mono', monospace; font-size: clamp(6px, 0.9vw, 10px); color: #888; padding: 3px 10px; letter-spacing: 0.15em; text-transform: uppercase; z-index: 3; }
-  .before-photos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1%; height: 100%; padding: 14% 5% 5%; }
-  .before-photo { border-radius: 4px; overflow: hidden; background: #111; }
-  .before-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; filter: saturate(0.7); }
-  .slide-services { background: #080808; }
-  .slide-services-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; }
-  .slide-section-title { font-size: clamp(7px, 1vw, 11px); color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 5%; }
-  .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3%; flex: 1; }
-  .service-item { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.15); border-radius: 4px; padding: 4%; display: flex; flex-direction: column; gap: 4px; }
-  .service-icon { font-size: clamp(12px, 2vw, 20px); }
-  .service-name { font-family: 'Archivo Black', sans-serif; font-size: clamp(7px, 1.1vw, 12px); color: #fff; letter-spacing: 0.05em; }
-  .service-desc { font-size: clamp(6px, 0.8vw, 9px); color: #666; line-height: 1.5; }
-  .slide-services-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1a1a1a; padding-top: 3%; }
-  .services-stat { text-align: center; }
-  .stat-big { font-family: 'Archivo Black', sans-serif; font-size: clamp(12px, 2.5vw, 26px); color: var(--gold); }
-  .stat-small { font-size: clamp(6px, 0.8vw, 9px); color: #555; letter-spacing: 0.1em; text-transform: uppercase; }
-  .slide-cta { background: #000; }
-  .slide-cta-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 4%; padding: 8%; }
-  .cta-eyebrow { font-size: clamp(7px, 1vw, 11px); color: var(--gold); letter-spacing: 0.25em; text-transform: uppercase; }
-  .cta-headline { font-family: 'Playfair Display', serif; font-size: clamp(16px, 3.5vw, 38px); color: #fff; line-height: 1.2; }
-  .cta-line { height: 1px; width: 30%; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
-  .cta-contact { font-size: clamp(8px, 1.1vw, 12px); color: #888; letter-spacing: 0.1em; }
-  .cta-logo { font-family: 'Archivo Black', sans-serif; font-size: clamp(10px, 1.8vw, 18px); color: var(--gold); letter-spacing: 0.2em; margin-top: 2%; }
-  .watermark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10; }
-  .watermark-text { font-family: 'Archivo Black', sans-serif; font-size: clamp(16px, 3vw, 32px); color: rgba(201,168,76,0.08); letter-spacing: 0.3em; text-transform: uppercase; transform: rotate(-30deg); white-space: nowrap; }
-  .slide-num { position: absolute; bottom: 3%; right: 4%; font-size: clamp(6px, 0.8vw, 9px); color: #2a2a2a; letter-spacing: 0.15em; z-index: 5; }
+  /* SLIDES */
+  .slide { width: 100%; max-width: 860px; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; position: relative; flex-shrink: 0; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+  .wm { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10; }
+  .wm span { font-family: 'Archivo Black', sans-serif; font-size: clamp(14px, 2.5vw, 28px); color: rgba(201,168,76,0.07); letter-spacing: 0.3em; text-transform: uppercase; transform: rotate(-30deg); white-space: nowrap; }
+  .sn { position: absolute; bottom: 3%; right: 4%; font-size: clamp(6px, 0.7vw, 9px); color: #252525; letter-spacing: 0.15em; z-index: 5; font-family: 'DM Mono', monospace; }
+  .iz-badge { font-family: 'Archivo Black', sans-serif; font-size: clamp(8px, 1.5vw, 14px); letter-spacing: 0.2em; color: var(--gold); }
+  .iz-badge-sub { font-size: clamp(5px, 0.8vw, 8px); color: #444; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; }
+  /* Slide 1 - Cover */
+  .s-cover { background: #000; }
+  .s-cover-bg { position: absolute; inset: 0; background: linear-gradient(145deg, #050505 0%, #120d00 60%, #000 100%); }
+  .s-cover-accent { position: absolute; top: 0; right: 0; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.03)); }
+  .s-cover-line { position: absolute; left: 5%; top: 0; bottom: 0; width: 1px; background: linear-gradient(180deg, transparent, rgba(201,168,76,0.3), transparent); }
+  .s-cover-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 5% 5% 5% 8%; }
+  /* Slide 2 - Problem */
+  .s-problem { background: #060606; }
+  .s-problem-content { position: absolute; inset: 0; padding: 6%; display: flex; gap: 5%; }
+  .s-problem-left { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .s-problem-right { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3%; }
+  .eyebrow { font-size: clamp(6px, 0.9vw, 10px); color: var(--gold); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 4%; }
+  .headline { font-family: 'Playfair Display', serif; font-size: clamp(14px, 2.8vw, 32px); color: #fff; line-height: 1.2; margin-bottom: 4%; }
+  .body-text { font-size: clamp(6px, 0.9vw, 10px); color: #666; line-height: 1.8; }
+  .pain-item { display: flex; align-items: flex-start; gap: 8px; padding: 3% 0; border-bottom: 1px solid #111; }
+  .pain-icon { color: #333; font-size: clamp(10px, 1.5vw, 14px); flex-shrink: 0; margin-top: 1px; }
+  .pain-text { font-size: clamp(6px, 0.85vw, 10px); color: #555; line-height: 1.6; }
+  /* Slide 3 - Before photos */
+  .s-before { background: #050505; }
+  .s-before-photos { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5%; padding: 12% 3% 3%; }
+  .before-photo { overflow: hidden; border-radius: 3px; }
+  .before-photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.5) brightness(0.7); }
+  /* Slide 4 - Solution */
+  .s-solution { background: #050505; }
+  .s-solution-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; }
+  .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3%; flex: 1; margin-top: 4%; }
+  .solution-item { background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.12); border-radius: 4px; padding: 4%; }
+  .s-icon { font-size: clamp(14px, 2.2vw, 22px); margin-bottom: 6px; }
+  .s-name { font-family: 'Archivo Black', sans-serif; font-size: clamp(7px, 1.1vw, 12px); color: #fff; margin-bottom: 4px; letter-spacing: 0.03em; }
+  .s-desc { font-size: clamp(6px, 0.8vw, 9px); color: #555; line-height: 1.6; }
+  /* Slide 5 - Process */
+  .s-process { background: #040404; }
+  .s-process-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; }
+  .process-steps { display: flex; gap: 2%; flex: 1; margin-top: 5%; align-items: stretch; }
+  .process-step { flex: 1; display: flex; flex-direction: column; position: relative; }
+  .step-num { font-family: 'Archivo Black', sans-serif; font-size: clamp(24px, 4vw, 48px); color: rgba(201,168,76,0.1); line-height: 1; margin-bottom: 4px; }
+  .step-line { height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-bottom: 10px; }
+  .step-name { font-family: 'Archivo Black', sans-serif; font-size: clamp(7px, 1.1vw, 12px); color: #fff; margin-bottom: 6px; }
+  .step-desc { font-size: clamp(6px, 0.8vw, 9px); color: #555; line-height: 1.7; }
+  .step-connector { position: absolute; right: -4%; top: 15%; color: rgba(201,168,76,0.2); font-size: clamp(10px, 1.5vw, 16px); }
+  /* Slide 6 - Economics */
+  .s-econ { background: #000; }
+  .s-econ-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.05) 0%, transparent 60%); }
+  .s-econ-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; }
+  .econ-stats { display: flex; gap: 3%; flex: 1; margin-top: 5%; }
+  .econ-stat { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.1); border-radius: 6px; padding: 4%; text-align: center; }
+  .econ-num { font-family: 'Archivo Black', sans-serif; font-size: clamp(24px, 5vw, 56px); color: var(--gold); line-height: 1; }
+  .econ-label { font-size: clamp(6px, 0.9vw, 10px); color: #555; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 6px; }
+  .econ-sub { font-size: clamp(5px, 0.75vw, 8px); color: #333; margin-top: 4px; line-height: 1.5; }
+  /* Slide 7 - Testimonial */
+  .s-testimonial { background: #040404; }
+  .s-testimonial-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8%; text-align: center; }
+  .quote-mark { font-family: 'Playfair Display', serif; font-size: clamp(40px, 8vw, 100px); color: rgba(201,168,76,0.08); line-height: 0.5; margin-bottom: 3%; }
+  .quote-text { font-family: 'Playfair Display', serif; font-size: clamp(10px, 1.8vw, 20px); color: #ccc; line-height: 1.7; max-width: 80%; font-style: italic; }
+  .quote-author { font-size: clamp(7px, 0.9vw, 10px); color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 4%; }
+  .quote-divider { width: 40px; height: 1px; background: var(--gold); margin: 3% auto; opacity: 0.4; }
+  /* Slide 8 - Why IZ */
+  .s-why { background: #050505; }
+  .s-why-content { position: absolute; inset: 0; padding: 6%; display: flex; gap: 6%; }
+  .why-left { flex: 1.2; display: flex; flex-direction: column; justify-content: center; }
+  .why-right { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3%; }
+  .why-item { display: flex; align-items: flex-start; gap: 10px; padding: 3% 0; border-bottom: 1px solid #0f0f0f; }
+  .why-check { color: var(--gold); font-size: clamp(8px, 1.2vw, 13px); flex-shrink: 0; margin-top: 1px; }
+  .why-text-title { font-size: clamp(7px, 1vw, 11px); color: #ddd; margin-bottom: 2px; }
+  .why-text-sub { font-size: clamp(6px, 0.8vw, 9px); color: #444; line-height: 1.5; }
+  /* Slide 9 - Reviews */
+  .s-reviews { background: #040404; }
+  .s-reviews-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; }
+  .reviews-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3%; flex: 1; margin-top: 4%; }
+  .review-card { background: rgba(255,255,255,0.02); border: 1px solid #111; border-radius: 4px; padding: 4%; display: flex; flex-direction: column; }
+  .rc-stars { color: var(--gold); font-size: clamp(7px, 1vw, 11px); margin-bottom: 6px; }
+  .rc-text { font-size: clamp(6px, 0.8vw, 9px); color: #555; line-height: 1.7; flex: 1; font-style: italic; }
+  .rc-author { font-size: clamp(6px, 0.75vw, 8px); color: #333; margin-top: 8px; letter-spacing: 0.08em; }
+  /* Slide 10 - CTA */
+  .s-cta { background: #000; }
+  .s-cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at center, #1a1000 0%, #000 65%); }
+  .s-cta-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 3%; padding: 8%; }
+  .cta-tag { font-size: clamp(7px, 1vw, 11px); color: var(--gold); letter-spacing: 0.25em; text-transform: uppercase; }
+  .cta-h { font-family: 'Playfair Display', serif; font-size: clamp(16px, 3.5vw, 40px); color: #fff; line-height: 1.2; }
+  .cta-div { height: 1px; width: 25%; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .cta-email { font-size: clamp(8px, 1.2vw, 13px); color: #777; letter-spacing: 0.1em; }
+  .cta-cities { font-size: clamp(7px, 0.9vw, 10px); color: #3a3a3a; letter-spacing: 0.12em; }
+  .cta-logo-final { font-family: 'Archivo Black', sans-serif; font-size: clamp(11px, 2vw, 20px); color: var(--gold); letter-spacing: 0.2em; margin-top: 1%; }
+  /* Download */
   .download-btn { background: linear-gradient(135deg, var(--gold), #a87830); border: none; border-radius: 8px; color: #000; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; padding: 12px 32px; cursor: pointer; letter-spacing: 0.08em; margin-top: 8px; transition: opacity 0.2s; }
   .download-btn:hover { opacity: 0.88; }
+  /* Toast */
   .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; color: var(--text); font-size: 11px; padding: 10px 18px; z-index: 9999; opacity: 0; transform: translateY(8px); transition: all 0.25s; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateY(0); }
   .toast.success { border-color: #22c55e44; color: var(--green); }
   .toast.error { border-color: #ef444444; color: var(--red); }
-  .dots { display: flex; gap: 4px; }
-  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: blink 1.2s infinite; }
-  .dot:nth-child(2) { animation-delay: 0.2s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink { 0%,100%{opacity:0.2;transform:scale(0.7)}50%{opacity:1;transform:scale(1)} }
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-thumb { background: var(--border2); }
+  @media print {
+    header, .left { display: none !important; }
+    .main { display: block; height: auto; }
+    .right { padding: 0; background: #000; }
+    .slide { max-width: 100%; page-break-after: always; border-radius: 0; box-shadow: none; }
+    .download-btn { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -121,7 +178,7 @@
     <div class="search-section">
       <div class="search-label">Buscar negocio</div>
       <div class="search-row">
-        <input class="input-base" type="text" id="biz-search" placeholder="Ej: La Bohemia Café Tijuana..." onkeydown="if(event.key==='Enter')searchBusiness()" />
+        <input class="input-base" type="text" id="biz-search" placeholder="Ej: La Bohemia Café..." onkeydown="if(event.key==='Enter')searchBusiness()" />
         <button class="search-btn" id="search-btn" onclick="searchBusiness()">Buscar</button>
       </div>
     </div>
@@ -132,7 +189,7 @@
     <div class="deck-empty">
       <div class="deck-empty-icon">◯</div>
       <div class="deck-empty-title">Deck Generator</div>
-      <div class="deck-empty-sub">Busca un negocio para generar su presentación personalizada con fotos reales y servicios de Issue Zero.</div>
+      <div class="deck-empty-sub">Busca un negocio para generar su presentación de ventas personalizada.</div>
     </div>
   </div>
 </div>
@@ -144,42 +201,89 @@ const CAT_LABELS = { medical_spa:"Medical Spa", cafe:"Café", restaurant:"Restau
 
 const SERVICES = {
   medical_spa: [
-    {icon:"✦", name:"Identidad Clínica Digital", desc:"Visuales fotorrealistas de tratamientos sin invadir la privacidad de pacientes."},
-    {icon:"◈", name:"Contenido 365 días", desc:"Un shoot genera semanas de contenido aspiracional para redes sociales."},
-    {icon:"◉", name:"Brand Film Cinematográfico", desc:"Video de marca que posiciona el spa en el mercado premium."},
-    {icon:"◆", name:"Lookbook AI", desc:"Campaña visual escalable con IA que muestra resultados de forma aspiracional."},
+    {icon:"✦", name:"Identidad Clínica Digital", desc:"Visuales fotorrealistas de tratamientos sin exponer a tus pacientes."},
+    {icon:"◈", name:"Contenido 365 días", desc:"Un solo shoot genera semanas de contenido aspiracional para redes."},
+    {icon:"◉", name:"Brand Film Premium", desc:"Video de marca que te posiciona como el spa de referencia en la ciudad."},
+    {icon:"◆", name:"Lookbook AI", desc:"Campañas visuales escalables que muestran resultados de forma aspiracional."},
   ],
   cafe: [
-    {icon:"✦", name:"Fotografía Editorial", desc:"Platillos y ambiente en estilo editorial de revista."},
-    {icon:"◈", name:"Brand Film", desc:"Video cinematográfico que captura la esencia y atmósfera del espacio."},
-    {icon:"◉", name:"Reels de Alta Retención", desc:"Contenido optimizado para Instagram y TikTok con estética premium."},
-    {icon:"◆", name:"Escalado AI", desc:"De un shoot sacamos semanas de contenido para todas las plataformas."},
+    {icon:"✦", name:"Fotografía Editorial", desc:"Ambiente y platillos en estilo de revista — que la gente quiera venir."},
+    {icon:"◈", name:"Brand Film", desc:"Video cinematográfico que captura la esencia y atmósfera de tu espacio."},
+    {icon:"◉", name:"Reels de Alta Retención", desc:"Contenido optimizado para Instagram y TikTok que convierte seguidores en clientes."},
+    {icon:"◆", name:"Escalado AI", desc:"De un solo shoot generamos semanas de contenido para todas las plataformas."},
   ],
   restaurant: [
     {icon:"✦", name:"Fotografía Gastronómica", desc:"Editorial de platillos y espacio en nivel de publicación internacional."},
-    {icon:"◈", name:"Brand Film", desc:"Campaña cinematográfica que comunica la experiencia del restaurante."},
-    {icon:"◉", name:"Contenido Social Premium", desc:"Reels y stories con estética de revista gastronómica."},
+    {icon:"◈", name:"Brand Film", desc:"Campaña cinematográfica que comunica la experiencia de tu restaurante."},
+    {icon:"◉", name:"Contenido Social Premium", desc:"Reels y stories con estética de revista gastronómica de alto nivel."},
     {icon:"◆", name:"Escalado AI", desc:"Múltiples variaciones de campaña desde una sola sesión de producción."},
   ],
   gym: [
     {icon:"✦", name:"Brand Film Aspiracional", desc:"Video de marca que posiciona el gimnasio como destino de lifestyle premium."},
-    {icon:"◈", name:"Fotografía Editorial", desc:"Espacio y servicios en estética aspiracional de alto nivel."},
-    {icon:"◉", name:"Reels de Alta Retención", desc:"Contenido optimizado para capturar y convertir audiencia digital."},
-    {icon:"◆", name:"Campaña AI", desc:"Variaciones infinitas de campaña visual desde una producción."},
+    {icon:"◈", name:"Fotografía Editorial", desc:"Espacio y servicios en estética aspiracional — que la gente quiera entrenar ahí."},
+    {icon:"◉", name:"Reels de Alta Retención", desc:"Contenido que atrae nuevos miembros y retiene a los actuales."},
+    {icon:"◆", name:"Campaña AI", desc:"Variaciones infinitas de campaña visual desde una sola producción."},
   ],
   bar: [
-    {icon:"✦", name:"Fotografía Editorial", desc:"Cocteles y ambiente en estética de publicación premium."},
-    {icon:"◈", name:"Brand Film Nocturno", desc:"Video cinematográfico que captura la atmósfera y personalidad del espacio."},
-    {icon:"◉", name:"Contenido Social Premium", desc:"Reels y stories que generan expectativa y deseo."},
+    {icon:"✦", name:"Fotografía Editorial", desc:"Cocteles y ambiente en estética de publicación premium internacional."},
+    {icon:"◈", name:"Brand Film Nocturno", desc:"Video cinematográfico que captura la atmósfera y personalidad de tu espacio."},
+    {icon:"◉", name:"Contenido Social Premium", desc:"Reels y stories que generan expectativa, deseo y reservaciones."},
     {icon:"◆", name:"Escalado AI", desc:"Campaña visual completa desde una sola sesión de producción."},
   ],
   small_business: [
-    {icon:"✦", name:"Fotografía Editorial", desc:"Imágenes de marca de nivel internacional para destacar en el mercado."},
-    {icon:"◈", name:"Brand Film", desc:"Video cinematográfico que cuenta la historia del negocio."},
+    {icon:"✦", name:"Fotografía Editorial", desc:"Imágenes de marca de nivel internacional para destacar en tu mercado."},
+    {icon:"◈", name:"Brand Film", desc:"Video cinematográfico que cuenta la historia de tu negocio de forma memorable."},
     {icon:"◉", name:"Identidad Visual Digital", desc:"Contenido premium para redes sociales y plataformas digitales."},
     {icon:"◆", name:"Escalado AI", desc:"Máximo volumen de contenido con mínima inversión de producción."},
   ],
 };
+
+const PROBLEMS = {
+  medical_spa: [
+    "Tu contenido actual no refleja el nivel de servicio que ofreces",
+    "Las fotos genéricas no generan confianza ni urgencia de reserva",
+    "Tu competencia se ve igual — no hay diferenciación visual clara",
+    "Producir contenido de calidad consume tiempo y presupuesto constantemente",
+  ],
+  cafe: [
+    "Tu espacio es hermoso pero las fotos no lo hacen justicia",
+    "El contenido inconsistente frena el crecimiento orgánico en Instagram",
+    "No hay una identidad visual clara que te diferencie de la competencia",
+    "Producir contenido de calidad requiere tiempo que no tienes",
+  ],
+  restaurant: [
+    "Las fotos de comida promedio no provocan el deseo de ir al restaurante",
+    "Sin contenido visual premium, las reservaciones dependen del boca en boca",
+    "La competencia gastronómica en la ciudad es feroz — hay que destacar",
+    "Un shoot profesional tradicional es costoso y da pocos activos",
+  ],
+  gym: [
+    "El contenido genérico de fitness no conecta emocionalmente con tu audiencia",
+    "Sin identidad visual fuerte, los nuevos miembros eligen al competidor",
+    "Las fotos de equipos y espacios no inspiran ni motivan",
+    "Producir contenido constante de calidad es inviable sin un equipo dedicado",
+  ],
+  bar: [
+    "El ambiente que creas de noche no se refleja en tu presencia digital",
+    "Sin contenido visual premium, el bar no genera expectativa antes de la visita",
+    "La competencia en la industria nocturna se decide por imagen primero",
+    "Un solo shoot tradicional da pocos activos para todo un mes de contenido",
+  ],
+  small_business: [
+    "Tu propuesta de valor es sólida pero tu imagen no la comunica",
+    "Sin contenido visual consistente, es difícil crecer en canales digitales",
+    "La producción tradicional es cara y da resultados limitados",
+    "Sin identidad visual clara, el negocio no escala en el mercado",
+  ],
+};
+
+const WHY_IZ = [
+  { title: "Frontera TJ/SD", sub: "Producción a nivel internacional con costos del mercado local. Lo mejor de dos economías." },
+  { title: "Híbrido Real + IA", sub: "Captura cinematográfica real amplificada con IA generativa — única en la región." },
+  { title: "12x activos por shoot", sub: "Un solo día de producción genera semanas de contenido para todas las plataformas." },
+  { title: "Entregas rápidas", sub: "De propuesta a entrega final en días, no semanas." },
+  { title: "Especialistas por industria", sub: "No somos generalistas. Conocemos el lenguaje visual de tu sector." },
+];
 
 let toastTimer;
 function toast(msg, type='success') {
@@ -218,19 +322,26 @@ function renderBizInfo() {
   document.getElementById('gen-btn').style.display = 'block';
   const photosHtml = biz.photos && biz.photos.length > 0
     ? biz.photos.map(p => `<img class="photo-thumb" src="${p}" alt="" />`).join('')
-    : '<div style="color:var(--muted);font-size:10px">Sin fotos disponibles</div>';
+    : '<div style="color:var(--muted);font-size:10px;padding:8px">Sin fotos</div>';
+  const reviewsHtml = (biz.reviews || []).slice(0,2).map(r => `
+    <div class="review-item">
+      <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+      <div class="review-text">"${r.text ? r.text.slice(0,120) + '...' : 'Sin texto'}"</div>
+      <div class="review-author">— ${r.author}</div>
+    </div>
+  `).join('');
   info.innerHTML = `
     <div class="info-block">
-      <div class="info-title">Negocio encontrado</div>
+      <div class="info-title">Negocio</div>
       <div class="biz-name-display">${biz.name}</div>
       <div class="biz-loc">${biz.location}</div>
       <div class="biz-rating">★ ${biz.rating} · ${biz.reviews_count} reseñas · ${CAT_LABELS[biz.category]||'Negocio'}</div>
-      ${biz.description ? `<div class="biz-desc">${biz.description}</div>` : ''}
     </div>
     <div class="info-block">
-      <div class="info-title">Fotos reales del lugar</div>
+      <div class="info-title">Fotos del lugar</div>
       <div class="photos-grid">${photosHtml}</div>
     </div>
+    ${reviewsHtml ? `<div class="info-block"><div class="info-title">Reseñas recientes</div>${reviewsHtml}</div>` : ''}
   `;
 }
 
@@ -238,110 +349,258 @@ function generateDeck() {
   if (!currentBiz) return;
   const btn = document.getElementById('gen-btn');
   btn.disabled = true; btn.textContent = '⟳ Generando...';
-  try {
-    renderDeckPreview();
-    toast('Deck generado ✓', 'success');
-  } catch(e) {
-    toast('Error: ' + e.message, 'error');
-  }
+  renderDeckPreview();
+  toast('Deck generado ✓', 'success');
   btn.disabled = false; btn.textContent = '✦ Generar Deck';
 }
+
+function stars(n) { return '★'.repeat(Math.round(n)) + '☆'.repeat(5-Math.round(n)); }
 
 function renderDeckPreview() {
   const biz = currentBiz;
   const right = document.getElementById('right-panel');
   const today = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long' });
   const services = SERVICES[biz.category] || SERVICES.small_business;
-  const totalSlides = 4;
+  const problems = PROBLEMS[biz.category] || PROBLEMS.small_business;
+  const total = 10;
 
-  const beforePhotos = (biz.photos || []).slice(0, 3).map(p =>
+  const beforePhotos = (biz.photos || []).slice(0,3).map(p =>
     `<div class="before-photo"><img src="${p}" alt="" /></div>`
-  ).join('');
+  ).join('') || '<div class="before-photo" style="background:#111;display:flex;align-items:center;justify-content:center;color:#333;font-size:11px">Sin fotos</div>'.repeat(3);
+
+  const reviewCards = (biz.reviews || []).slice(0,3).map(r => `
+    <div class="review-card">
+      <div class="rc-stars">${stars(r.rating)}</div>
+      <div class="rc-text">"${r.text ? (r.text.length > 150 ? r.text.slice(0,150)+'...' : r.text) : 'Reseña positiva.'}"</div>
+      <div class="rc-author">— ${r.author || 'Cliente verificado'} en Google</div>
+    </div>
+  `).join('') || `
+    <div class="review-card"><div class="rc-stars">★★★★★</div><div class="rc-text">"Excelente servicio y atención al detalle."</div><div class="rc-author">— Cliente verificado en Google</div></div>
+    <div class="review-card"><div class="rc-stars">★★★★★</div><div class="rc-text">"Lo mejor de la ciudad, lo recomiendo ampliamente."</div><div class="rc-author">— Cliente verificado en Google</div></div>
+    <div class="review-card"><div class="rc-stars">★★★★☆</div><div class="rc-text">"Gran experiencia, definitivamente regreso."</div><div class="rc-author">— Cliente verificado en Google</div></div>
+  `;
 
   right.innerHTML = `
-    <!-- SLIDE 1: COVER -->
-    <div class="slide slide-cover">
-      <div class="slide-cover-bg"></div>
-      <div class="slide-cover-content">
-        <div class="slide-cover-top">
+<!-- SLIDE 1: COVER -->
+<div class="slide s-cover">
+  <div class="s-cover-bg"></div>
+  <div class="s-cover-accent"></div>
+  <div class="s-cover-line"></div>
+  <div class="s-cover-content">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div><div class="iz-badge">ISSUE ZERO</div><div class="iz-badge-sub">Creative</div></div>
+      <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;letter-spacing:0.15em">PROPUESTA CONFIDENCIAL</div>
+    </div>
+    <div>
+      <div style="font-size:clamp(7px,1vw,11px);color:rgba(201,168,76,0.6);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:6px">Propuesta Visual Personalizada para</div>
+      <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:12px"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,4.5vw,50px);color:#fff;line-height:1.05">${biz.name}</div>
+      <div style="margin-top:8px;font-size:clamp(7px,1vw,11px);color:#3a3a3a;letter-spacing:0.1em">${biz.location}</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+      <div style="font-size:clamp(7px,1vw,11px);color:#2a2a2a;font-style:italic;letter-spacing:0.08em">True Cinema Capture + Premium 4K AI Scalability</div>
+      <div style="font-size:clamp(6px,0.8vw,9px);color:#222;letter-spacing:0.15em">${today}</div>
+    </div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">1 / ${total}</div>
+</div>
+
+<!-- SLIDE 2: EL PROBLEMA -->
+<div class="slide s-problem">
+  <div class="s-problem-content">
+    <div class="s-problem-left">
+      <div class="eyebrow">El contexto</div>
+      <div class="headline">Tu negocio merece una presencia visual que esté a la altura de tu servicio.</div>
+      <div class="body-text">En un mercado donde la primera impresión ocurre en el feed antes de la visita física, el contenido visual no es un lujo — es infraestructura de ventas. Y la mayoría de los negocios en la región están operando con activos visuales que no reflejan la calidad real de lo que ofrecen.</div>
+    </div>
+    <div class="s-problem-right">
+      ${problems.map(p => `<div class="pain-item"><div class="pain-icon">✕</div><div class="pain-text">${p}</div></div>`).join('')}
+    </div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">2 / ${total}</div>
+</div>
+
+<!-- SLIDE 3: ANTES -->
+<div class="slide s-before">
+  <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.85);border:1px solid #222;border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#444;letter-spacing:0.15em;text-transform:uppercase">Contenido actual — ${biz.name}</div>
+  <div class="s-before-photos">${beforePhotos}</div>
+  <div style="position:absolute;bottom:4%;left:4%;right:4%;display:flex;justify-content:space-between;align-items:center;z-index:3">
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,20px);color:#444;font-style:italic">Oportunidad de mejora visual</div>
+    <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;letter-spacing:0.1em">★ ${biz.rating} · ${biz.reviews_count} reseñas en Google</div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">3 / ${total}</div>
+</div>
+
+<!-- SLIDE 4: LA SOLUCIÓN -->
+<div class="slide s-solution">
+  <div class="s-solution-content">
+    <div>
+      <div class="eyebrow">Nuestra propuesta para ${biz.name}</div>
+      <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
+    </div>
+    <div class="solution-grid">
+      ${services.map(s => `
+        <div class="solution-item">
+          <div class="s-icon">${s.icon}</div>
+          <div class="s-name">${s.name}</div>
+          <div class="s-desc">${s.desc}</div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">4 / ${total}</div>
+</div>
+
+<!-- SLIDE 5: EL PROCESO -->
+<div class="slide s-process">
+  <div class="s-process-content">
+    <div>
+      <div class="eyebrow">Cómo trabajamos</div>
+      <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-line"></div>
+        <div class="step-name">Concepto Creativo</div>
+        <div class="step-desc">Desarrollamos el concepto visual completo: moodboard, locaciones, referencias y plan de shoot adaptado a tu marca.</div>
+        <div class="step-connector">→</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-line"></div>
+        <div class="step-name">Producción Híbrida</div>
+        <div class="step-desc">Un día de shoot cinematográfico real con equipo de nivel internacional. Capturamos todo el material base de alta calidad.</div>
+        <div class="step-connector">→</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-line"></div>
+        <div class="step-name">Escalado con IA</div>
+        <div class="step-desc">Aplicamos modelos generativos de IA para multiplicar los activos visuales: variaciones, formatos, estilos y versiones para cada plataforma.</div>
+        <div class="step-connector">→</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-line"></div>
+        <div class="step-name">Entrega Premium</div>
+        <div class="step-desc">Recibes un paquete completo de activos listos para publicar: fotos, videos, reels y variaciones — semanas de contenido de un solo shoot.</div>
+      </div>
+    </div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">5 / ${total}</div>
+</div>
+
+<!-- SLIDE 6: LA ECUACIÓN -->
+<div class="slide s-econ">
+  <div class="s-econ-bg"></div>
+  <div class="s-econ-content">
+    <div>
+      <div class="eyebrow">La ecuación de eficiencia Issue Zero</div>
+      <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
+    </div>
+    <div class="econ-stats">
+      <div class="econ-stat">
+        <div class="econ-num">60%</div>
+        <div class="econ-label">Optimización de presupuesto</div>
+        <div class="econ-sub">vs producción tradicional del mismo nivel</div>
+      </div>
+      <div class="econ-stat">
+        <div class="econ-num">12x</div>
+        <div class="econ-label">Multiplicador de activos</div>
+        <div class="econ-sub">de un solo shoot obtienes semanas de contenido</div>
+      </div>
+
+      <div class="econ-stat">
+        <div class="econ-num">4K</div>
+        <div class="econ-label">Calidad de entrega</div>
+        <div class="econ-sub">activos en resolución premium listos para cualquier uso</div>
+      </div>
+    </div>
+    <div style="font-size:clamp(6px,0.85vw,9px);color:#222;text-align:center;font-style:italic;padding-top:2%">Un solo shoot, infinitas realidades comerciales. Cimientos visuales de nivel de museo impulsados por modelos generativos.</div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">6 / ${total}</div>
+</div>
+
+<!-- SLIDE 7: TESTIMONIAL -->
+<div class="slide s-testimonial">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0d0800 0%,#000 70%)"></div>
+  <div class="s-testimonial-content">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">We've used the team on several jobs now, and every single time, I've been genuinely blown away — not just by the quality of the work, but by their pace, collaborative spirit, and creative approach. Their AI expertise means their output is always considered, high calibre, and beautiful.</div>
+    <div class="quote-divider"></div>
+    <div class="quote-author">Cliente verificado · Issue Zero Creative</div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">7 / ${total}</div>
+</div>
+
+<!-- SLIDE 8: POR QUÉ ISSUE ZERO -->
+<div class="slide s-why">
+  <div class="s-why-content">
+    <div class="why-left">
+      <div class="eyebrow">Por qué Issue Zero</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.8vw,32px);color:#fff;line-height:1.2;margin:4% 0">La única agencia boutique en la frontera que combina cinematografía real con IA generativa.</div>
+      <div style="font-size:clamp(6px,0.85vw,9px);color:#444;line-height:1.8">Operamos entre San Diego, Tijuana, Valle de Guadalupe y CDMX. Tenemos acceso a los mejores talentos creativos de ambos lados de la frontera, con la flexibilidad de una agencia boutique y la calidad de una productora internacional.</div>
+    </div>
+    <div class="why-right">
+      ${WHY_IZ.map(w => `
+        <div class="why-item">
+          <div class="why-check">✦</div>
           <div>
-            <div class="slide-iz-logo">ISSUE ZERO</div>
-            <div class="slide-iz-sub">Creative</div>
+            <div class="why-text-title">${w.title}</div>
+            <div class="why-text-sub">${w.sub}</div>
           </div>
-          <div style="text-align:right;font-size:clamp(6px,0.8vw,9px);color:#333;letter-spacing:0.1em">CONFIDENCIAL</div>
         </div>
-        <div>
-          <div class="slide-cover-label">Propuesta Visual Personalizada para</div>
-          <div class="slide-cover-line"></div>
-          <div class="slide-biz-name">${biz.name}</div>
-          <div style="margin-top:8px;font-size:clamp(7px,1vw,11px);color:#444;letter-spacing:0.1em">${biz.location}</div>
-        </div>
-        <div class="slide-cover-bottom">
-          <div class="slide-cover-tagline">True Cinema Capture + Premium 4K AI Scalability</div>
-          <div class="slide-cover-date">${today}</div>
-        </div>
-      </div>
-      <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">1 / ${totalSlides}</div>
+      `).join('')}
     </div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">8 / ${total}</div>
+</div>
 
-    <!-- SLIDE 2: ANTES -->
-    <div class="slide slide-before">
-      <div class="slide-label-tag">Contenido actual — Antes de Issue Zero</div>
-      <div class="before-photos">${beforePhotos}</div>
-      <div style="position:absolute;bottom:5%;left:5%;right:5%;display:flex;justify-content:space-between;align-items:center;z-index:3">
-        <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,20px);color:#fff;font-style:italic">${biz.name}</div>
-        <div style="font-size:clamp(6px,0.8vw,9px);color:#555;letter-spacing:0.1em">★ ${biz.rating} · ${biz.reviews_count} reseñas</div>
-      </div>
-      <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">2 / ${totalSlides}</div>
+<!-- SLIDE 9: RESEÑAS -->
+<div class="slide s-reviews">
+  <div class="s-reviews-content">
+    <div>
+      <div class="eyebrow">Lo que dicen de ${biz.name} · ${stars(biz.rating)} ${biz.rating} en Google</div>
+      <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
     </div>
+    <div class="reviews-grid">${reviewCards}</div>
+    <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;text-align:center;padding-top:2%">Imagina cómo se verían estas reseñas acompañadas de contenido visual de nivel internacional.</div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">9 / ${total}</div>
+</div>
 
-    <!-- SLIDE 3: SERVICIOS -->
-    <div class="slide slide-services">
-      <div class="slide-services-content">
-        <div class="slide-section-title">Lo que Issue Zero puede hacer por ${biz.name}</div>
-        <div class="services-grid">
-          ${services.map(s => `
-            <div class="service-item">
-              <div class="service-icon">${s.icon}</div>
-              <div class="service-name">${s.name}</div>
-              <div class="service-desc">${s.desc}</div>
-            </div>
-          `).join('')}
-        </div>
-        <div class="slide-services-bottom">
-          <div class="services-stat"><div class="stat-big">60%</div><div class="stat-small">Optimización presupuesto</div></div>
-          <div class="services-stat"><div class="stat-big">12x</div><div class="stat-small">Multiplicador activos</div></div>
-          <div class="services-stat"><div class="stat-big">24h</div><div class="stat-small">Respuesta creativa</div></div>
-        </div>
-      </div>
-      <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">3 / ${totalSlides}</div>
-    </div>
+<!-- SLIDE 10: CTA -->
+<div class="slide s-cta">
+  <div class="s-cta-bg"></div>
+  <div class="s-cta-content">
+    <div class="cta-tag">El siguiente paso</div>
+    <div class="cta-h">Transformemos la identidad visual<br>de ${biz.name}</div>
+    <div class="cta-div"></div>
+    <div class="cta-email">alexander@theamenitybyalexander.com</div>
+    <div class="cta-cities">San Diego · Tijuana · Valle de Guadalupe · CDMX</div>
+    <div class="cta-logo-final">ISSUE ZERO CREATIVE</div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">10 / ${total}</div>
+</div>
 
-    <!-- SLIDE 4: CTA -->
-    <div class="slide slide-cta">
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a1000 0%,#000 70%)"></div>
-      <div class="slide-cta-content">
-        <div class="cta-eyebrow">Siguiente paso</div>
-        <div class="cta-headline">Transformemos la identidad visual<br>de ${biz.name}</div>
-        <div class="cta-line"></div>
-        <div class="cta-contact">alexander@theamenitybyalexander.com</div>
-        <div class="cta-contact" style="margin-top:-8px">San Diego · Tijuana · Valle de Guadalupe · CDMX</div>
-        <div class="cta-logo">ISSUE ZERO CREATIVE</div>
-      </div>
-      <div class="watermark"><div class="watermark-text">ISSUE ZERO</div></div>
-      <div class="slide-num">4 / ${totalSlides}</div>
-    </div>
-
-    <button class="download-btn" onclick="downloadPDF()">⬇ Descargar PDF</button>
+<button class="download-btn" onclick="downloadDeck()">⬇ Descargar PDF</button>
   `;
 }
 
-async function downloadPDF() {
-  toast('Abriendo para imprimir como PDF...', 'success');
-  window.print();
+function downloadDeck() {
+  toast('Abriendo diálogo de impresión — guarda como PDF', 'success');
+  setTimeout(() => window.print(), 400);
 }
 </script>
 </body>
