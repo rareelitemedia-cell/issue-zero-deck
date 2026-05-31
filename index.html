@@ -331,6 +331,103 @@ const WHY_IZ = [
   { title: "Especialistas por industria", sub: "No somos generalistas. Conocemos el lenguaje visual de tu sector." },
 ];
 
+/* ─── LANGUAGE DETECTION ────────────────────────────────────────────── */
+function isUSBusiness(location) {
+  if (!location) return false;
+  if (/united states|, usa\b|, u\.s\.a\./i.test(location)) return true;
+  if (/,\s*[A-Z]{2}\s+\d{5}/.test(location)) return true; // ", CA 92101"
+  return false;
+}
+
+/* ─── ENGLISH CONTENT CONSTANTS ─────────────────────────────────────── */
+const SERVICES_EN = {
+  medical_spa: [
+    {icon:"✦", name:"Clinical Digital Identity", desc:"Photorealistic treatment visuals without exposing your patients."},
+    {icon:"◈", name:"365-Day Content", desc:"A single shoot generates weeks of aspirational content for your social media."},
+    {icon:"◉", name:"Premium Brand Film", desc:"Brand video that positions you as the reference spa in your city."},
+    {icon:"◆", name:"AI Lookbook", desc:"Scalable visual campaigns that showcase results in an aspirational way."},
+  ],
+  cafe: [
+    {icon:"✦", name:"Editorial Photography", desc:"Ambiance and dishes in a magazine style — that makes people want to visit."},
+    {icon:"◈", name:"Brand Film", desc:"Cinematic video capturing the essence and atmosphere of your space."},
+    {icon:"◉", name:"High-Retention Reels", desc:"Content optimized for Instagram and TikTok that turns followers into customers."},
+    {icon:"◆", name:"AI Scale", desc:"From one shoot we generate weeks of content for all platforms."},
+  ],
+  restaurant: [
+    {icon:"✦", name:"Gastronomic Photography", desc:"Editorial dishes and space at international publication level."},
+    {icon:"◈", name:"Brand Film", desc:"Cinematic campaign that communicates your restaurant's full experience."},
+    {icon:"◉", name:"Premium Social Content", desc:"Reels and stories with a high-end food magazine aesthetic."},
+    {icon:"◆", name:"AI Scale", desc:"Multiple campaign variations from a single production session."},
+  ],
+  gym: [
+    {icon:"✦", name:"Aspirational Brand Film", desc:"Brand video that positions your gym as a premium lifestyle destination."},
+    {icon:"◈", name:"Editorial Photography", desc:"Space and services in an aspirational aesthetic — making people want to train there."},
+    {icon:"◉", name:"High-Retention Reels", desc:"Content that attracts new members and retains current ones."},
+    {icon:"◆", name:"AI Campaign", desc:"Infinite visual campaign variations from a single production."},
+  ],
+  bar: [
+    {icon:"✦", name:"Editorial Photography", desc:"Cocktails and ambiance in premium international publication aesthetics."},
+    {icon:"◈", name:"Night Brand Film", desc:"Cinematic video capturing the atmosphere and personality of your space."},
+    {icon:"◉", name:"Premium Social Content", desc:"Reels and stories that generate anticipation, desire, and bookings."},
+    {icon:"◆", name:"AI Scale", desc:"Complete visual campaign from a single production session."},
+  ],
+  small_business: [
+    {icon:"✦", name:"Editorial Photography", desc:"International-level brand imagery to stand out in your market."},
+    {icon:"◈", name:"Brand Film", desc:"Cinematic video that tells your business story memorably."},
+    {icon:"◉", name:"Digital Visual Identity", desc:"Premium content for social media and digital platforms."},
+    {icon:"◆", name:"AI Scale", desc:"Maximum content volume with minimum production investment."},
+  ],
+};
+
+const PROBLEMS_EN = {
+  medical_spa: [
+    "Your current content doesn't reflect the level of service you offer",
+    "Generic photos don't generate trust or booking urgency",
+    "Your competition looks the same — no clear visual differentiation",
+    "Producing quality content consistently drains time and budget",
+  ],
+  cafe: [
+    "Your space is beautiful but the photos don't do it justice",
+    "Inconsistent content slows organic growth on Instagram",
+    "There's no clear visual identity to differentiate you from the competition",
+    "Producing quality content requires time you simply don't have",
+  ],
+  restaurant: [
+    "Average food photos don't trigger the desire to visit your restaurant",
+    "Without premium visual content, reservations depend on word of mouth",
+    "Culinary competition in the city is fierce — you need to stand out",
+    "A traditional professional shoot is expensive and delivers few assets",
+  ],
+  gym: [
+    "Generic fitness content doesn't emotionally connect with your audience",
+    "Without a strong visual identity, new members choose the competitor",
+    "Equipment and space photos don't inspire or motivate",
+    "Producing consistent quality content is unfeasible without a dedicated team",
+  ],
+  bar: [
+    "The ambiance you create at night isn't reflected in your digital presence",
+    "Without premium visual content, your bar doesn't build anticipation before the visit",
+    "Competition in nightlife is decided by image first",
+    "A single traditional shoot delivers too few assets for a full month of content",
+  ],
+  small_business: [
+    "Your value proposition is solid but your image doesn't communicate it",
+    "Without consistent visual content, it's hard to grow on digital channels",
+    "Traditional production is expensive and delivers limited results",
+    "Without a clear visual identity, the business doesn't scale in the market",
+  ],
+};
+
+const WHY_IZ_EN = [
+  { title: "TJ / SD Border", sub: "International-level production at local market costs. The best of both economies." },
+  { title: "Real + AI Hybrid", sub: "Real cinematic capture amplified with generative AI — unique in the region." },
+  { title: "12× assets per shoot", sub: "A single day of production generates weeks of content across all platforms." },
+  { title: "Fast delivery", sub: "From proposal to final delivery in days, not weeks." },
+  { title: "Industry specialists", sub: "We're not generalists. We know the visual language of your sector." },
+];
+
+const CAT_LABELS_EN = { medical_spa:"Medical Spa", cafe:"Café", restaurant:"Restaurant", gym:"Gym", bar:"Bar / Cocktail Bar", small_business:"Business" };
+
 /* ─── EDITORIAL TONES PER CATEGORY ─────────────────────────────────── */
 const EDITORIAL_TONES = {
   medical_spa: [
@@ -377,32 +474,98 @@ const EDITORIAL_TONES = {
   ],
 };
 
-/* ─── COLOR DESCRIPTION FROM HEX ───────────────────────────────────── */
-function colorDescription(hex) {
+const EDITORIAL_TONES_EN = {
+  medical_spa: [
+    { hex: '#F5EFE6', name: 'Clinical cream' },
+    { hex: '#C9A87A', name: 'Soft gold' },
+    { hex: '#2C2420', name: 'Obsidian base' },
+    { hex: '#B8A898', name: 'Aspirational linen' },
+    { hex: '#8B7560', name: 'Editorial bronze' },
+  ],
+  cafe: [
+    { hex: '#6B4226', name: 'Deep espresso' },
+    { hex: '#D4A96A', name: 'Golden caramel' },
+    { hex: '#F2EDE4', name: 'Milk cream' },
+    { hex: '#3D2B1A', name: 'Dark wood' },
+    { hex: '#8A9E7A', name: 'Garden green' },
+  ],
+  restaurant: [
+    { hex: '#1C1008', name: 'Gastro black' },
+    { hex: '#C9902A', name: 'Table gold' },
+    { hex: '#7A2020', name: 'Red wine' },
+    { hex: '#E8D5A3', name: 'Editorial linen' },
+    { hex: '#4A3520', name: 'Premium wood' },
+  ],
+  gym: [
+    { hex: '#1A1A2E', name: 'Night blue' },
+    { hex: '#C9A84C', name: 'Performance gold' },
+    { hex: '#2C2C2C', name: 'Graphite base' },
+    { hex: '#E0E0E0', name: 'Athletic white' },
+    { hex: '#4A82C0', name: 'Electric steel' },
+  ],
+  bar: [
+    { hex: '#0D0D1A', name: 'Midnight blue' },
+    { hex: '#D4893A', name: 'Cocktail amber' },
+    { hex: '#8B1A1A', name: 'Bar red' },
+    { hex: '#C9A84C', name: 'Night gold' },
+    { hex: '#0A0A0A', name: 'Bar black' },
+  ],
+  small_business: [
+    { hex: '#C9A84C', name: 'Editorial gold' },
+    { hex: '#1C1C1C', name: 'Cinematic black' },
+    { hex: '#F0EDE8', name: 'Editorial white' },
+    { hex: '#8B7355', name: 'Premium earth' },
+    { hex: '#484848', name: 'Lattice grey' },
+  ],
+};
+
+
+function colorDescription(hex, lang = 'es') {
   const r = parseInt(hex.slice(1,3),16);
   const g = parseInt(hex.slice(3,5),16);
   const b = parseInt(hex.slice(5,7),16);
   const max = Math.max(r,g,b), min = Math.min(r,g,b);
   const l = (max+min)/2/255;
+  const N = {
+    blackBase:  { es:'Negro base',       en:'Base black' },
+    darkGrey:   { es:'Gris oscuro',      en:'Dark grey' },
+    midGrey:    { es:'Gris medio',       en:'Mid grey' },
+    whiteNeut:  { es:'Blanco neutro',    en:'Neutral white' },
+    blackDeep:  { es:'Negro profundo',   en:'Deep black' },
+    whiteEdit:  { es:'Blanco editorial', en:'Editorial white' },
+    greyChar:   { es:'Gris carbón',      en:'Charcoal' },
+    greySilv:   { es:'Gris plata',       en:'Silver grey' },
+    redVib:     { es:'Rojo vibrante',    en:'Vibrant red' },
+    orangeWarm: { es:'Naranja cálido',   en:'Warm orange' },
+    goldAmb:    { es:'Dorado ámbar',     en:'Golden amber' },
+    greenNat:   { es:'Verde natural',    en:'Natural green' },
+    greenWat:   { es:'Verde agua',       en:'Water teal' },
+    blueEdit:   { es:'Azul editorial',   en:'Editorial blue' },
+    blueMar:    { es:'Azul marino',      en:'Navy blue' },
+    violSoft:   { es:'Violeta suave',    en:'Soft violet' },
+    roseEdit:   { es:'Rosa editorial',   en:'Editorial rose' },
+    wineDeep:   { es:'Vino profundo',    en:'Deep wine' },
+  };
+  const pick = (k) => N[k]?.[lang] || hex;
   if (max === min) {
-    return l < 0.12 ? 'Negro base' : l < 0.38 ? 'Gris oscuro' : l < 0.65 ? 'Gris medio' : 'Blanco neutro';
+    return pick(l < 0.12 ? 'blackBase' : l < 0.38 ? 'darkGrey' : l < 0.65 ? 'midGrey' : 'whiteNeut');
   }
   const s = (max-min) / (l < 0.5 ? max+min : 510-max-min);
   let h = max===r ? (g-b)/(max-min)*60 : max===g ? 120+(b-r)/(max-min)*60 : 240+(r-g)/(max-min)*60;
   h = (h+360)%360;
-  if (l < 0.10) return 'Negro profundo';
-  if (l > 0.90) return 'Blanco editorial';
-  if (s < 0.10) return l < 0.35 ? 'Gris carbón' : 'Gris plata';
-  if (h < 22)  return 'Rojo vibrante';
-  if (h < 50)  return 'Naranja cálido';
-  if (h < 80)  return 'Dorado ámbar';
-  if (h < 155) return 'Verde natural';
-  if (h < 195) return 'Verde agua';
-  if (h < 245) return 'Azul editorial';
-  if (h < 275) return 'Azul marino';
-  if (h < 305) return 'Violeta suave';
-  if (h < 335) return 'Rosa editorial';
-  return 'Vino profundo';
+  if (l < 0.10) return pick('blackDeep');
+  if (l > 0.90) return pick('whiteEdit');
+  if (s < 0.10) return pick(l < 0.35 ? 'greyChar' : 'greySilv');
+  if (h < 22)  return pick('redVib');
+  if (h < 50)  return pick('orangeWarm');
+  if (h < 80)  return pick('goldAmb');
+  if (h < 155) return pick('greenNat');
+  if (h < 195) return pick('greenWat');
+  if (h < 245) return pick('blueEdit');
+  if (h < 275) return pick('blueMar');
+  if (h < 305) return pick('violSoft');
+  if (h < 335) return pick('roseEdit');
+  return pick('wineDeep');
 }
 
 /* ─── DOMINANT COLOR EXTRACTOR ──────────────────────────────────────── */
@@ -578,9 +741,97 @@ function renderDeckPreview(extractedColors = []) {
   const biz = currentBiz;
   const right = document.getElementById('right-panel');
   const today = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long' });
-  const services = SERVICES[biz.category] || SERVICES.small_business;
-  const problems = PROBLEMS[biz.category] || PROBLEMS.small_business;
-  const tones    = EDITORIAL_TONES[biz.category] || EDITORIAL_TONES.small_business;
+  // ── Language detection ──────────────────────────────────────────
+  const isUS = isUSBusiness(biz.location);
+  const lang  = isUS ? 'en' : 'es';
+
+  const services = (isUS ? SERVICES_EN : SERVICES)[biz.category] || (isUS ? SERVICES_EN : SERVICES).small_business;
+  const problems = (isUS ? PROBLEMS_EN : PROBLEMS)[biz.category] || (isUS ? PROBLEMS_EN : PROBLEMS).small_business;
+  const tones    = (isUS ? EDITORIAL_TONES_EN : EDITORIAL_TONES)[biz.category] || (isUS ? EDITORIAL_TONES_EN : EDITORIAL_TONES).small_business;
+  const whyList  = isUS ? WHY_IZ_EN : WHY_IZ;
+
+  // Translation strings
+  const t = isUS ? {
+    confidential:    'CONFIDENTIAL PROPOSAL',
+    proposalFor:     'Custom Visual Proposal for',
+    contextTitle:    'The Context',
+    contextHeadline: 'Your business deserves a visual presence that matches the quality of your service.',
+    contextBody:     "In a market where first impressions happen in the feed before the physical visit, visual content is not a luxury — it's sales infrastructure. And most businesses in the region are operating with visual assets that don't reflect the real quality of what they offer.",
+    currentContent:  'Current content —',
+    visualOppty:     'Visual improvement opportunity',
+    reviews:         (n, r) => `★ ${r} · ${n} reviews on Google`,
+    colorTitle:      'Color Identity',
+    colorHeadline:   'We know your brand before stepping into the space.',
+    colorBody:       "Before photographing, we analyze the real chromatic language of your space. This allows us to create content that feels native to your identity — not a generic campaign layered on top.",
+    colorNote:       'The editorial tones we propose emerge from the intersection of your current palette and the Issue Zero Creative visual language.',
+    detectedPalette: 'Detected palette from the space',
+    editorialTones:  'Editorial tones — Issue Zero',
+    paletteCap:      'Curatorial palette applied in post-production · Issue Zero Creative',
+    noPhotos:        'No photos available for analysis',
+    afterLabel:      '✦ Issue Zero Creative — After',
+    afterCap:        'Real cinematography + AI · Issue Zero',
+    proposalFor2:    'Our proposal for',
+    howWeWork:       'How We Work',
+    step1n: 'Creative Concept',    step1d: 'We develop the complete visual concept: moodboard, locations, references and shoot plan tailored to your brand.',
+    step2n: 'Hybrid Production',   step2d: "A day of real cinematic shooting with international-level equipment. We capture all the high-quality base material.",
+    step3n: 'AI Scale',            step3d: 'We apply generative AI models to multiply visual assets: variations, formats, styles and versions for each platform.',
+    step4n: 'Premium Delivery',    step4d: 'You receive a complete package of publish-ready assets: photos, videos, reels and variations — weeks of content from a single shoot.',
+    effTitle:  'The Issue Zero Efficiency Equation',
+    eff1l: 'Budget optimization',  eff1s: 'vs traditional production at the same level',
+    eff2l: 'Asset multiplier',     eff2s: 'from one shoot you get weeks of content',
+    eff3l: 'Delivery quality',     eff3s: 'premium resolution assets ready for any use',
+    effCap: 'One shoot, infinite commercial realities. Museum-level visual foundations powered by generative models.',
+    testimonialAuthor: 'Verified client · Issue Zero Creative',
+    whyTitle:    'Why Issue Zero',
+    whyHeadline: 'The only boutique agency on the border combining real cinematography with generative AI.',
+    whyBody:     'We operate between San Diego, Tijuana, Valle de Guadalupe and CDMX. We have access to the best creative talent on both sides of the border, with the flexibility of a boutique agency and the quality of an international production company.',
+    reviewsOf:   'What they say about',
+    reviewsAt:   (r, n) => `★ ${r} on Google`,
+    reviewsCap:  'Imagine what these reviews would look like paired with international-level visual content.',
+    verifiedAt:  'Verified customer on Google',
+    nextStep:    'Next Step',
+    ctaHeadline: "Let's transform the visual identity<br>of",
+  } : {
+    confidential:    'PROPUESTA CONFIDENCIAL',
+    proposalFor:     'Propuesta Visual Personalizada para',
+    contextTitle:    'El contexto',
+    contextHeadline: 'Tu negocio merece una presencia visual que esté a la altura de tu servicio.',
+    contextBody:     'En un mercado donde la primera impresión ocurre en el feed antes de la visita física, el contenido visual no es un lujo — es infraestructura de ventas. Y la mayoría de los negocios en la región están operando con activos visuales que no reflejan la calidad real de lo que ofrecen.',
+    currentContent:  'Contenido actual —',
+    visualOppty:     'Oportunidad de mejora visual',
+    reviews:         (n, r) => `★ ${r} · ${n} reseñas en Google`,
+    colorTitle:      'Identidad de color',
+    colorHeadline:   'Conocemos tu marca antes de entrar al espacio.',
+    colorBody:       'Antes de fotografiar, analizamos el lenguaje cromático real de tu negocio. Esto nos permite crear contenido que se siente nativo a tu identidad — no una campaña genérica superpuesta.',
+    colorNote:       'Los tonos editoriales que proponemos nacen de la intersección entre tu paleta actual y el lenguaje visual de Issue Zero Creative.',
+    detectedPalette: 'Paleta detectada del espacio',
+    editorialTones:  'Tonos editoriales — Issue Zero',
+    paletteCap:      'Paleta curatorial aplicada en posproducción · Issue Zero Creative',
+    noPhotos:        'Sin fotos disponibles para análisis',
+    afterLabel:      '✦ Issue Zero Creative — Después',
+    afterCap:        'Cinematografía real + IA · Issue Zero',
+    proposalFor2:    'Nuestra propuesta para',
+    howWeWork:       'Cómo trabajamos',
+    step1n: 'Concepto Creativo',    step1d: 'Desarrollamos el concepto visual completo: moodboard, locaciones, referencias y plan de shoot adaptado a tu marca.',
+    step2n: 'Producción Híbrida',   step2d: 'Un día de shoot cinematográfico real con equipo de nivel internacional. Capturamos todo el material base de alta calidad.',
+    step3n: 'Escalado con IA',      step3d: 'Aplicamos modelos generativos de IA para multiplicar los activos visuales: variaciones, formatos, estilos y versiones para cada plataforma.',
+    step4n: 'Entrega Premium',      step4d: 'Recibes un paquete completo de activos listos para publicar: fotos, videos, reels y variaciones — semanas de contenido de un solo shoot.',
+    effTitle:  'La ecuación de eficiencia Issue Zero',
+    eff1l: 'Optimización de presupuesto', eff1s: 'vs producción tradicional del mismo nivel',
+    eff2l: 'Multiplicador de activos',    eff2s: 'de un solo shoot obtienes semanas de contenido',
+    eff3l: 'Calidad de entrega',          eff3s: 'activos en resolución premium listos para cualquier uso',
+    effCap: 'Un solo shoot, infinitas realidades comerciales. Cimientos visuales de nivel de museo impulsados por modelos generativos.',
+    testimonialAuthor: 'Cliente verificado · Issue Zero Creative',
+    whyTitle:    'Por qué Issue Zero',
+    whyHeadline: 'La única agencia boutique en la frontera que combina cinematografía real con IA generativa.',
+    whyBody:     'Operamos entre San Diego, Tijuana, Valle de Guadalupe y CDMX. Tenemos acceso a los mejores talentos creativos de ambos lados de la frontera, con la flexibilidad de una agencia boutique y la calidad de una productora internacional.',
+    reviewsOf:   'Lo que dicen de',
+    reviewsAt:   (r, n) => `★ ${r} en Google`,
+    reviewsCap:  'Imagina cómo se verían estas reseñas acompañadas de contenido visual de nivel internacional.',
+    verifiedAt:  'Cliente verificado en Google',
+    nextStep:    'El siguiente paso',
+    ctaHeadline: 'Transformemos la identidad visual<br>de',
+  };
   const afterUrls = getAfterUrls();
 
   // Slide 4 always present; total = 11 base + 1 if afters
@@ -595,18 +846,22 @@ function renderDeckPreview(extractedColors = []) {
     <div class="review-card">
       <div class="rc-stars">${stars(r.rating)}</div>
       <div class="rc-text">"${r.text ? (r.text.length > 150 ? r.text.slice(0,150)+'...' : r.text) : 'Reseña positiva.'}"</div>
-      <div class="rc-author">— ${r.author || 'Cliente verificado'} en Google</div>
+      <div class="rc-author">— ${r.author || (isUS ? 'Verified customer' : 'Cliente verificado')} ${isUS ? 'on Google' : 'en Google'}</div>
     </div>
   `).join('') || `
-    <div class="review-card"><div class="rc-stars">★★★★★</div><div class="rc-text">"Excelente servicio y atención al detalle."</div><div class="rc-author">— Cliente verificado en Google</div></div>
+    ${isUS
+      ? `<div class="review-card"><div class="rc-stars">★★★★★</div><div class="rc-text">"Excellent service and attention to detail."</div><div class="rc-author">— Verified customer on Google</div></div>
+    <div class="review-card"><div class="rc-stars">★★★★★</div><div class="rc-text">"Best in the city, highly recommend."</div><div class="rc-author">— Verified customer on Google</div></div>
+    <div class="review-card"><div class="rc-stars">★★★★☆</div><div class="rc-text">"Great experience, I'll definitely be back."</div><div class="rc-author">— Verified customer on Google</div></div>`
+      : `<div class="review-card"><div class="rc-stars">★★★★★</div><div class="rc-text">"Excelente servicio y atención al detalle."</div><div class="rc-author">— Cliente verificado en Google</div></div>
     <div class="review-card"><div class="rc-stars">★★★★★</div><div class="rc-text">"Lo mejor de la ciudad, lo recomiendo ampliamente."</div><div class="rc-author">— Cliente verificado en Google</div></div>
-    <div class="review-card"><div class="rc-stars">★★★★☆</div><div class="rc-text">"Gran experiencia, definitivamente regreso."</div><div class="rc-author">— Cliente verificado en Google</div></div>
+    <div class="review-card"><div class="rc-stars">★★★★☆</div><div class="rc-text">"Gran experiencia, definitivamente regreso."</div><div class="rc-author">— Cliente verificado en Google</div></div>`}
   `;
 
   // Build color chip HTML
   const makeChips = (colors) => colors.map(c => {
     const hex   = typeof c === 'string' ? c : c.hex;
-    const label = typeof c === 'string' ? colorDescription(hex) : c.name;
+    const label = typeof c === 'string' ? colorDescription(hex, lang) : c.name;
     return `<div class="pal-chip">
       <div class="pal-chip-color" style="background:${hex}"></div>
       <div class="pal-chip-hex">${hex}</div>
@@ -626,7 +881,7 @@ function renderDeckPreview(extractedColors = []) {
       <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;letter-spacing:0.15em">PROPUESTA CONFIDENCIAL</div>
     </div>
     <div>
-      <div style="font-size:clamp(7px,1vw,11px);color:rgba(201,168,76,0.6);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:6px">Propuesta Visual Personalizada para</div>
+      <div style="font-size:clamp(7px,1vw,11px);color:rgba(201,168,76,0.6);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:6px">${t.proposalFor}</div>
       <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:12px"></div>
       <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,4.5vw,50px);color:#fff;line-height:1.05">${biz.name}</div>
       <div style="margin-top:8px;font-size:clamp(7px,1vw,11px);color:#3a3a3a;letter-spacing:0.1em">${biz.location}</div>
@@ -644,7 +899,7 @@ function renderDeckPreview(extractedColors = []) {
 <div class="slide s-problem">
   <div class="s-problem-content">
     <div class="s-problem-left">
-      <div class="eyebrow">El contexto</div>
+      <div class="eyebrow">${t.contextTitle}</div>
       <div class="headline">Tu negocio merece una presencia visual que esté a la altura de tu servicio.</div>
       <div class="body-text">En un mercado donde la primera impresión ocurre en el feed antes de la visita física, el contenido visual no es un lujo — es infraestructura de ventas. Y la mayoría de los negocios en la región están operando con activos visuales que no reflejan la calidad real de lo que ofrecen.</div>
     </div>
@@ -661,8 +916,8 @@ function renderDeckPreview(extractedColors = []) {
   <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.85);border:1px solid #222;border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#444;letter-spacing:0.15em;text-transform:uppercase">Contenido actual — ${biz.name}</div>
   <div class="s-before-photos">${beforePhotos}</div>
   <div style="position:absolute;bottom:4%;left:4%;right:4%;display:flex;justify-content:space-between;align-items:center;z-index:3">
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,20px);color:#444;font-style:italic">Oportunidad de mejora visual</div>
-    <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;letter-spacing:0.1em">★ ${biz.rating} · ${biz.reviews_count} reseñas en Google</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,20px);color:#444;font-style:italic">${t.visualOppty}</div>
+    <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;letter-spacing:0.1em">${t.reviews(biz.reviews_count, biz.rating)}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
   <div class="sn">3 / ${total}</div>
@@ -677,17 +932,17 @@ function renderDeckPreview(extractedColors = []) {
 
     <!-- LEFT: copy -->
     <div class="pal-left">
-      <div class="eyebrow">Identidad de color · ${biz.name}</div>
+      <div class="eyebrow">${t.colorTitle} · ${biz.name}</div>
       <div class="headline" style="font-size:clamp(13px,2.4vw,28px);margin-bottom:5%">Conocemos tu marca antes de entrar al espacio.</div>
       <div class="body-text">Antes de fotografiar, analizamos el lenguaje cromático real de tu negocio. Esto nos permite crear contenido que se siente nativo a tu identidad — no una campaña genérica superpuesta.</div>
-      <div class="pal-note">Los tonos editoriales que proponemos nacen de la intersección entre tu paleta actual y el lenguaje visual de Issue Zero Creative.</div>
+      <div class="pal-note">${t.colorNote}</div>
     </div>
 
     <!-- RIGHT: swatches -->
     <div class="pal-right">
 
       <div>
-        <div class="pal-section-label">Paleta detectada del espacio</div>
+        <div class="pal-section-label">${t.detectedPalette}</div>
         <div class="pal-chips">
           ${extractedColors.length > 0 ? makeChips(extractedColors) : `<div style="font-size:clamp(6px,0.8vw,9px);color:#333;font-style:italic">Sin fotos disponibles para análisis</div>`}
         </div>
@@ -699,7 +954,7 @@ function renderDeckPreview(extractedColors = []) {
         <div class="pal-section-label">Tonos editoriales — Issue Zero</div>
         <div class="pal-chips">${makeChips(tones)}</div>
         <div style="font-size:clamp(5px,0.65vw,7px);color:#1e1e1e;margin-top:clamp(4px,0.8%,10px);line-height:1.6;font-style:italic">
-          Paleta curatorial aplicada en posproducción · Issue Zero Creative
+          ${t.paletteCap}
         </div>
       </div>
 
@@ -749,7 +1004,7 @@ ${afterUrls.length > 0 ? `
 <div class="slide s-process">
   <div class="s-process-content">
     <div>
-      <div class="eyebrow">Cómo trabajamos</div>
+      <div class="eyebrow">${t.howWeWork}</div>
       <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
     </div>
     <div class="process-steps">
@@ -834,12 +1089,12 @@ ${afterUrls.length > 0 ? `
 <div class="slide s-why">
   <div class="s-why-content">
     <div class="why-left">
-      <div class="eyebrow">Por qué Issue Zero</div>
+      <div class="eyebrow">${t.whyTitle}</div>
       <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.8vw,32px);color:#fff;line-height:1.2;margin:4% 0">La única agencia boutique en la frontera que combina cinematografía real con IA generativa.</div>
       <div style="font-size:clamp(6px,0.85vw,9px);color:#444;line-height:1.8">Operamos entre San Diego, Tijuana, Valle de Guadalupe y CDMX. Tenemos acceso a los mejores talentos creativos de ambos lados de la frontera, con la flexibilidad de una agencia boutique y la calidad de una productora internacional.</div>
     </div>
     <div class="why-right">
-      ${WHY_IZ.map(w => `
+      ${whyList.map(w => `
         <div class="why-item">
           <div class="why-check">✦</div>
           <div>
@@ -858,11 +1113,11 @@ ${afterUrls.length > 0 ? `
 <div class="slide s-reviews">
   <div class="s-reviews-content">
     <div>
-      <div class="eyebrow">Lo que dicen de ${biz.name} · ${stars(biz.rating)} ${biz.rating} en Google</div>
+      <div class="eyebrow">${t.reviewsOf} ${biz.name} · ${stars(biz.rating)} ${t.reviewsAt(biz.rating)}</div>
       <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
     </div>
     <div class="reviews-grid">${reviewCards}</div>
-    <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;text-align:center;padding-top:2%">Imagina cómo se verían estas reseñas acompañadas de contenido visual de nivel internacional.</div>
+    <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;text-align:center;padding-top:2%">${t.reviewsCap}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
   <div class="sn">10 / ${total}</div>
@@ -872,8 +1127,8 @@ ${afterUrls.length > 0 ? `
 <div class="slide s-cta">
   <div class="s-cta-bg"></div>
   <div class="s-cta-content">
-    <div class="cta-tag">El siguiente paso</div>
-    <div class="cta-h">Transformemos la identidad visual<br>de ${biz.name}</div>
+    <div class="cta-tag">${t.nextStep}</div>
+    <div class="cta-h">${t.ctaHeadline} ${biz.name}</div>
     <div class="cta-div"></div>
     <div class="cta-email">alexander@theamenitybyalexander.com</div>
     <div class="cta-cities">San Diego · Tijuana · Valle de Guadalupe · CDMX</div>
