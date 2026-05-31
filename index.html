@@ -411,7 +411,8 @@ function renderDeckPreview() {
   const today = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long' });
   const services = SERVICES[biz.category] || SERVICES.small_business;
   const problems = PROBLEMS[biz.category] || PROBLEMS.small_business;
-  const total = 10;
+  const afterUrls = getAfterUrls();
+  const total = 10 + afterUrls.length;
 
   const beforePhotos = (biz.photos || []).slice(0,3).map(p =>
     `<div class="before-photo"><img src="${p}" alt="" /></div>`
@@ -482,6 +483,22 @@ function renderDeckPreview() {
   <div class="wm"><span>ISSUE ZERO</span></div>
   <div class="sn">3 / ${total}</div>
 </div>
+
+${afterUrls.map((url, i) => `
+<div class="slide" style="background:#050505;">
+  <div style="position:absolute;inset:0;"><img src="${url}" alt="" style="width:100%;height:100%;object-fit:cover;" /></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);"></div>
+  <div style="position:absolute;top:4%;left:4%;background:rgba(0,0,0,0.8);border:1px solid rgba(201,168,76,0.4);border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#c9a84c;letter-spacing:0.15em;text-transform:uppercase;z-index:3;">✦ Issue Zero Creative — Después</div>
+  <div style="position:absolute;bottom:5%;left:5%;right:5%;display:flex;justify-content:space-between;align-items:flex-end;z-index:3;">
+    <div>
+      <div style="font-size:clamp(6px,0.8vw,9px);color:rgba(201,168,76,0.7);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px;">${['Cinematografía real + IA','Identidad visual premium','Producción editorial'][i] || 'Issue Zero Creative'}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,22px);color:#fff;font-style:italic;">${biz.name}</div>
+    </div>
+    <div style="font-family:'Archivo Black',sans-serif;font-size:clamp(20px,4vw,50px);color:rgba(201,168,76,0.1);">0${i+1}</div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+</div>
+`).join('')}
 
 <!-- SLIDE 4: LA SOLUCIÓN -->
 <div class="slide s-solution">
@@ -653,10 +670,16 @@ async function downloadDeck() {
 
   const btn = document.querySelector('.download-btn');
   btn.disabled = true;
-  btn.textContent = '⟳ Procesando...';
-  toast('Generando PDF...', 'success');
+  btn.textContent = '⟳ Cargando...';
+  toast('Cargando librerías PDF...', 'success');
 
   try {
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    
+    btn.textContent = '⟳ Procesando...';
+    toast('Generando PDF...', 'success');
+
     const { jsPDF } = window.jspdf;
     const W = 1280, H = 720;
     const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [W, H], compress: true });
