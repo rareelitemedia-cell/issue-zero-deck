@@ -815,13 +815,16 @@ async function searchBusiness() {
   const btn = document.getElementById('search-btn');
   btn.disabled = true; btn.textContent = '...';
   cachedColors = []; // reset color cache for new business
+  console.log('[IZ Deck] Attempting fetch to:', WORKER_URL);
   try {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-action': 'deck-search' },
       body: JSON.stringify({ name })
     });
+    console.log('[IZ Deck] Response status:', res.status, res.ok);
     const data = await res.json();
+    console.log('[IZ Deck] Data received:', data);
     if (data.error) throw new Error(data.error);
     currentBiz = data;
     renderBizInfo();
