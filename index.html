@@ -1054,7 +1054,25 @@ function renderDeckPreview(extractedColors = []) {
     </div>`;
   }).join('');
 
-  right.innerHTML = `
+  // Pre-compute pricing cards using string concat (avoids nested backtick issues)
+  const _pi = getPricingInputs();
+  const _pd = PKG_DELIVERABLES[lang];
+  const _mkBullet = (b) => '<div class="pkg-bullet"><span class="pkg-check">\u2746</span>' + b + '</div>';
+  const _mkCard = (name, price, bullets, featured) =>
+    '<div class="pkg-card' + (featured ? ' featured' : '') + '">' +
+    (featured ? '<div class="pkg-badge">' + t.recommended + '</div>' : '') +
+    '<div class="pkg-name">' + name + '</div>' +
+    '<div class="pkg-price">' + price + '</div>' +
+    '<div class="pkg-period">' + t.perSession + '</div>' +
+    '<div class="pkg-divider"></div>' +
+    '<div class="pkg-bullets">' + bullets.map(_mkBullet).join('') + '</div>' +
+    '</div>';
+  const pricingCardsHTML =
+    _mkCard(_pi.p1name, _pi.p1price, _pd.p1, false) +
+    _mkCard(_pi.p2name, _pi.p2price, _pd.p2, true) +
+    _mkCard(_pi.p3name, _pi.p3price, _pd.p3, false);
+
+  right.innerHTML = \`
 <!-- SLIDE 1: COVER -->
 <div class="slide s-cover">
   <div class="s-cover-bg"></div>
@@ -1318,35 +1336,7 @@ ${afterUrls.length > 0 ? `
       <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
     </div>
     <div class="pricing-cards">
-      ${(() => {
-        const p = getPricingInputs();
-        const d = PKG_DELIVERABLES[lang];
-        const mkBullets = (arr) => arr.map(b => `<div class="pkg-bullet"><span class="pkg-check">✦</span>${b}</div>`).join('');
-        return `
-          <div class="pkg-card">
-            <div class="pkg-name">${p.p1name}</div>
-            <div class="pkg-price">${p.p1price}</div>
-            <div class="pkg-period">${t.perSession}</div>
-            <div class="pkg-divider"></div>
-            <div class="pkg-bullets">${mkBullets(d.p1)}</div>
-          </div>
-          <div class="pkg-card featured">
-            <div class="pkg-badge">${t.recommended}</div>
-            <div class="pkg-name">${p.p2name}</div>
-            <div class="pkg-price">${p.p2price}</div>
-            <div class="pkg-period">${t.perSession}</div>
-            <div class="pkg-divider"></div>
-            <div class="pkg-bullets">${mkBullets(d.p2)}</div>
-          </div>
-          <div class="pkg-card">
-            <div class="pkg-name">${p.p3name}</div>
-            <div class="pkg-price">${p.p3price}</div>
-            <div class="pkg-period">${t.perSession}</div>
-            <div class="pkg-divider"></div>
-            <div class="pkg-bullets">${mkBullets(d.p3)}</div>
-          </div>
-        `;
-      })()}
+      ${pricingCardsHTML}
     </div>
     <div class="pricing-note">${t.investSub}</div>
   </div>
