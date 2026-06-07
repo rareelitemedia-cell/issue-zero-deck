@@ -156,6 +156,24 @@
   .cta-email { font-size: clamp(8px, 1.2vw, 13px); color: #777; letter-spacing: 0.1em; }
   .cta-cities { font-size: clamp(7px, 0.9vw, 10px); color: #3a3a3a; letter-spacing: 0.12em; }
   .cta-logo-final { font-family: 'Archivo Black', sans-serif; font-size: clamp(11px, 2vw, 20px); color: var(--gold); letter-spacing: 0.2em; margin-top: 1%; }
+  /* Slide 12 — Pricing / Investment */
+  .s-pricing { background: #040404; }
+  .s-pricing-content { position: absolute; inset: 0; padding: 5% 5% 4%; display: flex; flex-direction: column; }
+  .pricing-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5%; flex: 1; margin-top: 3.5%; }
+  .pkg-card { border: 1px solid #1a1a1a; border-radius: 6px; padding: 5% 5% 4%; display: flex; flex-direction: column; background: rgba(255,255,255,0.015); position: relative; }
+  .pkg-card.featured { border-color: rgba(201,168,76,0.45); background: rgba(201,168,76,0.03); box-shadow: 0 0 28px rgba(201,168,76,0.06); }
+  .pkg-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; font-family: 'DM Mono', monospace; font-size: clamp(5px,0.6vw,7px); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 2px 10px; border-radius: 0 0 4px 4px; white-space: nowrap; }
+  .pkg-name { font-family: 'Archivo Black', sans-serif; font-size: clamp(8px,1.2vw,13px); color: #888; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4%; }
+  .pkg-card.featured .pkg-name { color: var(--gold); }
+  .pkg-price { font-family: 'Playfair Display', serif; font-size: clamp(18px,3.2vw,38px); color: #fff; line-height: 1; margin-bottom: 2%; }
+  .pkg-period { font-size: clamp(5px,0.7vw,8px); color: #333; letter-spacing: 0.1em; margin-bottom: 5%; }
+  .pkg-divider { height: 1px; background: #1a1a1a; margin-bottom: 5%; }
+  .pkg-card.featured .pkg-divider { background: rgba(201,168,76,0.2); }
+  .pkg-bullets { flex: 1; display: flex; flex-direction: column; gap: clamp(3px,0.6vw,7px); }
+  .pkg-bullet { display: flex; align-items: flex-start; gap: 6px; font-size: clamp(5px,0.72vw,8.5px); color: #555; line-height: 1.5; }
+  .pkg-card.featured .pkg-bullet { color: #777; }
+  .pkg-check { color: var(--gold); font-size: clamp(5px,0.65vw,8px); flex-shrink: 0; opacity: 0.7; margin-top: 1px; }
+  .pricing-note { font-size: clamp(5px,0.65vw,7px); color: #1e1e1e; text-align: center; margin-top: 2.5%; font-style: italic; letter-spacing: 0.08em; }
   /* Download */
   .download-btn { background: linear-gradient(135deg, var(--gold), #a87830); border: none; border-radius: 8px; color: #000; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; padding: 12px 32px; cursor: pointer; letter-spacing: 0.08em; margin-top: 8px; transition: opacity 0.2s; }
   .download-btn:hover { opacity: 0.88; }
@@ -219,6 +237,31 @@
       </div>
       <div style="font-size:8px;color:#333;margin-top:8px;line-height:1.6">Pega las URLs de las imágenes generadas en Higgsfield. Se agregan como slides al deck y al PDF.</div>
     </div>
+    <!-- PRICING SECTION -->
+    <div id="pricing-section" style="display:none;padding:0 16px 12px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase">Inversión / Paquetes</div>
+        <button onclick="suggestPricing()" style="background:none;border:1px solid var(--border2);border-radius:4px;color:var(--gold);font-family:'DM Mono',monospace;font-size:8px;padding:3px 8px;cursor:pointer;letter-spacing:0.08em">✦ Sugerir</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="font-size:8px;color:#333;letter-spacing:0.1em;text-transform:uppercase;margin-top:2px">Starter</div>
+        <div style="display:flex;gap:5px">
+          <input class="input-base" id="pkg1-name" placeholder="Issue Zero Starter" style="font-size:9px;padding:6px 8px;flex:1.4" />
+          <input class="input-base" id="pkg1-price" placeholder="$8,000" style="font-size:9px;padding:6px 8px;flex:1" />
+        </div>
+        <div style="font-size:8px;color:#333;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px">Studio</div>
+        <div style="display:flex;gap:5px">
+          <input class="input-base" id="pkg2-name" placeholder="Issue Zero Studio" style="font-size:9px;padding:6px 8px;flex:1.4" />
+          <input class="input-base" id="pkg2-price" placeholder="$18,000" style="font-size:9px;padding:6px 8px;flex:1" />
+        </div>
+        <div style="font-size:8px;color:#333;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px">Signature ✦</div>
+        <div style="display:flex;gap:5px">
+          <input class="input-base" id="pkg3-name" placeholder="Issue Zero Signature" style="font-size:9px;padding:6px 8px;flex:1.4" />
+          <input class="input-base" id="pkg3-price" placeholder="$32,000" style="font-size:9px;padding:6px 8px;flex:1" />
+        </div>
+      </div>
+      <div id="pricing-currency-note" style="font-size:8px;color:#2a2a2a;margin-top:6px;line-height:1.5"></div>
+    </div>
     <button class="generate-deck-btn" id="gen-btn" style="display:none" onclick="generateDeck()">✦ Generar Deck</button>
   </div>
   <div class="right" id="right-panel">
@@ -239,7 +282,7 @@ function loadScript(src) {
   });
 }
 
-const WORKER_URL = "https://issue-zero.rare-elite-media.workers.dev";
+const WORKER_URL = "https://floral-block-cf56.rare-elite-media.workers.dev";
 let currentBiz = null;
 let cachedColors = []; // ← cache so re-renders (after URLs) don't re-extract
 
@@ -701,12 +744,69 @@ function derivedEditorialTones(colors, lang) {
   }));
 }
 
+
+/* ─── PRICING SUGGESTIONS PER CATEGORY + MARKET ─────────────────── */
+const PRICE_SUGGESTIONS = {
+  medical_spa:   { mx:[11000,22000,40000], us:[1000,2000,3600] },
+  cafe:          { mx:[8000, 16000,28000], us:[750, 1500,2600] },
+  restaurant:    { mx:[10000,20000,36000], us:[950, 1850,3300] },
+  gym:           { mx:[8000, 16000,28000], us:[750, 1500,2600] },
+  bar:           { mx:[10000,19000,34000], us:[950, 1750,3100] },
+  small_business:{ mx:[8000, 15000,26000], us:[750, 1400,2400] },
+};
+
+/* ─── PACKAGE DELIVERABLES (bilingual) ───────────────────────────── */
+const PKG_DELIVERABLES = {
+  es: {
+    p1: ['1 día de producción', '20 fotografías editadas HR', '3 Reels listos para publicar', 'Guía de contenido mensual'],
+    p2: ['1 día de producción', '30 fotografías editadas 4K', '6 Reels + 1 video de marca', 'Escalado IA: 2× variaciones', 'Estrategia de contenido 30 días'],
+    p3: ['2 días de producción', '50+ fotografías editadas 4K', 'Reels + brand film + stories', 'Escalado IA ilimitado', 'Calendario editorial completo', 'Sesión mensual de estrategia'],
+  },
+  en: {
+    p1: ['1 production day', '20 edited photos (high res)', '3 Reels ready to post', 'Monthly content guide'],
+    p2: ['1 production day', '30 edited 4K photos', '6 Reels + 1 brand video', 'AI Scale: 2× variations', '30-day content strategy'],
+    p3: ['2 production days', '50+ edited 4K photos', 'Reels + brand film + stories', 'AI Scale: unlimited', 'Full editorial calendar', 'Monthly strategy session'],
+  }
+};
+
 let toastTimer;
 function toast(msg, type='success') {
   const el = document.getElementById('toast');
   el.textContent = msg; el.className = `toast show ${type}`;
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.className = 'toast', 2800);
+}
+
+
+/* ─── PRICING FUNCTIONS ─────────────────────────────────────────── */
+function suggestPricing() {
+  if (!currentBiz) return;
+  const isUS = isUSBusiness(currentBiz.location);
+  const cat  = currentBiz.category || 'small_business';
+  const data = PRICE_SUGGESTIONS[cat] || PRICE_SUGGESTIONS.small_business;
+  const vals = isUS ? data.us : data.mx;
+  const fmt  = (v) => isUS
+    ? '$' + v.toLocaleString('en-US') + ' USD'
+    : '$' + v.toLocaleString('es-MX') + ' MXN';
+  document.getElementById('pkg1-price').value = fmt(vals[0]);
+  document.getElementById('pkg2-price').value = fmt(vals[1]);
+  document.getElementById('pkg3-price').value = fmt(vals[2]);
+  const note = document.getElementById('pricing-currency-note');
+  if (note) note.textContent = isUS
+    ? 'Precios sugeridos en USD · San Diego market'
+    : 'Precios sugeridos en MXN · Mercado local';
+}
+
+function getPricingInputs() {
+  const g = (id) => document.getElementById(id)?.value.trim() || '';
+  return {
+    p1name:  g('pkg1-name')  || 'Issue Zero Starter',
+    p1price: g('pkg1-price') || '—',
+    p2name:  g('pkg2-name')  || 'Issue Zero Studio',
+    p2price: g('pkg2-price') || '—',
+    p3name:  g('pkg3-name')  || 'Issue Zero Signature',
+    p3price: g('pkg3-price') || '—',
+  };
 }
 
 async function searchBusiness() {
@@ -738,6 +838,8 @@ function renderBizInfo() {
   info.style.display = 'flex';
   document.getElementById('gen-btn').style.display = 'block';
   document.getElementById('afters-section').style.display = 'block';
+  document.getElementById('pricing-section').style.display = 'block';
+  suggestPricing(); // autofill suggested prices on load
   const photosHtml = biz.photos && biz.photos.length > 0
     ? biz.photos.map(p => `<img class="photo-thumb" src="${WORKER_URL}?proxy=${encodeURIComponent(p)}" alt="" crossorigin="anonymous" />`).join('')
     : '<div style="color:var(--muted);font-size:10px;padding:8px">Sin fotos</div>';
@@ -866,6 +968,10 @@ function renderDeckPreview(extractedColors = []) {
     verifiedAt:  'Verified customer on Google',
     nextStep:    'Next Step',
     ctaHeadline: "Let's transform the visual identity<br>of",
+    investTitle: 'Investment',
+    investSub:   'Per production package · No setup fee',
+    perSession:  'per package',
+    recommended: 'Recommended',
   } : {
     confidential:    'PROPUESTA CONFIDENCIAL',
     proposalFor:     'Propuesta Visual Personalizada para',
@@ -906,11 +1012,15 @@ function renderDeckPreview(extractedColors = []) {
     verifiedAt:  'Cliente verificado en Google',
     nextStep:    'El siguiente paso',
     ctaHeadline: 'Transformemos la identidad visual<br>de',
+    investTitle: 'Inversión',
+    investSub:   'Por paquete de producción · Sin costo de inscripción',
+    perSession:  'por paquete',
+    recommended: 'Recomendado',
   };
   const afterUrls = getAfterUrls();
 
   // Slide 4 always present; total = 11 base + 1 if afters
-  const total = 11 + (afterUrls.length > 0 ? 1 : 0);
+  const total = 12 + (afterUrls.length > 0 ? 1 : 0);
 
   const proxyPhoto = (url) => `${WORKER_URL}?proxy=${encodeURIComponent(url)}`;
   const beforePhotos = (biz.photos || []).slice(0,3).map(p =>
@@ -975,8 +1085,8 @@ function renderDeckPreview(extractedColors = []) {
   <div class="s-problem-content">
     <div class="s-problem-left">
       <div class="eyebrow">${t.contextTitle}</div>
-      <div class="headline">Tu negocio merece una presencia visual que esté a la altura de tu servicio.</div>
-      <div class="body-text">En un mercado donde la primera impresión ocurre en el feed antes de la visita física, el contenido visual no es un lujo — es infraestructura de ventas. Y la mayoría de los negocios en la región están operando con activos visuales que no reflejan la calidad real de lo que ofrecen.</div>
+      <div class="headline">${t.contextHeadline}</div>
+      <div class="body-text">${t.contextBody}</div>
     </div>
     <div class="s-problem-right">
       ${problems.map(p => `<div class="pain-item"><div class="pain-icon">✕</div><div class="pain-text">${p}</div></div>`).join('')}
@@ -988,7 +1098,7 @@ function renderDeckPreview(extractedColors = []) {
 
 <!-- SLIDE 3: ANTES -->
 <div class="slide s-before">
-  <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.85);border:1px solid #222;border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#444;letter-spacing:0.15em;text-transform:uppercase">Contenido actual — ${biz.name}</div>
+  <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.85);border:1px solid #222;border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#444;letter-spacing:0.15em;text-transform:uppercase">${t.currentContent} ${biz.name}</div>
   <div class="s-before-photos">${beforePhotos}</div>
   <div style="position:absolute;bottom:4%;left:4%;right:4%;display:flex;justify-content:space-between;align-items:center;z-index:3">
     <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,20px);color:#444;font-style:italic">${t.visualOppty}</div>
@@ -1008,8 +1118,8 @@ function renderDeckPreview(extractedColors = []) {
     <!-- LEFT: copy -->
     <div class="pal-left">
       <div class="eyebrow">${t.colorTitle} · ${biz.name}</div>
-      <div class="headline" style="font-size:clamp(13px,2.4vw,28px);margin-bottom:5%">Conocemos tu marca antes de entrar al espacio.</div>
-      <div class="body-text">Antes de fotografiar, analizamos el lenguaje cromático real de tu negocio. Esto nos permite crear contenido que se siente nativo a tu identidad — no una campaña genérica superpuesta.</div>
+      <div class="headline" style="font-size:clamp(13px,2.4vw,28px);margin-bottom:5%">${t.colorHeadline}</div>
+      <div class="body-text">${t.colorBody}</div>
       <div class="pal-note">${t.colorNote}</div>
     </div>
 
@@ -1026,7 +1136,7 @@ function renderDeckPreview(extractedColors = []) {
       <div class="pal-divider"></div>
 
       <div>
-        <div class="pal-section-label">Tonos editoriales — Issue Zero</div>
+        <div class="pal-section-label">${t.editorialTones}</div>
         <div class="pal-chips">${makeChips(derivedEditorialTones(extractedColors, lang))}</div>
         <div style="font-size:clamp(5px,0.65vw,7px);color:#1e1e1e;margin-top:clamp(4px,0.8%,10px);line-height:1.6;font-style:italic">
           ${t.paletteCap}
@@ -1042,13 +1152,13 @@ function renderDeckPreview(extractedColors = []) {
 
 ${afterUrls.length > 0 ? `
 <div class="slide" style="background:#040404;">
-  <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.8);border:1px solid rgba(201,168,76,0.4);border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#c9a84c;letter-spacing:0.15em;text-transform:uppercase;">✦ Issue Zero Creative — Después</div>
+  <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.8);border:1px solid rgba(201,168,76,0.4);border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#c9a84c;letter-spacing:0.15em;text-transform:uppercase;">${t.afterLabel}</div>
   <div style="position:absolute;inset:0;display:grid;grid-template-columns:${afterUrls.length === 1 ? '1fr' : afterUrls.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr'};gap:0.4%;padding:12% 1% 1%;">
     ${afterUrls.map(url => `<div style="overflow:hidden;border-radius:3px;"><img src="${url}" alt="" style="width:100%;height:100%;object-fit:cover;" /></div>`).join('')}
   </div>
   <div style="position:absolute;bottom:3%;left:4%;right:4%;display:flex;justify-content:space-between;align-items:center;z-index:3;">
     <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,18px);color:#fff;font-style:italic;">${biz.name}</div>
-    <div style="font-size:clamp(6px,0.8vw,9px);color:rgba(201,168,76,0.5);letter-spacing:0.15em;text-transform:uppercase;">Cinematografía real + IA · Issue Zero</div>
+    <div style="font-size:clamp(6px,0.8vw,9px);color:rgba(201,168,76,0.5);letter-spacing:0.15em;text-transform:uppercase;">${t.afterCap}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
 </div>
@@ -1058,7 +1168,7 @@ ${afterUrls.length > 0 ? `
 <div class="slide s-solution">
   <div class="s-solution-content">
     <div>
-      <div class="eyebrow">Nuestra propuesta para ${biz.name}</div>
+      <div class="eyebrow">${t.proposalFor2} ${biz.name}</div>
       <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
     </div>
     <div class="solution-grid">
@@ -1086,29 +1196,29 @@ ${afterUrls.length > 0 ? `
       <div class="process-step">
         <div class="step-num">01</div>
         <div class="step-line"></div>
-        <div class="step-name">Concepto Creativo</div>
-        <div class="step-desc">Desarrollamos el concepto visual completo: moodboard, locaciones, referencias y plan de shoot adaptado a tu marca.</div>
+        <div class="step-name">${t.step1n}</div>
+        <div class="step-desc">${t.step1d}</div>
         <div class="step-connector">→</div>
       </div>
       <div class="process-step">
         <div class="step-num">02</div>
         <div class="step-line"></div>
-        <div class="step-name">Producción Híbrida</div>
-        <div class="step-desc">Un día de shoot cinematográfico real con equipo de nivel internacional. Capturamos todo el material base de alta calidad.</div>
+        <div class="step-name">${t.step2n}</div>
+        <div class="step-desc">${t.step2d}</div>
         <div class="step-connector">→</div>
       </div>
       <div class="process-step">
         <div class="step-num">03</div>
         <div class="step-line"></div>
-        <div class="step-name">Escalado con IA</div>
-        <div class="step-desc">Aplicamos modelos generativos de IA para multiplicar los activos visuales: variaciones, formatos, estilos y versiones para cada plataforma.</div>
+        <div class="step-name">${t.step3n}</div>
+        <div class="step-desc">${t.step3d}</div>
         <div class="step-connector">→</div>
       </div>
       <div class="process-step">
         <div class="step-num">04</div>
         <div class="step-line"></div>
-        <div class="step-name">Entrega Premium</div>
-        <div class="step-desc">Recibes un paquete completo de activos listos para publicar: fotos, videos, reels y variaciones — semanas de contenido de un solo shoot.</div>
+        <div class="step-name">${t.step4n}</div>
+        <div class="step-desc">${t.step4d}</div>
       </div>
     </div>
   </div>
@@ -1121,27 +1231,27 @@ ${afterUrls.length > 0 ? `
   <div class="s-econ-bg"></div>
   <div class="s-econ-content">
     <div>
-      <div class="eyebrow">La ecuación de eficiencia Issue Zero</div>
+      <div class="eyebrow">${t.effTitle}</div>
       <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
     </div>
     <div class="econ-stats">
       <div class="econ-stat">
         <div class="econ-num">60%</div>
-        <div class="econ-label">Optimización de presupuesto</div>
-        <div class="econ-sub">vs producción tradicional del mismo nivel</div>
+        <div class="econ-label">${t.eff1l}</div>
+        <div class="econ-sub">${t.eff1s}</div>
       </div>
       <div class="econ-stat">
         <div class="econ-num">12x</div>
-        <div class="econ-label">Multiplicador de activos</div>
-        <div class="econ-sub">de un solo shoot obtienes semanas de contenido</div>
+        <div class="econ-label">${t.eff2l}</div>
+        <div class="econ-sub">${t.eff2s}</div>
       </div>
       <div class="econ-stat">
         <div class="econ-num">4K</div>
-        <div class="econ-label">Calidad de entrega</div>
-        <div class="econ-sub">activos en resolución premium listos para cualquier uso</div>
+        <div class="econ-label">${t.eff3l}</div>
+        <div class="econ-sub">${t.eff3s}</div>
       </div>
     </div>
-    <div style="font-size:clamp(6px,0.85vw,9px);color:#222;text-align:center;font-style:italic;padding-top:2%">Un solo shoot, infinitas realidades comerciales. Cimientos visuales de nivel de museo impulsados por modelos generativos.</div>
+    <div style="font-size:clamp(6px,0.85vw,9px);color:#222;text-align:center;font-style:italic;padding-top:2%">${t.effCap}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
   <div class="sn">7 / ${total}</div>
@@ -1154,7 +1264,7 @@ ${afterUrls.length > 0 ? `
     <div class="quote-mark">"</div>
     <div class="quote-text">We've used the team on several jobs now, and every single time, I've been genuinely blown away — not just by the quality of the work, but by their pace, collaborative spirit, and creative approach. Their AI expertise means their output is always considered, high calibre, and beautiful.</div>
     <div class="quote-divider"></div>
-    <div class="quote-author">Cliente verificado · Issue Zero Creative</div>
+    <div class="quote-author">${t.testimonialAuthor}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
   <div class="sn">8 / ${total}</div>
@@ -1165,8 +1275,8 @@ ${afterUrls.length > 0 ? `
   <div class="s-why-content">
     <div class="why-left">
       <div class="eyebrow">${t.whyTitle}</div>
-      <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.8vw,32px);color:#fff;line-height:1.2;margin:4% 0">La única agencia boutique en la frontera que combina cinematografía real con IA generativa.</div>
-      <div style="font-size:clamp(6px,0.85vw,9px);color:#444;line-height:1.8">Operamos entre San Diego, Tijuana, Valle de Guadalupe y CDMX. Tenemos acceso a los mejores talentos creativos de ambos lados de la frontera, con la flexibilidad de una agencia boutique y la calidad de una productora internacional.</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.8vw,32px);color:#fff;line-height:1.2;margin:4% 0">${t.whyHeadline}</div>
+      <div style="font-size:clamp(6px,0.85vw,9px);color:#444;line-height:1.8">${t.whyBody}</div>
     </div>
     <div class="why-right">
       ${whyList.map(w => `
@@ -1198,7 +1308,53 @@ ${afterUrls.length > 0 ? `
   <div class="sn">10 / ${total}</div>
 </div>
 
-<!-- SLIDE 11: CTA -->
+
+<!-- SLIDE 12: INVERSIÓN / INVESTMENT -->
+<div class="slide s-pricing">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(201,168,76,0.04) 0%,transparent 60%)"></div>
+  <div class="s-pricing-content">
+    <div>
+      <div class="eyebrow">${t.investTitle} · ${biz.name}</div>
+      <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
+    </div>
+    <div class="pricing-cards">
+      ${(() => {
+        const p = getPricingInputs();
+        const d = PKG_DELIVERABLES[lang];
+        const mkBullets = (arr) => arr.map(b => `<div class="pkg-bullet"><span class="pkg-check">✦</span>${b}</div>`).join('');
+        return `
+          <div class="pkg-card">
+            <div class="pkg-name">${p.p1name}</div>
+            <div class="pkg-price">${p.p1price}</div>
+            <div class="pkg-period">${t.perSession}</div>
+            <div class="pkg-divider"></div>
+            <div class="pkg-bullets">${mkBullets(d.p1)}</div>
+          </div>
+          <div class="pkg-card featured">
+            <div class="pkg-badge">${t.recommended}</div>
+            <div class="pkg-name">${p.p2name}</div>
+            <div class="pkg-price">${p.p2price}</div>
+            <div class="pkg-period">${t.perSession}</div>
+            <div class="pkg-divider"></div>
+            <div class="pkg-bullets">${mkBullets(d.p2)}</div>
+          </div>
+          <div class="pkg-card">
+            <div class="pkg-name">${p.p3name}</div>
+            <div class="pkg-price">${p.p3price}</div>
+            <div class="pkg-period">${t.perSession}</div>
+            <div class="pkg-divider"></div>
+            <div class="pkg-bullets">${mkBullets(d.p3)}</div>
+          </div>
+        `;
+      })()}
+    </div>
+    <div class="pricing-note">${t.investSub}</div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">11 / ${total}</div>
+</div>
+
+<!-- SLIDE 12: CTA -->
 <div class="slide s-cta">
   <div class="s-cta-bg"></div>
   <div class="s-cta-content">
@@ -1210,10 +1366,10 @@ ${afterUrls.length > 0 ? `
     <div class="cta-logo-final">ISSUE ZERO CREATIVE</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">11 / ${total}</div>
+  <div class="sn">12 / ${total}</div>
 </div>
 
-<button class="download-btn" onclick="downloadDeck()">⬇ Descargar PDF</button>
+<button class="download-btn" onclick="downloadDeck()">${isUS ? "⬇ Download PDF" : "⬇ Descargar PDF"}</button>
   `;
 }
 
