@@ -827,7 +827,13 @@ async function searchBusiness() {
     renderBizInfo();
     toast('Negocio encontrado ✓', 'success');
   } catch(e) {
-    toast('Error: ' + e.message, 'error');
+    const msg = e.message || String(e);
+    if (msg.toLowerCase().includes('fetch') || msg.toLowerCase().includes('network')) {
+      toast('Sin conexión al servidor. Verifica que el archivo esté en GitHub Pages, no abierto localmente.', 'error');
+    } else {
+      toast('Error: ' + msg, 'error');
+    }
+    console.error('[IZ Deck] searchBusiness error:', e);
   }
   btn.disabled = false; btn.textContent = 'Buscar';
 }
@@ -839,7 +845,7 @@ function renderBizInfo() {
   document.getElementById('gen-btn').style.display = 'block';
   document.getElementById('afters-section').style.display = 'block';
   document.getElementById('pricing-section').style.display = 'block';
-  suggestPricing(); // autofill suggested prices on load
+  try { suggestPricing(); } catch(_) {} // autofill (safe — never throws to caller)
   const photosHtml = biz.photos && biz.photos.length > 0
     ? biz.photos.map(p => `<img class="photo-thumb" src="${WORKER_URL}?proxy=${encodeURIComponent(p)}" alt="" crossorigin="anonymous" />`).join('')
     : '<div style="color:var(--muted);font-size:10px;padding:8px">Sin fotos</div>';
