@@ -174,6 +174,43 @@
   .pkg-card.featured .pkg-bullet { color: #777; }
   .pkg-check { color: var(--gold); font-size: clamp(5px,0.65vw,8px); flex-shrink: 0; opacity: 0.7; margin-top: 1px; }
   .pricing-note { font-size: clamp(5px,0.65vw,7px); color: #1e1e1e; text-align: center; margin-top: 2.5%; font-style: italic; letter-spacing: 0.08em; }
+  /* Slide — Market / Mercado */
+  .s-market { background: #050505; }
+  .s-market-content { position: absolute; inset: 0; padding: 6%; display: flex; gap: 6%; }
+  .mkt-left { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .mkt-right { flex: 1.1; display: flex; flex-direction: column; justify-content: center; }
+  .mkt-item { display: flex; align-items: flex-start; gap: 8px; padding: 2.8% 0; border-bottom: 1px solid #0e0e0e; }
+  .mkt-x { color: #2a2a2a; font-size: clamp(9px,1.4vw,14px); flex-shrink: 0; margin-top: 1px; }
+  .mkt-text { font-size: clamp(6px,0.88vw,10px); color: #444; line-height: 1.6; }
+  .mkt-opp { font-family: 'Playfair Display',serif; font-size: clamp(10px,1.9vw,22px); color: #ccc; line-height: 1.5; font-style: italic; margin-bottom: 6%; }
+  .mkt-tag { font-size: clamp(5px,0.72vw,8px); color: #2a2a2a; line-height: 1.8; border-top: 1px solid #111; padding-top: 4%; }
+
+  /* Slide — Progression / Niveles */
+  .s-progress { background: #000; }
+  .s-progress-content { position: absolute; inset: 0; padding: 6%; display: flex; flex-direction: column; }
+  .prog-track { display: flex; flex: 1; gap: 0; margin-top: 5%; align-items: stretch; }
+  .prog-step { flex: 1; display: flex; flex-direction: column; padding: 4% 5%; position: relative; }
+  .prog-step.current { background: rgba(255,255,255,0.02); border: 1px solid #141414; border-radius: 4px; }
+  .prog-step.target { background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.18); border-radius: 4px; }
+  .prog-arrow { display: flex; align-items: center; justify-content: center; padding: 0 1%; color: rgba(201,168,76,0.2); font-size: clamp(14px,2.5vw,28px); flex-shrink: 0; }
+  .prog-level { font-size: clamp(5px,0.7vw,8px); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; }
+  .prog-step.current .prog-level { color: #333; }
+  .prog-step.target .prog-level { color: var(--gold); }
+  .prog-title { font-family: 'Archivo Black',sans-serif; font-size: clamp(9px,1.5vw,16px); margin-bottom: 10px; }
+  .prog-step.current .prog-title { color: #444; }
+  .prog-step.target .prog-title { color: #fff; }
+  .prog-bullets { display: flex; flex-direction: column; gap: clamp(3px,0.5vw,6px); margin-top: auto; padding-top: 4%; border-top: 1px solid; }
+  .prog-step.current .prog-bullets { border-color: #111; }
+  .prog-step.target .prog-bullets { border-color: rgba(201,168,76,0.15); }
+  .prog-b { font-size: clamp(5px,0.75vw,8.5px); line-height: 1.55; }
+  .prog-step.current .prog-b { color: #333; }
+  .prog-step.target .prog-b { color: #666; }
+
+  /* Notas Importantes in pricing slide */
+  .pricing-notes { display: flex; gap: 3%; margin-top: 3%; padding-top: 3%; border-top: 1px solid #111; }
+  .pnote { flex: 1; display: flex; align-items: flex-start; gap: 5px; }
+  .pnote-icon { color: var(--gold); font-size: clamp(5px,0.65vw,7px); flex-shrink: 0; opacity: 0.6; margin-top: 1px; }
+  .pnote-text { font-size: clamp(4.5px,0.62vw,7px); color: #2a2a2a; line-height: 1.65; }
   /* Download */
   .download-btn { background: linear-gradient(135deg, var(--gold), #a87830); border: none; border-radius: 8px; color: #000; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; padding: 12px 32px; cursor: pointer; letter-spacing: 0.08em; margin-top: 8px; transition: opacity 0.2s; }
   .download-btn:hover { opacity: 0.88; }
@@ -745,6 +782,111 @@ function derivedEditorialTones(colors, lang) {
 }
 
 
+
+/* ─── MARKET CONTENT PER CATEGORY (bilingual) ───────────────────── */
+const MARKET_CONTENT = {
+  medical_spa: {
+    es: {
+      how: ['Fotos de stock genéricas de procedimientos', 'Antes/después sin narrativa ni contexto visual', 'Contenido hecho con celular sin estrategia', 'Sin diferenciación real entre clínicas de la zona'],
+      opp: 'La mayoría de spas médicos en la región se ven igual digitalmente. La primera impresión decide la reservación — y hoy, esa impresión no refleja la calidad real de tu servicio.',
+      tag: 'Ahí es donde entra Issue Zero: contenido que posiciona tu clínica como la referencia visual del mercado.'
+    },
+    en: {
+      how: ['Generic stock photos of procedures', 'Before/after with no narrative or visual context', 'Phone-shot content with no strategy', 'No real differentiation between local clinics'],
+      opp: 'Most medical spas in the region look the same digitally. The first impression decides the booking — and today, that impression doesn\'t reflect the real quality of your service.',
+      tag: 'That\'s where Issue Zero comes in: content that positions your clinic as the visual reference in the market.'
+    }
+  },
+  cafe: {
+    es: {
+      how: ['Fotos de platillos sin narrativa de ambiente', 'Contenido inconsistente semana a semana', 'Estética sin personalidad ni diferenciación', 'Sin identidad visual que justifique la visita'],
+      opp: 'Los cafés de la región compiten con la misma paleta de colores y los mismos ángulos. El que gana no es el mejor café — es el que mejor se ve en el feed.',
+      tag: 'Issue Zero crea la estética visual que convierte seguidores en clientes recurrentes.'
+    },
+    en: {
+      how: ['Food photos with no ambiance narrative', 'Inconsistent content week to week', 'Aesthetic with no personality or differentiation', 'No visual identity that justifies the visit'],
+      opp: 'Cafés in the region compete with the same color palette and the same angles. The one that wins isn\'t the best café — it\'s the one that looks best in the feed.',
+      tag: 'Issue Zero creates the visual aesthetic that converts followers into recurring customers.'
+    }
+  },
+  restaurant: {
+    es: {
+      how: ['Fotografía gastronómica básica, sin concepto editorial', 'Videos sin continuidad visual ni narrativa de marca', 'Sin diferenciación frente a la competencia directa', 'Reservaciones que dependen del boca en boca, no del contenido'],
+      opp: 'En gastronomía, el cliente decide dónde comer antes de salir de casa. La batalla se gana en Instagram y Google — no en la mesa.',
+      tag: 'Issue Zero produce el contenido visual que convierte el scroll en reservación.'
+    },
+    en: {
+      how: ['Basic food photography with no editorial concept', 'Videos with no visual continuity or brand narrative', 'No differentiation from direct competition', 'Reservations that depend on word of mouth, not content'],
+      opp: 'In gastronomy, the customer decides where to eat before leaving home. The battle is won on Instagram and Google — not at the table.',
+      tag: 'Issue Zero produces the visual content that converts the scroll into a reservation.'
+    }
+  },
+  gym: {
+    es: {
+      how: ['Competencia en precio: primer mes gratis, inscripción $0', 'Contenido genérico de fitness sin identidad de marca', 'Sin narrativa de comunidad ni sentido de pertenencia', 'Grandes cadenas dominan el mensaje de "más barato"'],
+      opp: 'Las cadenas regalan el primer mes. Los gimnasios locales que ganan son los que crean comunidad — y la comunidad se construye con contenido visual aspiracional.',
+      tag: 'Issue Zero posiciona tu gimnasio como un destino de lifestyle, no como una opción de precio.'
+    },
+    en: {
+      how: ['Price competition: first month free, $0 enrollment', 'Generic fitness content with no brand identity', 'No community narrative or sense of belonging', 'Large chains dominate the "cheapest" message'],
+      opp: 'Chains give away the first month. Local gyms that win are the ones that build community — and community is built with aspirational visual content.',
+      tag: 'Issue Zero positions your gym as a lifestyle destination, not a price option.'
+    }
+  },
+  bar: {
+    es: {
+      how: ['Fotos de cocteles sin contexto ni atmósfera real', 'Contenido nocturno tomado con celular en baja luz', 'Sin diferenciación visual entre bares de la zona', 'Presencia digital que no genera expectativa previa a la visita'],
+      opp: 'La industria nocturna se elige por imagen antes que por menú. El bar que llena entre semana es el que genera deseo en el feed del jueves.',
+      tag: 'Issue Zero captura la atmósfera que hace que la gente quiera ir — antes de ver el menú.'
+    },
+    en: {
+      how: ['Cocktail photos with no context or real atmosphere', 'Nighttime content shot with phone in low light', 'No visual differentiation between local bars', 'Digital presence that doesn\'t generate pre-visit anticipation'],
+      opp: 'Nightlife is chosen by image before menu. The bar that fills on weeknights is the one generating desire in Thursday\'s feed.',
+      tag: 'Issue Zero captures the atmosphere that makes people want to go — before they see the menu.'
+    }
+  },
+  small_business: {
+    es: {
+      how: ['Contenido creado sin estrategia visual definida', 'Imagen digital que no refleja la calidad real del negocio', 'Sin identidad visual consistente en redes sociales', 'La competencia se elige por imagen antes que por calidad'],
+      opp: 'En el mercado local, la percepción de calidad se construye antes de la primera visita. El negocio que se ve mejor gana — independientemente de quién sea mejor.',
+      tag: 'Issue Zero crea la presencia visual que hace que tu negocio sea la opción obvia.'
+    },
+    en: {
+      how: ['Content created without a defined visual strategy', 'Digital image that doesn\'t reflect the business\'s real quality', 'No consistent visual identity on social media', 'Competition is chosen by image before quality'],
+      opp: 'In the local market, the perception of quality is built before the first visit. The business that looks best wins — regardless of who actually is best.',
+      tag: 'Issue Zero creates the visual presence that makes your business the obvious choice.'
+    }
+  },
+};
+
+/* ─── PROGRESSION CONTENT PER CATEGORY (bilingual) ──────────────── */
+const PROGRESSION = {
+  es: {
+    currentLevel: 'Nivel actual',
+    targetLevel:  'Con Issue Zero',
+    current: {
+      title: 'Presencia digital básica',
+      bullets: ['Contenido sin identidad visual consistente', 'Fotos y videos sin estrategia editorial', 'Sin diferenciación visual frente a competidores', 'Activos digitales limitados por producción', 'Presencia que no comunica la calidad real'],
+    },
+    target: {
+      title: 'Marca visual de referencia',
+      bullets: ['Identidad visual consistente y reconocible', 'Biblioteca de activos: fotos 4K + reels + brand film', 'Diferenciación clara en el mercado local', 'Contenido que genera deseo y reservaciones', 'Presencia digital que refleja tu nivel real de servicio'],
+    }
+  },
+  en: {
+    currentLevel: 'Current level',
+    targetLevel:  'With Issue Zero',
+    current: {
+      title: 'Basic digital presence',
+      bullets: ['Content with no consistent visual identity', 'Photos and videos with no editorial strategy', 'No visual differentiation from competitors', 'Limited digital assets due to production cost', 'Presence that doesn\'t communicate real quality'],
+    },
+    target: {
+      title: 'Reference visual brand',
+      bullets: ['Consistent, recognizable visual identity', 'Asset library: 4K photos + reels + brand film', 'Clear differentiation in the local market', 'Content that generates desire and bookings', 'Digital presence that reflects your real service level'],
+    }
+  }
+};
+
 /* ─── PRICING SUGGESTIONS PER CATEGORY + MARKET ─────────────────── */
 const PRICE_SUGGESTIONS = {
   medical_spa:   { mx:[11000,22000,40000], us:[1000,2000,3600] },
@@ -942,7 +1084,7 @@ function renderDeckPreview(extractedColors = []) {
     proposalFor:     'Custom Visual Proposal for',
     contextTitle:    'The Context',
     contextHeadline: 'Your business deserves a visual presence that matches the quality of your service.',
-    contextBody:     "In a market where first impressions happen in the feed before the physical visit, visual content is not a luxury — it's sales infrastructure. And most businesses in the region are operating with visual assets that don't reflect the real quality of what they offer.",
+    contextBody:     "In a market where first impressions happen in the feed before the physical visit, visual content is not a luxury — it\'s sales infrastructure. And most businesses in the region are operating with visual assets that don\'t reflect the real quality of what they offer.",
     currentContent:  'Current content —',
     visualOppty:     'Visual improvement opportunity',
     reviews:         (n, r) => `★ ${r} · ${n} reviews on Google`,
@@ -978,6 +1120,14 @@ function renderDeckPreview(extractedColors = []) {
     nextStep:    'Next Step',
     ctaHeadline: "Let's transform the visual identity<br>of",
     investTitle: 'Investment',
+    mktTitle:    'The Market',
+    mktHow:      'How most compete',
+    progTitle:   'Your visual progression',
+    notasTitle:  'Important notes',
+    nota1: 'Proposal valid for 30 calendar days',
+    nota2: 'Initial briefing session included at no cost',
+    nota3: 'Assets delivered in 4K, ready for all platforms',
+    nota4: 'Delivery: 5–7 business days post-production',
     investSub:   'Per production package · No setup fee',
     perSession:  'per package',
     recommended: 'Recommended',
@@ -1022,6 +1172,14 @@ function renderDeckPreview(extractedColors = []) {
     nextStep:    'El siguiente paso',
     ctaHeadline: 'Transformemos la identidad visual<br>de',
     investTitle: 'Inversión',
+    mktTitle:    'El Mercado',
+    mktHow:      'Cómo compite la mayoría',
+    progTitle:   'Tu progresión visual',
+    notasTitle:  'Notas importantes',
+    nota1: 'Propuesta válida por 30 días calendario',
+    nota2: 'Primera sesión de briefing incluida sin costo',
+    nota3: 'Activos entregados en 4K, listos para todas las plataformas',
+    nota4: 'Tiempos de entrega: 5–7 días hábiles post-producción',
     investSub:   'Por paquete de producción · Sin costo de inscripción',
     perSession:  'por paquete',
     recommended: 'Recomendado',
@@ -1029,7 +1187,7 @@ function renderDeckPreview(extractedColors = []) {
   const afterUrls = getAfterUrls();
 
   // Slide 4 always present; total = 11 base + 1 if afters
-  const total = 12 + (afterUrls.length > 0 ? 1 : 0);
+  const total = 14 + (afterUrls.length > 0 ? 1 : 0);
 
   const proxyPhoto = (url) => `${WORKER_URL}?proxy=${encodeURIComponent(url)}`;
   const beforePhotos = (biz.photos || []).slice(0,3).map(p =>
@@ -1177,6 +1335,58 @@ function renderDeckPreview(extractedColors = []) {
 </div>
 <!-- ══════════════════════════════════════════════════════════════════ -->
 
+
+<!-- SLIDE 5: EL MERCADO / THE MARKET -->
+<div class="slide s-market">
+  <div class="s-market-content">
+    <div class="mkt-left">
+      <div class="eyebrow">${t.mktTitle} · ${CAT_LABELS[biz.category] || biz.category}</div>
+      <div style="height:1px;background:linear-gradient(90deg,#1a1a1a,transparent);margin:6px 0 5%"></div>
+      <div style="font-size:clamp(6px,0.85vw,10px);color:#2a2a2a;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:3%">${t.mktHow}</div>
+      ${(MARKET_CONTENT[biz.category]||MARKET_CONTENT.small_business)[lang].how.map(item =>
+        '<div class="mkt-item"><div class="mkt-x">✕</div><div class="mkt-text">' + item + '</div></div>'
+      ).join('')}
+    </div>
+    <div class="mkt-right">
+      <div class="mkt-opp">"${(MARKET_CONTENT[biz.category]||MARKET_CONTENT.small_business)[lang].opp}"</div>
+      <div class="mkt-tag">${(MARKET_CONTENT[biz.category]||MARKET_CONTENT.small_business)[lang].tag}</div>
+    </div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">5 / ${total}</div>
+</div>
+
+
+<!-- SLIDE 6: PROGRESIÓN VISUAL -->
+<div class="slide s-progress">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(201,168,76,0.04) 0%,transparent 60%)"></div>
+  <div class="s-progress-content">
+    <div>
+      <div class="eyebrow">${t.progTitle} · ${biz.name}</div>
+      <div style="height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:6px"></div>
+    </div>
+    <div class="prog-track">
+      <div class="prog-step current">
+        <div class="prog-level">${PROGRESSION[lang].currentLevel}</div>
+        <div class="prog-title">${PROGRESSION[lang].current.title}</div>
+        <div class="prog-bullets">
+          ${PROGRESSION[lang].current.bullets.map(b => '<div class="prog-b">✕ ' + b + '</div>').join('')}
+        </div>
+      </div>
+      <div class="prog-arrow">→</div>
+      <div class="prog-step target">
+        <div class="prog-level">${PROGRESSION[lang].targetLevel}</div>
+        <div class="prog-title">${PROGRESSION[lang].target.title}</div>
+        <div class="prog-bullets">
+          ${PROGRESSION[lang].target.bullets.map(b => '<div class="prog-b">✦ ' + b + '</div>').join('')}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+  <div class="sn">6 / ${total}</div>
+</div>
+
 ${afterUrls.length > 0 ? `
 <div class="slide" style="background:#040404;">
   <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.8);border:1px solid rgba(201,168,76,0.4);border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#c9a84c;letter-spacing:0.15em;text-transform:uppercase;">${t.afterLabel}</div>
@@ -1209,7 +1419,7 @@ ${afterUrls.length > 0 ? `
     </div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">5 / ${total}</div>
+  <div class="sn">7 / ${total}</div>
 </div>
 
 <!-- SLIDE 6: EL PROCESO -->
@@ -1250,7 +1460,7 @@ ${afterUrls.length > 0 ? `
     </div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">6 / ${total}</div>
+  <div class="sn">8 / ${total}</div>
 </div>
 
 <!-- SLIDE 7: LA ECUACIÓN -->
@@ -1281,7 +1491,7 @@ ${afterUrls.length > 0 ? `
     <div style="font-size:clamp(6px,0.85vw,9px);color:#222;text-align:center;font-style:italic;padding-top:2%">${t.effCap}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">7 / ${total}</div>
+  <div class="sn">9 / ${total}</div>
 </div>
 
 <!-- SLIDE 8: TESTIMONIAL -->
@@ -1294,7 +1504,7 @@ ${afterUrls.length > 0 ? `
     <div class="quote-author">${t.testimonialAuthor}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">8 / ${total}</div>
+  <div class="sn">10 / ${total}</div>
 </div>
 
 <!-- SLIDE 9: POR QUÉ ISSUE ZERO -->
@@ -1318,7 +1528,7 @@ ${afterUrls.length > 0 ? `
     </div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">9 / ${total}</div>
+  <div class="sn">11 / ${total}</div>
 </div>
 
 <!-- SLIDE 10: RESEÑAS -->
@@ -1332,7 +1542,7 @@ ${afterUrls.length > 0 ? `
     <div style="font-size:clamp(6px,0.8vw,9px);color:#2a2a2a;text-align:center;padding-top:2%">${t.reviewsCap}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">10 / ${total}</div>
+  <div class="sn">12 / ${total}</div>
 </div>
 
 
@@ -1347,10 +1557,16 @@ ${afterUrls.length > 0 ? `
     <div class="pricing-cards">
       ${pricingCardsHTML}
     </div>
+    <div class="pricing-notes">
+      <div class="pnote"><span class="pnote-icon">✦</span><div class="pnote-text">${t.nota1}</div></div>
+      <div class="pnote"><span class="pnote-icon">✦</span><div class="pnote-text">${t.nota2}</div></div>
+      <div class="pnote"><span class="pnote-icon">✦</span><div class="pnote-text">${t.nota3}</div></div>
+      <div class="pnote"><span class="pnote-icon">✦</span><div class="pnote-text">${t.nota4}</div></div>
+    </div>
     <div class="pricing-note">${t.investSub}</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">11 / ${total}</div>
+  <div class="sn">13 / ${total}</div>
 </div>
 
 <!-- SLIDE 12: CTA -->
@@ -1365,7 +1581,7 @@ ${afterUrls.length > 0 ? `
     <div class="cta-logo-final">ISSUE ZERO CREATIVE</div>
   </div>
   <div class="wm"><span>ISSUE ZERO</span></div>
-  <div class="sn">12 / ${total}</div>
+  <div class="sn">14 / ${total}</div>
 </div>
 
 <button class="download-btn" onclick="downloadDeck()">${isUS ? "⬇ Download PDF" : "⬇ Descargar PDF"}</button>
