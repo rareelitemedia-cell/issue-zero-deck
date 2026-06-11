@@ -1293,6 +1293,23 @@ function renderDeckPreview(extractedColors = []) {
   <div class="sn">3 / ${total}</div>
 </div>
 
+
+${afterUrls.length > 0 ? `
+<div class="slide" style="background:#040404;">
+  <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.8);border:1px solid rgba(201,168,76,0.4);border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#c9a84c;letter-spacing:0.15em;text-transform:uppercase;">${t.afterLabel}</div>
+  <div style="position:absolute;inset:0;display:grid;grid-template-columns:${afterUrls.length === 1 ? '1fr' : afterUrls.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr'};gap:0.4%;padding:12% 1% 1%;">
+    ${afterUrls.map(url => `<div style="overflow:hidden;border-radius:3px;"><img src="${url}" alt="" style="width:100%;height:100%;object-fit:cover;" /></div>`).join('')}
+  </div>
+  <div style="position:absolute;bottom:3%;left:4%;right:4%;display:flex;justify-content:space-between;align-items:center;z-index:3;">
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,18px);color:#fff;font-style:italic;">${biz.name}</div>
+    <div style="font-size:clamp(6px,0.8vw,9px);color:rgba(201,168,76,0.5);letter-spacing:0.15em;text-transform:uppercase;">${t.afterCap}</div>
+  </div>
+  <div class="wm"><span>ISSUE ZERO</span></div>
+</div>
+` : ''}
+
+
+
 <!-- ══════════════════════════════════════════════════════════════════ -->
 <!-- SLIDE 4: PALETA DE COLOR (NEW)                                   -->
 <!-- ══════════════════════════════════════════════════════════════════ -->
@@ -1387,21 +1404,7 @@ function renderDeckPreview(extractedColors = []) {
   <div class="sn">6 / ${total}</div>
 </div>
 
-${afterUrls.length > 0 ? `
-<div class="slide" style="background:#040404;">
-  <div style="position:absolute;top:4%;left:4%;z-index:3;background:rgba(0,0,0,0.8);border:1px solid rgba(201,168,76,0.4);border-radius:4px;padding:3px 10px;font-size:clamp(6px,0.8vw,9px);color:#c9a84c;letter-spacing:0.15em;text-transform:uppercase;">${t.afterLabel}</div>
-  <div style="position:absolute;inset:0;display:grid;grid-template-columns:${afterUrls.length === 1 ? '1fr' : afterUrls.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr'};gap:0.4%;padding:12% 1% 1%;">
-    ${afterUrls.map(url => `<div style="overflow:hidden;border-radius:3px;"><img src="${url}" alt="" style="width:100%;height:100%;object-fit:cover;" /></div>`).join('')}
-  </div>
-  <div style="position:absolute;bottom:3%;left:4%;right:4%;display:flex;justify-content:space-between;align-items:center;z-index:3;">
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(10px,2vw,18px);color:#fff;font-style:italic;">${biz.name}</div>
-    <div style="font-size:clamp(6px,0.8vw,9px);color:rgba(201,168,76,0.5);letter-spacing:0.15em;text-transform:uppercase;">${t.afterCap}</div>
-  </div>
-  <div class="wm"><span>ISSUE ZERO</span></div>
-</div>
-` : ''}
-
-<!-- SLIDE 5: LA SOLUCIÓN -->
+<!-- SLIDE 7: LA SOLUCIÓN -->
 <div class="slide s-solution">
   <div class="s-solution-content">
     <div>
@@ -1422,7 +1425,7 @@ ${afterUrls.length > 0 ? `
   <div class="sn">7 / ${total}</div>
 </div>
 
-<!-- SLIDE 6: EL PROCESO -->
+<!-- SLIDE 8: EL PROCESO -->
 <div class="slide s-process">
   <div class="s-process-content">
     <div>
@@ -1463,7 +1466,7 @@ ${afterUrls.length > 0 ? `
   <div class="sn">8 / ${total}</div>
 </div>
 
-<!-- SLIDE 7: LA ECUACIÓN -->
+<!-- SLIDE 9: LA ECUACIÓN -->
 <div class="slide s-econ">
   <div class="s-econ-bg"></div>
   <div class="s-econ-content">
@@ -1494,7 +1497,7 @@ ${afterUrls.length > 0 ? `
   <div class="sn">9 / ${total}</div>
 </div>
 
-<!-- SLIDE 8: TESTIMONIAL -->
+<!-- SLIDE 10: TESTIMONIAL -->
 <div class="slide s-testimonial">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#0d0800 0%,#000 70%)"></div>
   <div class="s-testimonial-content">
@@ -1507,7 +1510,7 @@ ${afterUrls.length > 0 ? `
   <div class="sn">10 / ${total}</div>
 </div>
 
-<!-- SLIDE 9: POR QUÉ ISSUE ZERO -->
+<!-- SLIDE 11: POR QUÉ ISSUE ZERO -->
 <div class="slide s-why">
   <div class="s-why-content">
     <div class="why-left">
@@ -1531,7 +1534,7 @@ ${afterUrls.length > 0 ? `
   <div class="sn">11 / ${total}</div>
 </div>
 
-<!-- SLIDE 10: RESEÑAS -->
+<!-- SLIDE 12: RESEÑAS -->
 <div class="slide s-reviews">
   <div class="s-reviews-content">
     <div>
@@ -1546,7 +1549,7 @@ ${afterUrls.length > 0 ? `
 </div>
 
 
-<!-- SLIDE 12: INVERSIÓN / INVESTMENT -->
+<!-- SLIDE 13: INVERSIÓN / INVESTMENT -->
 <div class="slide s-pricing">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(201,168,76,0.04) 0%,transparent 60%)"></div>
   <div class="s-pricing-content">
@@ -1569,7 +1572,7 @@ ${afterUrls.length > 0 ? `
   <div class="sn">13 / ${total}</div>
 </div>
 
-<!-- SLIDE 12: CTA -->
+<!-- SLIDE 14: CTA -->
 <div class="slide s-cta">
   <div class="s-cta-bg"></div>
   <div class="s-cta-content">
